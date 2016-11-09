@@ -1,0 +1,10 @@
+name: SimpleNBT
+main: kipperorigin.simplenbt.Main
+author: KipperOrigin
+version: 0.1
+
+softdepend: [ProtocolLib]
+
+commands:
+  snbt:
+    description: Base Command
