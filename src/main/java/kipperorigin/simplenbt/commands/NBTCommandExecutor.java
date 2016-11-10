@@ -5,13 +5,15 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_9_R2.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.material.MaterialData;
+import org.bukkit.potion.PotionEffectType;
 
 import kipperorigin.simplenbt.resources.Attributes;
 import kipperorigin.simplenbt.resources.Attributes.Attribute;
@@ -20,13 +22,14 @@ import kipperorigin.simplenbt.resources.BookItem;
 import kipperorigin.simplenbt.resources.Colorize;
 import kipperorigin.simplenbt.resources.Glow;
 import kipperorigin.simplenbt.resources.NBTItem;
-import net.minecraft.server.v1_9_R2.NBTTagCompound;
-import net.minecraft.server.v1_9_R2.NBTTagList;
+import kipperorigin.simplenbt.resources.PotionItem;
+import kipperorigin.simplenbt.resources.PotionItem.NBTPotionEffect;
 
 public class NBTCommandExecutor implements CommandExecutor {
 
 	private Colorize colorize = new Colorize();
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		Player player = null;
@@ -136,7 +139,10 @@ public class NBTCommandExecutor implements CommandExecutor {
 				
 				if (item.getType() == Material.WRITTEN_BOOK)
 					book = new BookItem(item);
-				else return true;
+				else {
+					player.sendMessage(colorize.addColor("&cPlease be holding a &awritten book&c!"));
+					return true;
+				}
 				
 				if (args.length >= 2) {
 					if (args[1].equalsIgnoreCase("colorize")) {
@@ -187,8 +193,10 @@ public class NBTCommandExecutor implements CommandExecutor {
 						|| (item.getType() == Material.LEATHER_LEGGINGS))
 					meta = (LeatherArmorMeta) item.getItemMeta();
 				
-				if (meta == null)
+				if (meta == null) {
+					player.sendMessage(colorize.addColor("&cPlease be holding &aLeathor armor&c!"));
 					return true;
+				}
 				else {
 					if (args.length == 2) {
 						if (colorize.getColorFromString(args[1]) == null) {
@@ -222,7 +230,57 @@ public class NBTCommandExecutor implements CommandExecutor {
 				item.setItemMeta(meta);
 				player.getInventory().setItemInMainHand(item);
 					
+				/*
+				 * LORE/DESC
+				 */
+				
 			} else if (args[0].equalsIgnoreCase("desc") || args[0].equalsIgnoreCase("description") || args[0].equalsIgnoreCase("lore")) {
+				if (args.length < 2) {
+					player.sendMessage(colorize.addColor("&c/snbt &6Lore &c<&aadd&c||&aremove&c||&ainsert&c||&aclear&c>"));
+					return true;
+				}
+				
+				String string;
+				
+				if (args[1].equalsIgnoreCase("add")) {
+					if (args.length < 3) {
+						player.sendMessage(colorize.addColor("&c/snbt Lore &6add &c<&adescription&c>"));
+						return true;
+					}
+					string = args[2];
+					for (int x = 3; x < args.length; x++) {
+						string += " ";
+						string += args[x];
+					}
+					nbtItem.addLore(colorize.addColor(string));
+				} else if (args[1].equalsIgnoreCase("remove")) {
+					try {
+						nbtItem.removeLore(Integer.parseInt(args[2]));
+					} catch (NumberFormatException e) {
+						player.sendMessage(colorize.addColor("&c/snbt Lore &6remove &c<&aline&c>"));
+						return true;
+					}
+				} else if (args[1].equalsIgnoreCase("insert")) {
+					if (args.length < 4) {
+						player.sendMessage(colorize.addColor("&c/snbt Lore &6insert &c<&aline&c> &c<&adescription&c>"));
+						return true;
+					}
+					
+					string = args[3];
+					for (int x = 4; x < args.length; x++) {
+						string += " ";
+						string += args[x];
+					}
+					
+					try {
+						nbtItem.replaceLore(Integer.parseInt(args[2]), string);
+					} catch (NumberFormatException e) {
+						player.sendMessage(colorize.addColor("&c/snbt Lore &6remove &c<&aline&c>"));
+						return true;
+					}
+				}
+				
+				player.getInventory().setItemInMainHand(nbtItem.asItemStack());
 				
 				/*
 				 * DURABILITY
@@ -244,14 +302,12 @@ public class NBTCommandExecutor implements CommandExecutor {
 				}
 				
 				player.getInventory().setItemInMainHand(nbtItem.asItemStack());
+				
 				/*
 				 * ENCHANTMENT
 				 */
 				
 			} else if (args[0].equalsIgnoreCase("enchantment") || args[0].equalsIgnoreCase("enchant") || args[0].equalsIgnoreCase("ench")) {
-				/* This is a simple enchantment command, allowing enchantments to go over their base value and be enchanted to everything.
-				 * It also has the ability to remove enchantments via name.
-				 */
 				
 				if (args.length < 2 || args.length > 4)
 					player.sendMessage(colorize.addColor("&C/snbt &6enchantment &c<&aAdd&c||&aRemove&c||&aGlow&c>"));	
@@ -323,7 +379,21 @@ public class NBTCommandExecutor implements CommandExecutor {
 				 */
 				
 			} else if (args[0].equalsIgnoreCase("head") || args[0].equalsIgnoreCase("skull")) {
+				SkullMeta skullMeta = null;
 				
+				if (item.getType() == Material.SKULL_ITEM)
+					skullMeta = (SkullMeta) itemMeta;
+				else
+					return true;
+				
+				MaterialData materialData = item.getData();
+				materialData.setData((byte) 3);
+				item.setData(materialData);
+				skullMeta.setOwner(args[2]);
+				item.setItemMeta(skullMeta);
+				
+				player.getInventory().setItemInMainHand(item);
+
 				/*
 				 * HIDE
 				 */
@@ -381,10 +451,15 @@ public class NBTCommandExecutor implements CommandExecutor {
 				 */
 				
 			} else if (args[0].equalsIgnoreCase("name")) {
-				if (args.length != 2) {
+				if (args.length < 2) {
 					player.sendMessage(colorize.addColor("&c/snbt &6name &c<&aname&c>"));
 				} else {
-					nbtItem.setName(colorize.addColor(args[1]));
+					String string = args[1];
+					for (int x = 2; x < args.length; x++) {
+						string += " ";
+						string += args[x];
+					}
+					nbtItem.setName(colorize.addColor(string));
 					player.getInventory().setItemInMainHand(nbtItem.asItemStack());
 				}
 				
@@ -393,12 +468,128 @@ public class NBTCommandExecutor implements CommandExecutor {
 				 */
 				
 			} else if (args[0].equalsIgnoreCase("potion")) {
+				PotionItem potionItem = null;
+				if (item.getType() == Material.POTION || item.getType() == Material.LINGERING_POTION || item.getType() == Material.SPLASH_POTION)
+					potionItem = new PotionItem(item);
+				else {
+					player.sendMessage(colorize.addColor("&cPlease be holding a &aPotion&c!"));
+					return true;
+				}
+				
+				if (args[1].equalsIgnoreCase("add")) {
+					
+					if (args.length < 5) {
+						player.sendMessage(colorize.addColor("&c/snbt potion &6add &c<&aPotion Type&c> &c<&aduration&c> <&alevel&c> <&7yes&6||&7no&c> &c<&7color&c>"));
+						return true;
+					}
+					
+					NBTPotionEffect potionEffect = new NBTPotionEffect();
+					PotionEffectType type = null;
+					
+					try {
+						type = PotionEffectType.getByName(args[2]);
+					} catch (IllegalArgumentException e) {
+						player.sendMessage(colorize.addColor("&c/snbt potion &6add &c<&aPotion Type&c> &c<&aduration&c> <&alevel&c>"));
+					}
+					
+					try {
+						potionEffect.creatPotionEffect(type, Integer.parseInt(args[3]), Integer.parseInt(args[4]));
+					} catch (NumberFormatException e) {
+						player.sendMessage(colorize.addColor("&c/snbt potion &6add " + args[2] + " &c<&aduration&c> <&alevel&c>"));
+					}
+					
+					if (args.length >= 6)
+						if (args[5].equalsIgnoreCase("yes"))
+							potionEffect.disableParticles();
+						else if (args[5].equalsIgnoreCase("no")) {
+							potionEffect.enableParticles();
+						} else {
+							player.sendMessage(colorize.addColor("&c/snbt potion &6add " 
+									+ args[2] 
+									+ " " 
+									+ args[3] 
+									+ " "
+									+ args[4]
+									+ " <&ayes&6||&ano&c>"));
+							return true;
+						}
+					
+					if (args.length == 7) {
+						Color color = colorize.getColorFromString(args[6]);
+						if (color == null) {
+							player.sendMessage(colorize.addColor("&c/snbt potion &6add " 
+									+ args[2] 
+									+ " " 
+									+ args[3] 
+									+ " "
+									+ args[4]
+									+ " "
+									+ args[5]
+									+ " &c<&acolor&c>"));
+							player.sendMessage(colorize.addColor("&CA list of &6colors&c can be found at &ahttp://...."));
+							return true;
+						}
+						potionEffect.setColor(color);
+					} else if (args.length == 9) {
+						int i[] = {0,0,0};
+						try {
+							for (int x = 0; x < args.length - 6; x++) {
+								i[x] = Integer.parseInt(args[x+6]);
+								if (i[x] > 255)
+									i[x] = 255;
+								if (i[x] < 0)
+									i[x] = 0;
+							}
+						} catch (NumberFormatException e) {
+							player.sendMessage(colorize.addColor("&c/snbt potion &6add " 
+									+ args[2] 
+									+ " " 
+									+ args[3] 
+									+ " "
+									+ args[4]
+									+ " "
+									+ args[5]
+									+ " &c<&ared&c> <&agreen&c> <&ablue&c>"));
+							player.sendMessage(colorize.addColor("&6Colors&c must be numbers!"));
+							return true;
+						}
+					}
+					
+				} else if (args[1].equalsIgnoreCase("remove")) {
+					
+					if (args.length != 2) {
+						player.sendMessage(colorize.addColor("&c/snbt potion &6remove &c<&aPotion Type&c>"));
+						player.sendMessage(colorize.addColor("&cA list of &6Potion Types &ccan be found at &aHttp://..."));
+						return true;
+					} else {
+						try {
+							potionItem.removeEffect(PotionEffectType.getByName(args[1]));
+						} catch (IllegalArgumentException e) {
+							player.sendMessage(colorize.addColor("&c/snbt potion &6remove &c<&aPotion Type&c>"));
+							player.sendMessage(colorize.addColor("&cA list of &6Potion Types &ccan be found at &aHttp://..."));
+							return true;
+						}
+					}	
+					
+				} else if (args[1].equalsIgnoreCase("set")) {
+					
+				} else if (args[1].equalsIgnoreCase("clear")) {
+					
+					if (args.length != 1) {
+						player.sendMessage(colorize.addColor("&c/snbt potion &6clear"));
+						return true;
+					} else {
+						potionItem.clearEffects();
+					}
+				}
+				
+				player.getInventory().setItemInMainHand(potionItem.asItemStack());
 				
 				/*
 				 * TYPE
 				 */
 				
-			} else if (args[0].equalsIgnoreCase("type")) {
+			} else if (args[0].equalsIgnoreCase("type") || args[0].equalsIgnoreCase("material")) {
 				if (args.length != 2) {
 					player.sendMessage(colorize.addColor("&c/snbt &6type &c<&amaterial&c>"));
 				} else {
