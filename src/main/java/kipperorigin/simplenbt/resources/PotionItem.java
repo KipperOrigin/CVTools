@@ -4,10 +4,8 @@ import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.potion.PotionType;
 
 public class PotionItem {
 	
@@ -21,14 +19,8 @@ public class PotionItem {
 		}
 	}
 	
-	public void setBasePotion(PotionType type) {
-		PotionData data = new PotionData(type);
-		potionMeta.setBasePotionData(data);
-	}
-	
-	@SuppressWarnings("deprecation")
-	public void setBasePotion(PotionEffectType type) {
-		potionMeta.setMainEffect(type);
+	public void setBasePotion() {
+		// TODO
 	}
 	
 	public void addEffect(PotionEffect effect) {
@@ -48,19 +40,9 @@ public class PotionItem {
 		return itemStack;
 	}
 	
-	public void setSplash() {
-		itemStack.setType(Material.SPLASH_POTION);
-	}
-	
-	public void setLingering() {
-		itemStack.setType(Material.LINGERING_POTION);
-	}
-	
-	public void setNormal() {
-		itemStack.setType(Material.POTION);
-	}
-	
     public static class NBTPotionEffect {
+		// TODO
+    	
     	PotionEffect potionEffect = null;
     	
     	public void creatPotionEffect(PotionEffectType type, int duration, int amplifier) {
@@ -84,13 +66,6 @@ public class PotionItem {
     	
     	public PotionEffect getPotionEffect() {
     		return potionEffect;
-    	}
-    	
-    	public boolean hasColor() {
-    		if (potionEffect.getColor() == null)
-    			return false;
-    		else
-    			return true;
     	}
 	}
 }
