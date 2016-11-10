@@ -11,9 +11,12 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.material.MaterialData;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionType;
 
 import kipperorigin.simplenbt.resources.Attributes;
 import kipperorigin.simplenbt.resources.Attributes.Attribute;
@@ -60,6 +63,8 @@ public class NBTCommandExecutor implements CommandExecutor {
 
 			if (args.length == 0) {
 				player.sendMessage(colorize.addColor("&6/snbt &c<&abook&c||&acolor&c||&adescription&c||&adurability&c||&aenchantment&c||&ahead&c||&ahide&c||&aname&c||&apotion&c||&atype&c>"));
+			
+			} else if (args[0].equalsIgnoreCase("arrow")) {
 				
 				/*
 				 * ATTRIBUTES
@@ -79,28 +84,30 @@ public class NBTCommandExecutor implements CommandExecutor {
 				
 				Attributes attributes = new Attributes(player.getInventory().getItemInMainHand());
 				
-				if (args[1].equalsIgnoreCase("armor"))
+				if (args[1].equalsIgnoreCase("armor")) {
 					attributeType = AttributeType.GENERIC_ARMOR;
-				else if (args[1].equalsIgnoreCase("toughness"))
+				} else if (args[1].equalsIgnoreCase("toughness")) {
 					attributeType = AttributeType.GENERIC_ARMOR_TOUGHNESS;
-				else if (args[1].equalsIgnoreCase("damage"))
+				} else if (args[1].equalsIgnoreCase("damage")) {
 					attributeType = AttributeType.GENERIC_ATTACK_DAMAGE;
-				else if (args[1].equalsIgnoreCase("attspeed"))
+					d = -1;
+				} else if (args[1].equalsIgnoreCase("attspeed")) {
 					attributeType = AttributeType.GENERIC_ATTACK_SPEED;
-				else if (args[1].equalsIgnoreCase("kbresist"))
+					d = -4;
+				} else if (args[1].equalsIgnoreCase("kbresist")) {
 					attributeType = AttributeType.GENERIC_KNOCKBACK_RESISTANCE;
-				else if (args[1].equalsIgnoreCase("health"))
+				} else if (args[1].equalsIgnoreCase("health")) {
 					attributeType = AttributeType.GENERIC_MAX_HEALTH;
-				else if (args[1].equalsIgnoreCase("movespeed"))
+				} else if (args[1].equalsIgnoreCase("movespeed")) {
 					attributeType = AttributeType.GENERIC_MOVEMENT_SPEED;
-				else {
+				} else {
 					player.sendMessage(colorize.addColor("&c/snbt &6attributes &c<&aarmor&c||&atoughness&c||&adamage&c||&aattspeed&c||&akbresist&c||&ahealth&c||&amovespeed&c>"));
 					return true;
 				}
 				
 				if (args.length >= 3)
 					try {
-						d = Double.parseDouble(args[2]);
+						d = d + Double.parseDouble(args[2]);
 					} catch (NumberFormatException e) {
 						player.sendMessage(colorize.addColor("&c/snbt attributes &6" + args[1] + " &c<&avalue&c>"));
 						player.sendMessage(colorize.addColor("&6Value must be a &anumber&c!"));
@@ -125,7 +132,7 @@ public class NBTCommandExecutor implements CommandExecutor {
 							continue;
 						}
 					}
-				
+
 				attributes.add(Attribute.newBuilder().name(args[1]).type(attributeType).amount(d).slot(slot).build());
 				player.getInventory().setItemInMainHand(attributes.getStack());
 				
@@ -255,7 +262,7 @@ public class NBTCommandExecutor implements CommandExecutor {
 					nbtItem.addLore(colorize.addColor(string));
 				} else if (args[1].equalsIgnoreCase("remove")) {
 					try {
-						nbtItem.removeLore(Integer.parseInt(args[2]));
+						nbtItem.removeLore(Integer.parseInt(args[2]) - 1);
 					} catch (NumberFormatException e) {
 						player.sendMessage(colorize.addColor("&c/snbt Lore &6remove &c<&aline&c>"));
 						return true;
@@ -273,13 +280,18 @@ public class NBTCommandExecutor implements CommandExecutor {
 					}
 					
 					try {
-						nbtItem.replaceLore(Integer.parseInt(args[2]), string);
+						nbtItem.replaceLore(Integer.parseInt(args[2]) - 1, colorize.addColor(string));
 					} catch (NumberFormatException e) {
 						player.sendMessage(colorize.addColor("&c/snbt Lore &6remove &c<&aline&c>"));
 						return true;
 					}
+				} else if (args[1].equalsIgnoreCase("clear"))
+					nbtItem.clearLore();
+				else {
+					player.sendMessage(colorize.addColor("&c/snbt &6Lore &c<&aadd&c||&aremove&c||&ainsert&c||&aclear&c>"));
+					return true;
 				}
-				
+					
 				player.getInventory().setItemInMainHand(nbtItem.asItemStack());
 				
 				/*
@@ -288,15 +300,20 @@ public class NBTCommandExecutor implements CommandExecutor {
 				
 			} else if (args[0].equalsIgnoreCase("durability")) {
 				if (args.length != 2) {
-					player.sendMessage(colorize.addColor("&c/snbt &6durability &c<&aMAX&c||&aDurability>"));
+					player.sendMessage(colorize.addColor("&c/snbt &6durability &c<&aMAX&c||&aDurability&c||&aUnbreakable&c||&aget&c>"));
 					return true;
 				} else if (args[1].equalsIgnoreCase("max")) {
-					nbtItem.setMaxDurability();
+					nbtItem.setDurability((short) 0);
+				} else if (args[1].equalsIgnoreCase("unbreakable")) {
+					nbtItem.setUnbreakable();
+				} else if (args[1].equalsIgnoreCase("get")) {
+					player.sendMessage(String.valueOf(nbtItem.getMaxDurability()));
 				} else {
 					try {
-						nbtItem.setDurability(Short.parseShort(args[1]));
+						nbtItem.setDurability((short) (nbtItem.getMaxDurability() - Short.parseShort(args[1])));
 					} catch (NumberFormatException e) {
-						player.sendMessage(colorize.addColor("&c/snbt &6durability &c<&aMAX&c||&aDurability>"));
+						player.sendMessage(colorize.addColor("&c/snbt &6durability &c<&aMAX&c||&aDurability&c||&aUnbreakable&c||&aget&c>"));
+						player.sendMessage(colorize.addColor("&CDurability should be a number!"));
 						return true;
 					}
 				}
@@ -373,6 +390,12 @@ public class NBTCommandExecutor implements CommandExecutor {
 				}
 				
 				player.getInventory().setItemInMainHand(item);
+				
+				/*
+				 * FIREWORK
+				 */
+				
+			} else if (args[0].equalsIgnoreCase("firework")) {	
 				
 				/*
 				 * HEAD
@@ -468,6 +491,11 @@ public class NBTCommandExecutor implements CommandExecutor {
 				 */
 				
 			} else if (args[0].equalsIgnoreCase("potion")) {
+				if (args.length < 2) {
+					player.sendMessage(colorize.addColor("&c/snbt &6potion &c<&aadd&c||&aremove&c||&aclear&c>"));
+					return true;
+				}
+					
 				PotionItem potionItem = null;
 				if (item.getType() == Material.POTION || item.getType() == Material.LINGERING_POTION || item.getType() == Material.SPLASH_POTION)
 					potionItem = new PotionItem(item);
@@ -478,109 +506,70 @@ public class NBTCommandExecutor implements CommandExecutor {
 				
 				if (args[1].equalsIgnoreCase("add")) {
 					
-					if (args.length < 5) {
-						player.sendMessage(colorize.addColor("&c/snbt potion &6add &c<&aPotion Type&c> &c<&aduration&c> <&alevel&c> <&7yes&6||&7no&c> &c<&7color&c>"));
+					if (args.length != 5) {
+						player.sendMessage(colorize.addColor("&c/snbt potion &6add &c<&aPotion Effect Type&c> &c<&aduration&c> <&alevel&c> <&7yes&6||&7no&c> &c<&7color&c>"));
 						return true;
 					}
 					
 					NBTPotionEffect potionEffect = new NBTPotionEffect();
-					PotionEffectType type = null;
 					
-					try {
-						type = PotionEffectType.getByName(args[2]);
-					} catch (IllegalArgumentException e) {
-						player.sendMessage(colorize.addColor("&c/snbt potion &6add &c<&aPotion Type&c> &c<&aduration&c> <&alevel&c>"));
+					PotionEffectType type = PotionEffectType.getByName(args[2]);
+					
+					if (type == null) {
+						player.sendMessage("Potion Effect Type is null?");
+						player.sendMessage(colorize.addColor("&c/snbt potion &6add &c<&aPotion Effect Type&c> &c<&aduration&c> <&alevel&c>"));
+						return true;
 					}
 					
 					try {
-						potionEffect.creatPotionEffect(type, Integer.parseInt(args[3]), Integer.parseInt(args[4]));
+						potionEffect.creatPotionEffect(type, Integer.parseInt(args[3]) * 20, Integer.parseInt(args[4]) - 1);
 					} catch (NumberFormatException e) {
 						player.sendMessage(colorize.addColor("&c/snbt potion &6add " + args[2] + " &c<&aduration&c> <&alevel&c>"));
 					}
 					
-					if (args.length >= 6)
-						if (args[5].equalsIgnoreCase("yes"))
-							potionEffect.disableParticles();
-						else if (args[5].equalsIgnoreCase("no")) {
-							potionEffect.enableParticles();
-						} else {
-							player.sendMessage(colorize.addColor("&c/snbt potion &6add " 
-									+ args[2] 
-									+ " " 
-									+ args[3] 
-									+ " "
-									+ args[4]
-									+ " <&ayes&6||&ano&c>"));
-							return true;
-						}
-					
-					if (args.length == 7) {
-						Color color = colorize.getColorFromString(args[6]);
-						if (color == null) {
-							player.sendMessage(colorize.addColor("&c/snbt potion &6add " 
-									+ args[2] 
-									+ " " 
-									+ args[3] 
-									+ " "
-									+ args[4]
-									+ " "
-									+ args[5]
-									+ " &c<&acolor&c>"));
-							player.sendMessage(colorize.addColor("&CA list of &6colors&c can be found at &ahttp://...."));
-							return true;
-						}
-						potionEffect.setColor(color);
-					} else if (args.length == 9) {
-						int i[] = {0,0,0};
-						try {
-							for (int x = 0; x < args.length - 6; x++) {
-								i[x] = Integer.parseInt(args[x+6]);
-								if (i[x] > 255)
-									i[x] = 255;
-								if (i[x] < 0)
-									i[x] = 0;
-							}
-						} catch (NumberFormatException e) {
-							player.sendMessage(colorize.addColor("&c/snbt potion &6add " 
-									+ args[2] 
-									+ " " 
-									+ args[3] 
-									+ " "
-									+ args[4]
-									+ " "
-									+ args[5]
-									+ " &c<&ared&c> <&agreen&c> <&ablue&c>"));
-							player.sendMessage(colorize.addColor("&6Colors&c must be numbers!"));
-							return true;
-						}
-					}
+					potionItem.addEffect(potionEffect.getPotionEffect());
 					
 				} else if (args[1].equalsIgnoreCase("remove")) {
 					
 					if (args.length != 2) {
-						player.sendMessage(colorize.addColor("&c/snbt potion &6remove &c<&aPotion Type&c>"));
-						player.sendMessage(colorize.addColor("&cA list of &6Potion Types &ccan be found at &aHttp://..."));
+						player.sendMessage(colorize.addColor("&c/snbt potion &6remove &c<&aPotion Effect Type&c>"));
+						player.sendMessage(colorize.addColor("&cA list of &6Potion Effect Types &ccan be found at &aHttp://..."));
 						return true;
 					} else {
-						try {
-							potionItem.removeEffect(PotionEffectType.getByName(args[1]));
-						} catch (IllegalArgumentException e) {
-							player.sendMessage(colorize.addColor("&c/snbt potion &6remove &c<&aPotion Type&c>"));
-							player.sendMessage(colorize.addColor("&cA list of &6Potion Types &ccan be found at &aHttp://..."));
+						PotionEffectType type = PotionEffectType.getByName(args[2]);
+						
+						if (type == null) {
+							player.sendMessage(colorize.addColor("&c/snbt potion &6remove &c<&aPotion Effect Type&c>"));
+							player.sendMessage(colorize.addColor("&cA list of &6Potion Effect Types &ccan be found at &aHttp://..."));
 							return true;
 						}
+						
+						potionItem.removeEffect(type);
 					}	
 					
 				} else if (args[1].equalsIgnoreCase("set")) {
-					
+					if (args.length != 2) {
+						player.sendMessage(colorize.addColor("&c/snbt potion &6remove &c<&aPotion Effect Type&c>"));
+						player.sendMessage(colorize.addColor("&cA list of &6Potion Effect Types &ccan be found at &aHttp://..."));
+						return true;
+					} else {
+						if (args[1].equalsIgnoreCase("splash"))
+							potionItem.setSplash();
+						else if (args[1].equalsIgnoreCase("lingering"))
+							potionItem.setLingering();
+						else if (args[1].equalsIgnoreCase("normal"))
+							potionItem.setNormal();
+					}
 				} else if (args[1].equalsIgnoreCase("clear")) {
 					
-					if (args.length != 1) {
-						player.sendMessage(colorize.addColor("&c/snbt potion &6clear"));
+					if (args.length != 2) {
+						player.sendMessage(colorize.addColor("&c/snbt &6potion &aclear"));
 						return true;
 					} else {
 						potionItem.clearEffects();
 					}
+				} else {
+					player.sendMessage(colorize.addColor("&c/snbt &6potion &c<&aadd&c||&aremove&c||&aclear&c>"));
 				}
 				
 				player.getInventory().setItemInMainHand(potionItem.asItemStack());

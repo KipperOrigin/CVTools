@@ -74,6 +74,10 @@ public class NBTItem {
 		return itemLore.get(i);
 	}
 	
+	public short getMaxDurability() {
+		return item.getType().getMaxDurability();
+	}
+	
 	public ItemStack asItemStack() {
 		itemMeta.setLore(itemLore);
 		item.setItemMeta(itemMeta);

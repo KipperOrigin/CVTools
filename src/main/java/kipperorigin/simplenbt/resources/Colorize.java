@@ -9,6 +9,7 @@ import org.bukkit.Color;
 public class Colorize {
 
     public String addColor(String message) {
+    	message = "&f" + message;
         return ChatColor.translateAlternateColorCodes('&', message);
     }
     
@@ -62,4 +63,8 @@ public class Colorize {
     	}
     }
     
+    public Color getColorFromHex(String string) {
+    	//TODO
+    	return null;
+    }
 }
