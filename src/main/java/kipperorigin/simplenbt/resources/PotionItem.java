@@ -15,10 +15,10 @@ public class PotionItem {
 	private ItemStack itemStack = null;
 	
 	public PotionItem(ItemStack item) {
-		if (item.getType() == Material.POTION || item.getType() == Material.LINGERING_POTION || item.getType() == Material.SPLASH_POTION) {
-			potionMeta = (PotionMeta) item.getItemMeta();
-			itemStack = item;
-		}
+	    if (item.getType() == Material.POTION || item.getType() == Material.LINGERING_POTION || item.getType() == Material.SPLASH_POTION || item.getType() == Material.TIPPED_ARROW) {
+	        potionMeta = (PotionMeta) item.getItemMeta();
+	        itemStack = item;
+	    }
 	}
 	
 	public void setBasePotion(PotionType type) {
@@ -58,6 +58,10 @@ public class PotionItem {
 	
 	public void setNormal() {
 		itemStack.setType(Material.POTION);
+	}
+	
+	public void setTippedArrow() {
+	    itemStack.setType(Material.TIPPED_ARROW);
 	}
 	
     public static class NBTPotionEffect {

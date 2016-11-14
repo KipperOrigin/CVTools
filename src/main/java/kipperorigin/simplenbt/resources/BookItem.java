@@ -4,17 +4,18 @@ import java.util.List;
 
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_9_R2.inventory.CraftItemStack;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 
 import net.minecraft.server.v1_9_R2.NBTTagCompound;
 
-public class BookItem {
+public class BookItem extends org.bukkit.inventory.ItemStack {
 	
 	private net.minecraft.server.v1_9_R2.ItemStack item = null;
 	private BookMeta meta = null;
 	private NBTTagCompound tags = null;
 	Colorize colorize = new Colorize();
-	
+
 	public BookItem(org.bukkit.inventory.ItemStack item) {
 		if (item.getType() == Material.WRITTEN_BOOK) {
 			this.item = CraftItemStack.asNMSCopy(item);
