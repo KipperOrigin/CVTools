@@ -1,4 +1,4 @@
-package kipperorigin.armamentseffects.commandparser;
+package kipperorigin.simplenbt.commands.commandparser;
 
 import java.util.EnumSet;
 import java.util.List;

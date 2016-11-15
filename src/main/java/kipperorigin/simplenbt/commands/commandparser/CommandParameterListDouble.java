@@ -1,4 +1,4 @@
-package kipperorigin.armamentseffects.commandparser;
+package kipperorigin.simplenbt.commands.commandparser;
 
 import java.lang.NumberFormatException;
 import java.util.ArrayList;

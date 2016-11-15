@@ -1,4 +1,4 @@
-package kipperorigin.armamentseffects.commandparser;
+package kipperorigin.simplenbt.commands.commandparser;
 
 import org.bukkit.potion.PotionEffectType;
 
