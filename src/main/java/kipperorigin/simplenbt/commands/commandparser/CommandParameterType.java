@@ -1,4 +1,4 @@
-package kipperorigin.simplenbt.commands.commandparser;
+package kipperorigin.armamentseffects.commandparser;
 
 public interface CommandParameterType
 {

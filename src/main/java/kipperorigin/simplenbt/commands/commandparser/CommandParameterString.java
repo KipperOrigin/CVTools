@@ -1,16 +1,16 @@
-package kipperorigin.simplenbt.commands.commandparser;
+package kipperorigin.armamentseffects.commandparser;
 
 public class CommandParameterString implements CommandParameterType
 {
     public boolean isValid(String value) {
-	return true;
+        return true;
     }
 
     public String getInvalidMessage(String value) {
-	return "";
+        return "";
     }
 
     public Object getValue(String value) {
-	return value;
+        return value;
     }
 }
