@@ -1,4 +1,4 @@
-package kipperorigin.simplenbt.resources;
+package kipperorigin.simplenbt.nbt;
 
 import org.bukkit.DyeColor;
 import org.bukkit.Material;

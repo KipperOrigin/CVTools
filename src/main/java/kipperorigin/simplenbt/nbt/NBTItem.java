@@ -1,4 +1,4 @@
-package kipperorigin.simplenbt.resources;
+package kipperorigin.simplenbt.nbt;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,8 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import kipperorigin.simplenbt.resources.Attributes.Attribute;
-import kipperorigin.simplenbt.resources.Attributes.AttributeType;
+import kipperorigin.simplenbt.nbt.Attributes.Attribute;
+import kipperorigin.simplenbt.nbt.Attributes.AttributeType;
 
 public class NBTItem {
 
@@ -44,10 +44,6 @@ public class NBTItem {
 	}
 	
 	public void setType(Material mat) {
-		if (item == null) {
-			System.out.println("item is null");
-			return;
-		}
 		item.setType(mat);
 	}
 	
@@ -119,30 +115,30 @@ public class NBTItem {
 		}
 	}
 	
-	public ItemStack addAttribute(String name, AttributeType type, double d, String slot) {
+
+	
+	//Add Attributes to the top of the list rather than bottom
+	public void addAttribute(String name, AttributeType type, double d, String slot) {
 		Attributes attributes = new Attributes(item);
 		attributes.add(Attribute.newBuilder().name(name).type(type).amount(d).slot(slot).build());
-		return attributes.getStack();
-		// TODO STORE ATTRIBUTE TO DATA (UUID, NAME, TYPE, AMOUNT, SLOT)
-		/*
-		 * int i = attributes.size() - 1;
-		 * Attribute attribute = attributes.get(1);
-		 */
+		item = attributes.getStack();
+		itemMeta = item.getItemMeta();
 	}
 	
+	//Removes Attributes from the bottom of the list rather than top
 	public void removeAttribute(int i) {
 		Attributes attributes = new Attributes(item);
 		Attribute attribute = attributes.get(i-1); 
 		attributes.remove(attribute);
 		item = attributes.getStack();
-		
-		for (int x = 0; x < getAttributes().size(); x++)
-			System.out.println(getAttributes().get(x));
-		// TODO
+		itemMeta = item.getItemMeta();
 	}
 	
 	public void clearAttributes() {
-		// TODO
+		Attributes attributes = new Attributes(item);
+		attributes.clear();
+		item = attributes.getStack();
+		itemMeta = item.getItemMeta();
 	}
 	
 	public List<String> getAttributes() {

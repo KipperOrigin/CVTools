@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 import kipperorigin.simplenbt.commands.commandparser.Command;
 import kipperorigin.simplenbt.commands.commandparser.CommandParameterString;
-import kipperorigin.simplenbt.resources.BookItem;
+import kipperorigin.simplenbt.nbt.BookItem;
 
 public class BookMain extends Command {
 

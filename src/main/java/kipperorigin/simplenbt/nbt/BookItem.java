@@ -1,4 +1,4 @@
-package kipperorigin.simplenbt.resources;
+package kipperorigin.simplenbt.nbt;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import org.bukkit.craftbukkit.v1_9_R2.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 
+import kipperorigin.simplenbt.resources.Colorize;
 import net.minecraft.server.v1_9_R2.NBTTagCompound;
 
 public class BookItem extends org.bukkit.inventory.ItemStack {

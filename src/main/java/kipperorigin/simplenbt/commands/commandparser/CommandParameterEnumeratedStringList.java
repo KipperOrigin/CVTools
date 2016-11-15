@@ -14,7 +14,7 @@ public class CommandParameterEnumeratedStringList implements CommandParameterTyp
                                                                                                                                                                                                
     public boolean isValid(String value) {                                                                                                                                                     
         String[] elements = value.split(",");                                                                                                                                                  
-        for(int i = 0; i < values.size(); i++) {                                                                                                                                               
+        for(int i = 0; i < elements.length; i++) {                                                                                                                                               
             if(!values.contains(elements[i])) {                                                                                                                                                
                 return false;                                                                                                                                                                  
             }                                                                                                                                                                                  

@@ -10,6 +10,12 @@ import java.util.Set;
 
 import org.bukkit.entity.Player;
 
+// TODO: Make textparameters use all remaining arguments to permit spaces
+// TODO: Make optional textparameters
+// TODO: Use quotes to include spaces
+// TODO: Aliases for prefixed parameters and command parts?
+// TODO: Default values for optional parametes
+
 public abstract class Command
 {
     private List<String> commands;
@@ -70,7 +76,7 @@ public abstract class Command
 	int textParametersSet = 0;
 
 	for(int i = commands.size(); i < args.length; i++) {
-	    String[] parts = args[i].split(":");
+	    String[] parts = args[i].split(":", 2);
 	    String name = parts[0];
 	    if(parts.length == 1) {
 		if(flags.contains(name)) {
@@ -85,11 +91,7 @@ public abstract class Command
 		}
 	    }
 	    else {
-		String par = "";
-		for(int j = 1; j < parts.length; j++) {
-		    if(j > 1) par += ":";
-		    par += parts[j];
-		}
+		String par = parts[1];
 		if(optional.containsKey(name)) {
 		    if(!optionalParametersChecked.add(name)) return "Parameter " + name + " can't be used twice!";
 		    if(!optional.get(name).isValid(par)) return "Wrong type of parameter " + name + "!";
@@ -118,18 +120,23 @@ public abstract class Command
 	Map<String, Object> parameters = new HashMap<>();
 	List<Object> textParameters = new ArrayList<>();
 	for(int i = commands.size(); i < args.length; i++) {
-	    String[] parts = args[i].split(":");
+	    String[] parts = args[i].split(":", 2);
 	    String name = parts[0];
 	    if(parts.length == 1) {
 		if(this.flags.contains(name)) {
 		    flags.add(name);
 		}
 		else {
-		    textParameters.add(name);
+		    textParameters.add(text.get(textParameters.size()).getValue(name));
 		}
 	    }
 	    else {
-		parameters.put(name, parts[1]);
+		if(mandatory.containsKey(name)) {
+		    parameters.put(name, mandatory.get(name).getValue(parts[1]));
+		}
+		else {
+		    parameters.put(name, optional.get(name).getValue(parts[1]));
+		}
 	    }
 	}
 	execute(player, flags, parameters, textParameters);

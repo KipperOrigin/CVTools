@@ -1,4 +1,4 @@
-package kipperorigin.simplenbt.resources;
+package kipperorigin.simplenbt.nbt;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
@@ -19,6 +19,8 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Maps;
+
+import kipperorigin.simplenbt.nbt.Attributes.AttributeType;
 
 public class Attributes {
     public enum Operation {
@@ -103,6 +105,25 @@ public class Attributes {
         public static Iterable<AttributeType> values() {
             return LOOKUP.values();
         }
+        
+    	public static AttributeType getAttributeTypeByName(String string) {
+    		if (string.equalsIgnoreCase("armor")) {
+    			return AttributeType.GENERIC_ARMOR;
+    		} else if (string.equalsIgnoreCase("toughness")) {
+    			return AttributeType.GENERIC_ARMOR_TOUGHNESS;
+    		} else if (string.equalsIgnoreCase("damage")) {
+    			return AttributeType.GENERIC_ATTACK_DAMAGE;
+    		} else if (string.equalsIgnoreCase("attspeed")) {
+    			return AttributeType.GENERIC_ATTACK_SPEED;
+    		} else if (string.equalsIgnoreCase("kbresist")) {
+    			return AttributeType.GENERIC_KNOCKBACK_RESISTANCE;
+    		} else if (string.equalsIgnoreCase("health")) {
+    			return AttributeType.GENERIC_MAX_HEALTH;
+    		} else if (string.equalsIgnoreCase("movespeed")) {
+    			return AttributeType.GENERIC_MOVEMENT_SPEED;
+    		} else
+    			return null;
+    	}
     }
 
     public static class Attribute {

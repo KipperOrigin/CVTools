@@ -1,4 +1,4 @@
-package kipperorigin.simplenbt.resources;
+package kipperorigin.simplenbt.nbt;
 
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -13,12 +13,17 @@ public class PotionItem {
 	
 	private PotionMeta potionMeta = null;
 	private ItemStack itemStack = null;
+	int multiplier = 1;
 	
 	public PotionItem(ItemStack item) {
 	    if (item.getType() == Material.POTION || item.getType() == Material.LINGERING_POTION || item.getType() == Material.SPLASH_POTION || item.getType() == Material.TIPPED_ARROW) {
 	        potionMeta = (PotionMeta) item.getItemMeta();
 	        itemStack = item;
 	    }
+	    if (item.getType() == Material.LINGERING_POTION)
+	    	multiplier = 4;
+	    if (item.getType() == Material.TIPPED_ARROW)
+	    	multiplier = 8;
 	}
 	
 	public void setBasePotion(PotionType type) {
@@ -49,19 +54,35 @@ public class PotionItem {
 	}
 	
 	public void setSplash() {
+		modifyDuration(1);
 		itemStack.setType(Material.SPLASH_POTION);
 	}
 	
 	public void setLingering() {
+		modifyDuration(4);
 		itemStack.setType(Material.LINGERING_POTION);
 	}
 	
 	public void setNormal() {
+		modifyDuration(1);
 		itemStack.setType(Material.POTION);
 	}
 	
 	public void setTippedArrow() {
+		modifyDuration(8);
 	    itemStack.setType(Material.TIPPED_ARROW);
+	}
+	
+	public void modifyDuration(int i) {
+		double finalMultiplier = Double.valueOf(i) / Double.valueOf(multiplier);
+		System.out.println(finalMultiplier);
+		for (int x = 0; x < potionMeta.getCustomEffects().size(); x ++) {
+			PotionEffect startEffect = potionMeta.getCustomEffects().get(x);
+			System.out.print(Math.round(startEffect.getDuration() * finalMultiplier));
+			PotionEffect endEffect = new PotionEffect(startEffect.getType(), (int) Math.round(startEffect.getDuration() * finalMultiplier), startEffect.getAmplifier(), startEffect.isAmbient(), startEffect.hasParticles(), startEffect.getColor());
+			potionMeta.addCustomEffect(endEffect, true);
+		}
+		multiplier = i;
 	}
 	
     public static class NBTPotionEffect {

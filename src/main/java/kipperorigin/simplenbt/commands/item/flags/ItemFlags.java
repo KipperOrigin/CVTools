@@ -1,4 +1,4 @@
-package kipperorigin.simplenbt.commands.item;
+package kipperorigin.simplenbt.commands.item.flags;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,17 +12,17 @@ import org.bukkit.inventory.ItemFlag;
 
 import kipperorigin.simplenbt.commands.commandparser.Command;
 import kipperorigin.simplenbt.commands.commandparser.CommandParameterEnumeratedStringList;
-import kipperorigin.simplenbt.resources.NBTItem;
+import kipperorigin.simplenbt.nbt.NBTItem;
 
 public class ItemFlags  extends Command {
 
-	Set<String> flags = new HashSet<String>(Arrays.asList("attributes","destroys","effects","enchants","placedon","unbreakable"));
 	List<ItemFlag> addItemFlags = new ArrayList<ItemFlag>();
 	List<ItemFlag> removeItemFlags = new ArrayList<ItemFlag>();
 	ItemFlag itemFlag = null;
 	
     public ItemFlags() {                                                                     
         super("item flags");
+        Set<String> flags = new HashSet<String>(Arrays.asList("attributes","destroys","effects","enchants","placedon","unbreakable"));
         addFlag("clearall");
         addFlag("hideall");
         addParameter("add", true, new CommandParameterEnumeratedStringList(flags));
@@ -65,7 +65,7 @@ public class ItemFlags  extends Command {
 		
 		player.getInventory().setItemInMainHand(item.asItemStack());
 	}
-	
+
 	public ItemFlag getFlagByName(String string) {
 		if (string.equalsIgnoreCase("attributes"))
 			return ItemFlag.HIDE_ATTRIBUTES;
