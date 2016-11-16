@@ -1,4 +1,4 @@
-package kipperorigin.simplenbt.commands.item.flags;
+package kipperorigin.simplenbt.commands.item.lore;
 
 import java.util.List;
 import java.util.Map;
@@ -8,10 +8,10 @@ import org.bukkit.entity.Player;
 
 import kipperorigin.simplenbt.commands.commandparser.Command;
 
-public class ItemFlagsRemove extends Command {
+public class ItemLoreAdd extends Command {
 
-	public ItemFlagsRemove() {
-		super("item flags remove");
+	public ItemLoreAdd() {
+		super("item lore add");
 		// TODO Auto-generated constructor stub
 	}
 

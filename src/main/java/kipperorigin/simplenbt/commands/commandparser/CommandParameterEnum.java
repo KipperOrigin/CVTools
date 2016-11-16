@@ -15,7 +15,7 @@ public class CommandParameterEnum implements CommandParameterType
     
     public boolean isValid(String value) {
         try {
-            Enum<?> theOneAndOnly = Enum.valueOf(enumType, value);
+            Enum<?> theOneAndOnly = Enum.valueOf(enumType, value.toUpperCase());
         }
         catch(IllegalArgumentException e) {
             return false;
@@ -28,7 +28,7 @@ public class CommandParameterEnum implements CommandParameterType
     }
 
     public Object getValue(String value) {
-        return Enum.valueOf(enumType, value);
+        return Enum.valueOf(enumType, value.toUpperCase());
     }
 
     

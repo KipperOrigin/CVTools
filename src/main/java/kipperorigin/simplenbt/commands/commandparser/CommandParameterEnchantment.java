@@ -5,7 +5,7 @@ import org.bukkit.enchantments.Enchantment;
 public class CommandParameterEnchantment implements CommandParameterType
 {
     public boolean isValid(String value) {
-        return Enchantment.getByName(value) != null;
+        return Enchantment.getByName(value.toUpperCase()) != null;
     }
 
     public String getInvalidMessage(String value) {
@@ -13,6 +13,6 @@ public class CommandParameterEnchantment implements CommandParameterType
     }
 
     public Object getValue(String value) {
-        return Enchantment.getByName(value);
+        return Enchantment.getByName(value.toUpperCase());
     }
 }

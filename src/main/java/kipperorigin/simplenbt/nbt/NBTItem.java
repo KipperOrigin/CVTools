@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_9_R2.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -32,11 +31,30 @@ public class NBTItem {
 	}
 	
 	public void removeLore(int i) {
+		if (i > itemLore.size())
+			i = itemLore.size();
+		else if (i < 0)
+			i = 0;
+		
 		itemLore.remove(i);
 	}
 	
 	public void replaceLore(int i, String string) {
+		if (i > itemLore.size())
+			i = itemLore.size();
+		else if (i < 0)
+			i = 0;
+		
 		itemLore.set(i, string);
+	}
+	
+	public void insertLore(int i, String string) {
+		if (i > itemLore.size())
+			i = itemLore.size();
+		else if (i < 0)
+			i = 0;
+		
+		itemLore.add(i, string);
 	}
 	
 	public void clearLore() {
@@ -67,12 +85,12 @@ public class NBTItem {
 		itemMeta.setDisplayName(string);
 	}
 	
-	public void addFlags(List<ItemFlag> flags) {
+	public void addFlags(ItemFlag... flags) {
 		for (ItemFlag flag: flags)
 			itemMeta.addItemFlags(flag);
 	}
 	
-	public void removeFlags(List<ItemFlag> flags) {
+	public void removeFlags(ItemFlag... flags) {
 		for (ItemFlag flag: flags)
 			itemMeta.removeItemFlags(flag);
 	}
@@ -156,6 +174,11 @@ public class NBTItem {
 	}
 	
 	public String getSpecificLore(int i) {
+		if (i > itemLore.size())
+			i = itemLore.size();
+		else if (i < 0)
+			i = 0;
+		
 		return itemLore.get(i);
 	}
 	

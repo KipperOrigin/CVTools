@@ -11,14 +11,12 @@ import org.bukkit.inventory.ItemStack;
 
 import kipperorigin.simplenbt.commands.commandparser.Command;
 import kipperorigin.simplenbt.commands.commandparser.CommandParameterEnchantment;
-import kipperorigin.simplenbt.commands.commandparser.CommandParameterInteger;
 
-public class ItemEnchantmentsAdd extends Command {
+public class ItemEnchantmentsRemove extends Command {
 
-    public ItemEnchantmentsAdd() {                                                                     
-        super("item enchant add");
+	public ItemEnchantmentsRemove() {                                                                     
+        super("item enchant remove");
         addTextParameter(new CommandParameterEnchantment());
-        addTextParameter(new CommandParameterInteger());
     }
 
 	@Override
@@ -28,7 +26,7 @@ public class ItemEnchantmentsAdd extends Command {
 		if (item == null || item.getType() == Material.AIR)
 			return;
 		
-		item.addUnsafeEnchantment((Enchantment) textParameters.get(0), (int) textParameters.get(1));
+		item.removeEnchantment((Enchantment) textParameters.get(0));
 	}
 
 }

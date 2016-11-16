@@ -19,8 +19,8 @@ public class PotionEffectAdd extends Command {
 	public PotionEffectAdd() {
 		super("potion add");
 		addTextParameter(new CommandParameterPotionEffectType());
-		addTextParameter(new CommandParameterInteger());
-		addTextParameter(new CommandParameterInteger());
+		addParameter("level", true, new CommandParameterInteger());
+		addParameter("duration", true, new CommandParameterInteger());
 		// TODO Auto-generated constructor stub
 	}
 
@@ -34,9 +34,16 @@ public class PotionEffectAdd extends Command {
 			return;
 		
 		PotionItem potionItem = new PotionItem(player.getInventory().getItemInMainHand());
-		PotionEffectType type = PotionEffectType.getByName((String) textParameters.get(0));
+		PotionEffectType type = (PotionEffectType) textParameters.get(0);
 		NBTPotionEffect potionEffect = new NBTPotionEffect();
-		int dur = Integer.parseInt((String) textParameters.get(1)) * 20;
+		int dur = 100;
+		int level = 0;
+		
+		if (parameters.containsKey("duration"))
+			dur = (int) parameters.get("duration") * 20;
+		
+		if (parameters.containsKey("level"))
+			level = (int) parameters.get("level") - 1;
 		
 		
 		if (player.getInventory().getItemInMainHand().getType() == Material.LINGERING_POTION)
@@ -44,7 +51,7 @@ public class PotionEffectAdd extends Command {
 		else if (player.getInventory().getItemInMainHand().getType() == Material.TIPPED_ARROW)
 			dur *= 8;
 		
-		potionEffect.creatPotionEffect(type, dur, Integer.parseInt((String) textParameters.get(2)) - 1);
+		potionEffect.creatPotionEffect(type, dur, level);
 		potionItem.addEffect(potionEffect.getPotionEffect());
 		
 		player.getInventory().setItemInMainHand(potionItem.asItemStack());

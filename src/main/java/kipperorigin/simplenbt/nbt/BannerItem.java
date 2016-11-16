@@ -1,5 +1,7 @@
 package kipperorigin.simplenbt.nbt;
 
+import java.util.List;
+
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -33,16 +35,40 @@ public class BannerItem {
 	}
 	
 	public void removePattern(int i) {
+		if (i > bannerMeta.getPatterns().size())
+			i = bannerMeta.getPatterns().size();
+		else if (i < 0)
+			i = 0;
+		
 		bannerMeta.removePattern(i);
 	}
 	
 	public void setPattern(int i, Pattern pattern) {
+		if (i > bannerMeta.getPatterns().size())
+			i = bannerMeta.getPatterns().size();
+		else if (i < 0)
+			i = 0;
+		
 		bannerMeta.setPattern(i, pattern);
 	}
 	
 	public void setPattern(int i, DyeColor color, PatternType type) {
-		Pattern pattern = new Pattern(color, type);
-		bannerMeta.setPattern(i, pattern);
+		bannerMeta.setPattern(i, new Pattern(color, type));
+	}
+	
+	public void insertPattern(int i, Pattern pattern) {
+		if (i > bannerMeta.getPatterns().size())
+			i = bannerMeta.getPatterns().size();
+		else if (i < 0)
+			i = 0;
+		
+		List<Pattern> patterns = bannerMeta.getPatterns();
+		patterns.add(i, pattern);
+		bannerMeta.setPatterns(patterns);
+	}
+	
+	public void insertPattern(int i, DyeColor color, PatternType type) {
+		insertPattern(i, new Pattern(color, type));
 	}
 	
 	public void clearPatterns() {

@@ -16,16 +16,17 @@ import kipperorigin.simplenbt.nbt.NBTItem;
 
 public class ItemFlags  extends Command {
 
-	List<ItemFlag> addItemFlags = new ArrayList<ItemFlag>();
-	List<ItemFlag> removeItemFlags = new ArrayList<ItemFlag>();
+	List<ItemFlag> addItemFlags = new ArrayList<>();
+	List<ItemFlag> removeItemFlags = new ArrayList<>();
 	ItemFlag itemFlag = null;
 	
     public ItemFlags() {                                                                     
         super("item flags");
-        Set<String> flags = new HashSet<String>(Arrays.asList("attributes","destroys","effects","enchants","placedon","unbreakable"));
+        Set<String> flags = new HashSet<String>(Arrays.asList("hide_attributes","hide_destroys","hide_potion_effects","hide_enchants","hide_placedon","hide_unbreakable"));
         addFlag("clearall");
         addFlag("hideall");
         addParameter("add", true, new CommandParameterEnumeratedStringList(flags));
+        addParameter("remove", true, new CommandParameterEnumeratedStringList(flags));
     }
 
 	@SuppressWarnings("unchecked")
@@ -41,44 +42,26 @@ public class ItemFlags  extends Command {
 		if (flags.contains("hideall"))
 			item.addAllFlags();
 		
-
-		
 		if (parameters.get("add") != null) {
-			for (String string: addArgs) {
-				itemFlag = this.getFlagByName(string);
-				if (itemFlag != null)
-					addItemFlags.add(itemFlag);
-			}
 			if (addArgs != null)
-				item.removeFlags(addItemFlags);
+				for (String string: addArgs) { 
+					addItemFlags.add(ItemFlag.valueOf(string.toUpperCase()));
+				}
+			
+				ItemFlag[] finalFlags = addItemFlags.toArray(new ItemFlag[0]);
+				item.addFlags(finalFlags);
 		}
 		
 		if (parameters.get("remove") != null) {
-			for (String string: removeArgs) {
-				itemFlag = this.getFlagByName(string);
-				if (itemFlag != null)
-					removeItemFlags.add(itemFlag);
-			}
 			if (removeArgs != null)
-				item.removeFlags(removeItemFlags);
+				for (String string: removeArgs) {
+					removeItemFlags.add(ItemFlag.valueOf(string.toUpperCase()));
+				}
+			
+				ItemFlag[] finalFlags = (ItemFlag[]) removeItemFlags.toArray();
+				item.removeFlags(finalFlags);
 		}
 		
 		player.getInventory().setItemInMainHand(item.asItemStack());
-	}
-
-	public ItemFlag getFlagByName(String string) {
-		if (string.equalsIgnoreCase("attributes"))
-			return ItemFlag.HIDE_ATTRIBUTES;
-		else if (string.equalsIgnoreCase("destroys"))
-			return ItemFlag.HIDE_DESTROYS;
-		else if (string.equalsIgnoreCase("effects"))
-			return ItemFlag.HIDE_POTION_EFFECTS;
-		else if (string.equalsIgnoreCase("enchants"))
-			return ItemFlag.HIDE_ENCHANTS;
-		else if (string.equalsIgnoreCase("placedon"))
-			return ItemFlag.HIDE_PLACED_ON;
-		else if (string.equalsIgnoreCase("unbreakable"))
-			return ItemFlag.HIDE_UNBREAKABLE;
-		else return null;
 	}
 }

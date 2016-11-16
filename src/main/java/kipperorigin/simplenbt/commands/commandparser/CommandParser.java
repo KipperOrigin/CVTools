@@ -28,9 +28,11 @@ public class CommandParser
                 }
             }
         }
+
         if(parameterError != null) {
             player.sendMessage(parameterError);
         }
+
         else {
             player.sendMessage("Unknown command!");
         }

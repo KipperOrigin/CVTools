@@ -8,10 +8,10 @@ import org.bukkit.entity.Player;
 
 import kipperorigin.simplenbt.commands.commandparser.Command;
 
-public class ItemFlagsRemove extends Command {
+public class ItemFlagsAddAll extends Command {
 
-	public ItemFlagsRemove() {
-		super("item flags remove");
+	public ItemFlagsAddAll() {
+		super("item flags add all");
 		// TODO Auto-generated constructor stub
 	}
 

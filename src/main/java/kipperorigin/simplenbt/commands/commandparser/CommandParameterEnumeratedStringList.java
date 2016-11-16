@@ -23,7 +23,7 @@ public class CommandParameterEnumeratedStringList implements CommandParameterTyp
     }
 
     public String getInvalidMessage(String value) {
-        return "";
+        return "A value in: " + value + " is not allowed for list!";
     }
 
     public Object getValue(String value) {
