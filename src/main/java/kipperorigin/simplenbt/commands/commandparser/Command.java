@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 // TODO: Make textparameters use all remaining arguments to permit spaces
@@ -36,6 +37,10 @@ public abstract class Command
         String ret = commands.get(0);
         for(int i = 1; i < commands.size(); i++) ret += " " + commands.get(i);
         return ret;
+    }
+    
+    public String[] getArgs() {
+    	return (String[]) commands.toArray();
     }
     
     protected void addFlag(String flag) {

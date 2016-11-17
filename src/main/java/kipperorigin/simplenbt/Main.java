@@ -1,5 +1,8 @@
 package kipperorigin.simplenbt;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -43,81 +46,25 @@ import kipperorigin.simplenbt.commands.potion.PotionEffectRemove;
 import kipperorigin.simplenbt.commands.potion.PotionSetType;
 import kipperorigin.simplenbt.commands.skull.SkullSetOwner;
 import kipperorigin.simplenbt.commands.skull.SkullSetType;
+import kipperorigin.simplenbt.events.EventManager;
+import kipperorigin.simplenbt.resources.MobCommandMap;
 
 @SuppressWarnings("unused")
 public class Main extends JavaPlugin {
 	
-	CommandParser commandParser;
+	EventManager eventManager;
 	
-	public void onEnable() {
-        
-		commandParser = new CommandParser();                                                                                                                                                   
-        
-		// ARMOR
-		commandParser.addCommand(new ArmorColorByName());
-		commandParser.addCommand(new ArmorColorByRGB());
+	public void onEnable() {   
+		CommandManager.registerCommands();
+		eventManager = new EventManager(this);
+		MobCommandMap.eventCommands = new HashMap<>();
 		
-		// BANNER
-		commandParser.addCommand(new BannerPatternAdd());
-		
-		// BOOK
-		commandParser.addCommand(new BookMain());
-		commandParser.addCommand(new BookColorize());    
-		commandParser.addCommand(new BookSetAuthor());
-		commandParser.addCommand(new BookSetTitle());
-		commandParser.addCommand(new BookUnsign());
-		
-		// FIREWORK
-		commandParser.addCommand(new FireworkEffectAdd());
-		commandParser.addCommand(new FireworkEffectClear());
-		commandParser.addCommand(new FireworkEffectRemove());
-		commandParser.addCommand(new FireworkSetPower());
-		
-		// ITEM	
-		commandParser.addCommand(new ItemSetDurability());
-		commandParser.addCommand(new ItemSetName());
-		commandParser.addCommand(new ItemSetType());
-		
-		// ITEM --flags
-		commandParser.addCommand(new ItemFlags());
-		commandParser.addCommand(new ItemFlagsAdd());
-		commandParser.addCommand(new ItemFlagsAddAll());
-		commandParser.addCommand(new ItemFlagsClear());
-		commandParser.addCommand(new ItemFlagsRemove());
-		
-		// ITEM --attributes
-		commandParser.addCommand(new ItemAttributesAdd());
-		commandParser.addCommand(new ItemAttributesClear());
-		commandParser.addCommand(new ItemAttributesRemove());
-		
-		// ITEM --enchantments
-		commandParser.addCommand(new ItemEnchantmentsAdd());
-		commandParser.addCommand(new ItemEnchantmentsClear());
-		commandParser.addCommand(new ItemEnchantmentsRemove());
-
-		// ITEM --lore
-		commandParser.addCommand(new ItemLoreAdd());
-		commandParser.addCommand(new ItemLoreClear());
-		commandParser.addCommand(new ItemLoreRemove());
-		
-		// PLAYER
-		commandParser.addCommand(new PlayerEquipItem());
-		
-		// POTION
-		commandParser.addCommand(new PotionEffectAdd());
-		commandParser.addCommand(new PotionEffectClear());
-		commandParser.addCommand(new PotionEffectRemove());
-		commandParser.addCommand(new PotionSetType());
-		
-		// SKULL
-		commandParser.addCommand(new SkullSetOwner());
-		commandParser.addCommand(new SkullSetType());
-		
-
+		eventManager.registerEvents();
 	}
 	
 	public void onDisable() {
-		// TO-DO
+		CommandManager.commandParser = null;
+		MobCommandMap.eventCommands = null;
 	}
 
     @Override                                                                                                                                                                                  
@@ -127,12 +74,11 @@ public class Main extends JavaPlugin {
         Player player = (Player)sender;                                                                                                                                                        
                                                                                                                                                                                                
         if(command.getName().equals("snbt") && player.hasPermission("snbt.admin")) {                                                                                                                                               
-            return commandParser.execute(player, args);                                                                                                                                        
+            return CommandManager.commandParser.execute(player, args);                                                                                                                                        
         }                                                                                                                                                                                      
         else {                                                                                                                                                                                 
             return false;                                                                                                                                                                      
         }                                                                                                                                                                                      
-    }                                                                                                                                                                                          
-
-	
+    }          
+  
 }

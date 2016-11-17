@@ -3,6 +3,7 @@ package kipperorigin.simplenbt.commands.commandparser;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 public class CommandParser
@@ -38,4 +39,5 @@ public class CommandParser
         }
         return false;
     }
+ 
 }

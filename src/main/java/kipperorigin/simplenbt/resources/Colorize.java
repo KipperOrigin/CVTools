@@ -8,12 +8,12 @@ import org.bukkit.Color;
 
 public class Colorize {
 
-    public String addColor(String message) {
+    public static String addColor(String message) {
     	message = "&f" + message;
         return ChatColor.translateAlternateColorCodes('&', message);
     }
     
-    public List<String> addColor(List<String> strings) {
+    public static List<String> addColor(List<String> strings) {
     	List<String> finalStrings = new ArrayList<String>();
     	
     	for (String string: strings) {
@@ -23,7 +23,7 @@ public class Colorize {
 		return finalStrings;
     }
     
-    public Color getColorFromString(String string) {
+    public static Color getColorFromString(String string) {
     	if (string.equalsIgnoreCase("aqua"))
     		return Color.AQUA;
     	else if (string.equalsIgnoreCase("black"))
@@ -63,7 +63,7 @@ public class Colorize {
     	}
     }
     
-    public Color getColorFromHex(String string) {
+    public static Color getColorFromHex(String string) {
     	//TODO
     	return null;
     }
