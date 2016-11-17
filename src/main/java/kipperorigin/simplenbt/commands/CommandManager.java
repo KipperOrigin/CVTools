@@ -14,6 +14,7 @@ import kipperorigin.simplenbt.commands.item.flags.*;
 import kipperorigin.simplenbt.commands.item.lore.*;
 import kipperorigin.simplenbt.commands.mob.*;
 import kipperorigin.simplenbt.commands.mob.horse.*;
+import kipperorigin.simplenbt.commands.mob.snowman.*;
 import kipperorigin.simplenbt.commands.player.*;
 import kipperorigin.simplenbt.commands.potion.*;
 import kipperorigin.simplenbt.commands.skull.*;
@@ -83,7 +84,12 @@ public class CommandManager {
 		commandParser.addCommand(new MobTame());
 		
 		// MOB --horse
+		commandParser.addCommand(new MobHorseColor());
+		commandParser.addCommand(new MobHorseStyle());
 		commandParser.addCommand(new MobHorseVariant());
+		
+		// MOB --snowman
+		commandParser.addCommand(new MobSnowmanDerp());
 		
 		// PLAYER
 		commandParser.addCommand(new PlayerEquipItem());

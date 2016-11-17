@@ -16,6 +16,8 @@ public class EventPlayerInteractEntity implements Listener {
 			return;
 		
 		if (MobCommandMap.containsKey(event.getPlayer())) {
+			event.setCancelled(true);
+			
 			if (event.getRightClicked() instanceof LivingEntity) {
 				if (MobCommandMap.getValue(event.getPlayer()) == event.getRightClicked())
 					return;
@@ -29,7 +31,6 @@ public class EventPlayerInteractEntity implements Listener {
 				
 			} else
 				event.getPlayer().sendMessage(Colorize.addColor("&aPlease interact with a &6living entity&a!"));
-			event.setCancelled(true);
 		}
 		
 	}
