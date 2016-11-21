@@ -6,8 +6,8 @@ import java.util.Set;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.cubeville.commons.Command;
-import org.cubeville.commons.CommandParameterString;
+import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandParameterString;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 

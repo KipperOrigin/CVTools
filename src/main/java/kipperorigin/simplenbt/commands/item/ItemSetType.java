@@ -7,9 +7,9 @@ import java.util.Set;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.cubeville.commons.Command;
-import org.cubeville.commons.CommandParameterEnum;
-import org.cubeville.commons.CommandParameterShort;
+import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandParameterEnum;
+import org.cubeville.commons.commands.CommandParameterShort;
 
 public class ItemSetType extends Command {
 

@@ -6,8 +6,8 @@ import java.util.Set;
 
 import org.bukkit.DyeColor;
 import org.bukkit.entity.Player;
-import org.cubeville.commons.Command;
-import org.cubeville.commons.CommandParameterEnum;
+import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandParameterEnum;
 
 import kipperorigin.simplenbt.nbt.BannerItem;
 

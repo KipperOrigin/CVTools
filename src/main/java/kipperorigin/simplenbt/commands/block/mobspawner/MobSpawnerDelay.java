@@ -8,8 +8,8 @@ import org.bukkit.block.Block;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.cubeville.commons.Command;
-import org.cubeville.commons.CommandParameterEnum;
+import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandParameterEnum;
 
 import kipperorigin.simplenbt.Main;
 import kipperorigin.simplenbt.commands.CommandMapManager;

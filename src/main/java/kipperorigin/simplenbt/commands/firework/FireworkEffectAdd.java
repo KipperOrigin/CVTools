@@ -7,7 +7,7 @@ import java.util.Set;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.entity.Player;
-import org.cubeville.commons.Command;
+import org.cubeville.commons.commands.Command;
 
 public class FireworkEffectAdd extends Command {
 

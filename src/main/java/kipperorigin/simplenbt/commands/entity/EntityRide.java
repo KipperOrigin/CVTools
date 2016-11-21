@@ -7,7 +7,7 @@ import java.util.Set;
 import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.cubeville.commons.Command;
+import org.cubeville.commons.commands.Command;
 
 import kipperorigin.simplenbt.commands.CommandMapManager;
 import kipperorigin.simplenbt.resources.Colorize;

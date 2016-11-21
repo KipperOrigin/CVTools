@@ -9,8 +9,8 @@ import java.util.Set;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
-import org.cubeville.commons.Command;
-import org.cubeville.commons.CommandParameterEnumeratedStringList;
+import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandParameterEnumeratedStringList;
 
 import kipperorigin.simplenbt.nbt.NBTItem;
 

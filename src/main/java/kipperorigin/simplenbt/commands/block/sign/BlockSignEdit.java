@@ -8,7 +8,7 @@ import java.util.Set;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
-import org.cubeville.commons.Command;
+import org.cubeville.commons.commands.Command;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;

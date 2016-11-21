@@ -8,8 +8,8 @@ import org.bukkit.entity.Horse;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Horse.Variant;
-import org.cubeville.commons.Command;
-import org.cubeville.commons.CommandParameterEnum;
+import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandParameterEnum;
 
 import kipperorigin.simplenbt.commands.CommandMapManager;
 import kipperorigin.simplenbt.resources.Colorize;

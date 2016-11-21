@@ -1,6 +1,6 @@
 package kipperorigin.simplenbt.commands;
 
-import org.cubeville.commons.CommandParser;
+import org.cubeville.commons.commands.CommandParser;
 
 import kipperorigin.simplenbt.commands.armor.*;
 import kipperorigin.simplenbt.commands.banner.*;
@@ -17,7 +17,7 @@ import kipperorigin.simplenbt.commands.item.flags.*;
 import kipperorigin.simplenbt.commands.item.lore.*;
 import kipperorigin.simplenbt.commands.mob.*;
 import kipperorigin.simplenbt.commands.mob.horse.*;
-import kipperorigin.simplenbt.commands.other.*;
+import kipperorigin.simplenbt.commands.mob.other.*;
 import kipperorigin.simplenbt.commands.player.*;
 import kipperorigin.simplenbt.commands.potion.*;
 import kipperorigin.simplenbt.commands.skull.*;

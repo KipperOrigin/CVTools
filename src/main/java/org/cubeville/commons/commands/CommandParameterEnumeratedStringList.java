@@ -1,4 +1,4 @@
-package org.cubeville.commons;
+package org.cubeville.commons.commands;
 
 import java.util.Set;
 import java.util.HashSet;

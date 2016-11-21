@@ -1,4 +1,4 @@
-package kipperorigin.simplenbt.commands.other;
+package kipperorigin.simplenbt.commands.mob.other;
 
 import java.util.List;
 import java.util.Map;
@@ -7,7 +7,7 @@ import java.util.Set;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.cubeville.commons.Command;
+import org.cubeville.commons.commands.Command;
 
 import kipperorigin.simplenbt.commands.CommandMapManager;
 import kipperorigin.simplenbt.resources.Colorize;

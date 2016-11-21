@@ -1,12 +1,12 @@
-package org.cubeville.commons;
+package org.cubeville.commons.commands;
 
 import java.lang.NumberFormatException;
 
-public class CommandParameterShort implements CommandParameterType
+public class CommandParameterDouble implements CommandParameterType
 {
     public boolean isValid(String value) {
         try {
-            Short.valueOf(value);
+            Double.valueOf(value);
             return true;
         }
         catch(NumberFormatException e) {
@@ -19,6 +19,6 @@ public class CommandParameterShort implements CommandParameterType
     }
 
     public Object getValue(String value) {
-        return Short.valueOf(value);
+        return Double.valueOf(value);
     }
 }

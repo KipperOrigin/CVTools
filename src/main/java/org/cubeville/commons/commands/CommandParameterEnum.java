@@ -1,4 +1,4 @@
-package org.cubeville.commons;
+package org.cubeville.commons.commands;
 
 import java.util.EnumSet;
 import java.util.List;

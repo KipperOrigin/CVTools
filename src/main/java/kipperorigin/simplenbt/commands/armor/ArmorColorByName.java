@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.bukkit.entity.Player;
-import org.cubeville.commons.Command;
+import org.cubeville.commons.commands.Command;
 
 public class ArmorColorByName extends Command {
 

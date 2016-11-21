@@ -1,4 +1,4 @@
-package org.cubeville.commons;
+package org.cubeville.commons.commands;
 
 import org.bukkit.enchantments.Enchantment;
 

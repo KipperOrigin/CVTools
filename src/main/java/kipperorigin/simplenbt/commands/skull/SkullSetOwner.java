@@ -8,8 +8,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.cubeville.commons.Command;
-import org.cubeville.commons.CommandParameterString;
+import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandParameterString;
 
 public class SkullSetOwner extends Command {
 

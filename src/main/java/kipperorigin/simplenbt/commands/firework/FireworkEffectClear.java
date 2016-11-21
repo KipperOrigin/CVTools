@@ -8,7 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
-import org.cubeville.commons.Command;
+import org.cubeville.commons.commands.Command;
 
 public class FireworkEffectClear extends Command {
 

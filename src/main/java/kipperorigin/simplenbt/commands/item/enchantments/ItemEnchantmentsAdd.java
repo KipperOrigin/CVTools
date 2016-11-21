@@ -8,9 +8,9 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.cubeville.commons.Command;
-import org.cubeville.commons.CommandParameterEnchantment;
-import org.cubeville.commons.CommandParameterInteger;
+import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandParameterEnchantment;
+import org.cubeville.commons.commands.CommandParameterInteger;
 
 public class ItemEnchantmentsAdd extends Command {
 

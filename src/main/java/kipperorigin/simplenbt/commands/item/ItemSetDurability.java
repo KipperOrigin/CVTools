@@ -8,8 +8,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.cubeville.commons.Command;
-import org.cubeville.commons.CommandParameterShort;
+import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandParameterShort;
 
 public class ItemSetDurability extends Command {
 

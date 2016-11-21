@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.cubeville.commons.Command;
+import org.cubeville.commons.commands.Command;
 
 import kipperorigin.simplenbt.nbt.BookItem;
 

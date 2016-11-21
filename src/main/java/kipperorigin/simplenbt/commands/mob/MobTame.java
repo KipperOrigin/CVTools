@@ -8,8 +8,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Tameable;
-import org.cubeville.commons.Command;
-import org.cubeville.commons.CommandParameterString;
+import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandParameterString;
 
 import kipperorigin.simplenbt.commands.CommandMapManager;
 import kipperorigin.simplenbt.resources.Colorize;
