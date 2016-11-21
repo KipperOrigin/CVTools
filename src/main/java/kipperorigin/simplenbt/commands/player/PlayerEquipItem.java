@@ -6,10 +6,8 @@ import java.util.Set;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-import kipperorigin.simplenbt.commands.commandparser.Command;
-import kipperorigin.simplenbt.commands.commandparser.CommandParameterString;
-
+import org.cubeville.commons.Command;
+import org.cubeville.commons.CommandParameterString;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 
@@ -17,13 +15,13 @@ public class PlayerEquipItem extends Command {
 
 	public PlayerEquipItem() {
 		super("player equip");
-		addTextParameter(new CommandParameterString());
+		addBaseParameter(new CommandParameterString());
 		addParameter("player", true, new CommandParameterString());
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> textParameters) {
-		String slot = (String) textParameters.get(0);
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
+		String slot = (String) baseParameters.get(0);
 		Player playerI = player;
 		
 		if (parameters.containsKey("player"))

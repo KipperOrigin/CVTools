@@ -6,20 +6,21 @@ import java.util.Set;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import kipperorigin.simplenbt.commands.commandparser.Command;
-import kipperorigin.simplenbt.commands.commandparser.CommandParameterString;
+import org.cubeville.commons.Command;
+import org.cubeville.commons.CommandParameterString;
+
 import kipperorigin.simplenbt.nbt.PotionItem;
 
 public class PotionSetType extends Command {
 
 	public PotionSetType() {
 		super("potion type");
-		addTextParameter(new CommandParameterString());
+		addBaseParameter(new CommandParameterString());
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> textParameters) {
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
 
 		if (player.getInventory().getItemInMainHand().getType() != Material.POTION 
 				&& player.getInventory().getItemInMainHand().getType() != Material.LINGERING_POTION 
@@ -28,7 +29,7 @@ public class PotionSetType extends Command {
 			return;
 		
 		PotionItem potionItem = new PotionItem(player.getInventory().getItemInMainHand());
-		String type = (String) textParameters.get(0);
+		String type = (String) baseParameters.get(0);
 		
 		if (type.equalsIgnoreCase("lingering"))
 			potionItem.setLingering();

@@ -9,9 +9,9 @@ import java.util.Set;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
+import org.cubeville.commons.Command;
+import org.cubeville.commons.CommandParameterEnumeratedStringList;
 
-import kipperorigin.simplenbt.commands.commandparser.Command;
-import kipperorigin.simplenbt.commands.commandparser.CommandParameterEnumeratedStringList;
 import kipperorigin.simplenbt.nbt.NBTItem;
 
 public class ItemFlags  extends Command {
@@ -31,7 +31,7 @@ public class ItemFlags  extends Command {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> textParameters) {
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
 		NBTItem item = new NBTItem(player.getInventory().getItemInMainHand());
 		Set<String> removeArgs = (Set<String>) parameters.get("remove");
 		Set<String> addArgs = (Set<String>) parameters.get("add");

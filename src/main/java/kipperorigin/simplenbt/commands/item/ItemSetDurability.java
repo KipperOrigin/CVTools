@@ -8,9 +8,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import kipperorigin.simplenbt.commands.commandparser.Command;
-import kipperorigin.simplenbt.commands.commandparser.CommandParameterShort;
+import org.cubeville.commons.Command;
+import org.cubeville.commons.CommandParameterShort;
 
 public class ItemSetDurability extends Command {
 
@@ -23,7 +22,7 @@ public class ItemSetDurability extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> textParameters) {
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
 		ItemStack item = player.getInventory().getItemInMainHand();
 		
 		if (item == null || item.getType() == Material.AIR)

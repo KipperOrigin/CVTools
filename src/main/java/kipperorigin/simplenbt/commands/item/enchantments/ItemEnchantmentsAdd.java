@@ -8,27 +8,26 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-import kipperorigin.simplenbt.commands.commandparser.Command;
-import kipperorigin.simplenbt.commands.commandparser.CommandParameterEnchantment;
-import kipperorigin.simplenbt.commands.commandparser.CommandParameterInteger;
+import org.cubeville.commons.Command;
+import org.cubeville.commons.CommandParameterEnchantment;
+import org.cubeville.commons.CommandParameterInteger;
 
 public class ItemEnchantmentsAdd extends Command {
 
     public ItemEnchantmentsAdd() {                                                                     
         super("item enchant add");
-        addTextParameter(new CommandParameterEnchantment());
-        addTextParameter(new CommandParameterInteger());
+        addBaseParameter(new CommandParameterEnchantment());
+        addBaseParameter(new CommandParameterInteger());
     }
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> textParameters) {
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
 		ItemStack item = player.getInventory().getItemInMainHand();
 		
 		if (item == null || item.getType() == Material.AIR)
 			return;
 		
-		item.addUnsafeEnchantment((Enchantment) textParameters.get(0), (int) textParameters.get(1));
+		item.addUnsafeEnchantment((Enchantment) baseParameters.get(0), (int) baseParameters.get(1));
 	}
 
 }

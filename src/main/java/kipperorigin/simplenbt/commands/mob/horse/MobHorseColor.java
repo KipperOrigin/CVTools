@@ -5,40 +5,42 @@ import java.util.Map;
 import java.util.Set;
 
 import org.bukkit.entity.Horse;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Horse.Color;
 import org.bukkit.entity.Horse.Variant;
+import org.cubeville.commons.Command;
+import org.cubeville.commons.CommandParameterEnum;
 
-import kipperorigin.simplenbt.commands.commandparser.Command;
-import kipperorigin.simplenbt.commands.commandparser.CommandParameterEnum;
+import kipperorigin.simplenbt.commands.CommandMapManager;
 import kipperorigin.simplenbt.resources.Colorize;
-import kipperorigin.simplenbt.resources.MobCommandMap;
 
 public class MobHorseColor extends Command {
 
 	public MobHorseColor() {
 		super("mob horse color");
-		addTextParameter(new CommandParameterEnum(Color.class));
+		addBaseParameter(new CommandParameterEnum(Color.class));
 		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> textParameters) {
-		if (!MobCommandMap.containsKey(player)) {
-			player.sendMessage(Colorize.addColor("&cPlease select a normal &6horse&c!"));
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
+		Map<String, LivingEntity> commandMap = CommandMapManager.getLivingEntityCommandMap();
+		if (!commandMap.containsKey(player.getName())) {
+			player.sendMessage(Colorize.addColor("&cPlease select a &6normal horse&c!"));
 			return;
-		} else if (MobCommandMap.getValue(player) == null || !(MobCommandMap.getValue(player) instanceof Horse)) {
-			player.sendMessage(Colorize.addColor("&cPlease select a normal &6horse&c!"));
+		} else if (commandMap.get(player.getName()) == null || !(commandMap.get(player.getName()) instanceof Horse)) {
+			player.sendMessage(Colorize.addColor("&cPlease select a &6normal horse&c!"));
 			return;
 		}
 		
-		Horse horse = (Horse) MobCommandMap.getValue(player);
+		Horse horse = (Horse) commandMap.get(player.getName());
 		
 		if (horse.getVariant() != Variant.HORSE) {
-			player.sendMessage(Colorize.addColor("&cPlease select a normal &6horse&c!"));
+			player.sendMessage(Colorize.addColor("&cPlease select a &6normal horse&c!"));
 			return;
 		}
 		
-		horse.setColor((Color) textParameters.get(0));
+		horse.setColor((Color) baseParameters.get(0));
 	}
 }

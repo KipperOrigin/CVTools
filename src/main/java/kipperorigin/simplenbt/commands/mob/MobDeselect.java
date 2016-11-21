@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.cubeville.commons.Command;
 
-import kipperorigin.simplenbt.commands.commandparser.Command;
+import kipperorigin.simplenbt.commands.CommandMapManager;
 import kipperorigin.simplenbt.resources.Colorize;
-import kipperorigin.simplenbt.resources.MobCommandMap;
 
 public class MobDeselect extends Command {
 
@@ -18,16 +20,24 @@ public class MobDeselect extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> textParameters) {
-		if (MobCommandMap.containsKey(player)) {
-			if (MobCommandMap.getValue(player) == null) {
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
+		Map<String, LivingEntity> commandMap = CommandMapManager.getLivingEntityCommandMap();
+		Map<String, Entity> entityCommandMap = CommandMapManager.getEntityCommandMap();
+		if (commandMap.containsKey(player.getName())) {
+			if (commandMap.get(player.getName()) == null) {
 				player.sendMessage(Colorize.addColor("&cSelection cancelled!"));
 			} else
-				player.sendMessage(Colorize.addColor("&cMob deselected!"));
+				if (commandMap.get(player.getName()).getCustomName() != null)
+					player.sendMessage(Colorize.addColor("&cMob &6" + commandMap.get(player.getName()).getCustomName() + "&c deselected!"));
+				else
+					player.sendMessage(Colorize.addColor("&cMob &6" + commandMap.get(player.getName()).getName() + "&c deselected!"));
 			
-			MobCommandMap.removeEventCommand(player);
+			commandMap.remove(player.getName());
+			
+			if (entityCommandMap.containsKey(player.getName()))
+				entityCommandMap.remove(player.getName());
 		} else {
-			player.sendMessage(Colorize.addColor("&cCannot cancel invalid selection!"));
+			player.sendMessage(Colorize.addColor("&cCannot cancel invalid block selection!"));
 		}
 	}
 

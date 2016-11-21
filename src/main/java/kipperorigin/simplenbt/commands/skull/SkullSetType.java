@@ -7,21 +7,21 @@ import java.util.Set;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import kipperorigin.simplenbt.commands.commandparser.Command;
-import kipperorigin.simplenbt.commands.commandparser.CommandParameterShort;
+import org.cubeville.commons.Command;
+import org.cubeville.commons.CommandParameterShort;
 
 public class SkullSetType extends Command {
 
 	public SkullSetType() {
 		super("skull type");
-		addTextParameter(new CommandParameterShort());
+		addBaseParameter(new CommandParameterShort());
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> textParameters) {
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
 
 		ItemStack item = player.getInventory().getItemInMainHand();
-		short data = (short) textParameters.get(0);
+		short data = (short) baseParameters.get(0);
 		
 		if (item.getType() != Material.SKULL_ITEM)
 			return;

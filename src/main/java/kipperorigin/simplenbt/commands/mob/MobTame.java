@@ -5,13 +5,14 @@ import java.util.Map;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Tameable;
+import org.cubeville.commons.Command;
+import org.cubeville.commons.CommandParameterString;
 
-import kipperorigin.simplenbt.commands.commandparser.Command;
-import kipperorigin.simplenbt.commands.commandparser.CommandParameterString;
+import kipperorigin.simplenbt.commands.CommandMapManager;
 import kipperorigin.simplenbt.resources.Colorize;
-import kipperorigin.simplenbt.resources.MobCommandMap;
 
 public class MobTame extends Command {
 
@@ -23,16 +24,17 @@ public class MobTame extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> textParameters) {
-		if (!MobCommandMap.containsKey(player)) {
-			player.sendMessage(Colorize.addColor("&cPlease select an &6tameable mob&c!"));
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
+		Map<String, LivingEntity> commandMap = CommandMapManager.getLivingEntityCommandMap();
+		if (!commandMap.containsKey(player.getName())) {
+			player.sendMessage(Colorize.addColor("&cPlease select a &6tameable mob&c!"));
 			return;
-		} else if (MobCommandMap.getValue(player) == null || !Tameable.class.isAssignableFrom(MobCommandMap.getValue(player).getClass())) {
-			player.sendMessage(Colorize.addColor("&cPlease select an &6tameable mob&c!"));
+		} else if (commandMap.get(player.getName()) == null || !Tameable.class.isAssignableFrom(commandMap.get(player.getName()).getClass())) {
+			player.sendMessage(Colorize.addColor("&cPlease select a &6tameable mob&c!"));
 			return;
 		}
 		
-		Tameable entity = (Tameable) MobCommandMap.getValue(player);
+		Tameable entity = (Tameable) commandMap.get(player.getName());
 		Player playerT = player;
 
 		if (parameters.containsKey("player"))

@@ -8,25 +8,24 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-import kipperorigin.simplenbt.commands.commandparser.Command;
-import kipperorigin.simplenbt.commands.commandparser.CommandParameterEnchantment;
+import org.cubeville.commons.Command;
+import org.cubeville.commons.CommandParameterEnchantment;
 
 public class ItemEnchantmentsRemove extends Command {
 
 	public ItemEnchantmentsRemove() {                                                                     
         super("item enchant remove");
-        addTextParameter(new CommandParameterEnchantment());
+        addBaseParameter(new CommandParameterEnchantment());
     }
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> textParameters) {
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
 		ItemStack item = player.getInventory().getItemInMainHand();
 		
 		if (item == null || item.getType() == Material.AIR)
 			return;
 		
-		item.removeEnchantment((Enchantment) textParameters.get(0));
+		item.removeEnchantment((Enchantment) baseParameters.get(0));
 	}
 
 }

@@ -5,35 +5,37 @@ import java.util.Map;
 import java.util.Set;
 
 import org.bukkit.entity.Horse;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Horse.Variant;
+import org.cubeville.commons.Command;
+import org.cubeville.commons.CommandParameterEnum;
 
-import kipperorigin.simplenbt.commands.commandparser.Command;
-import kipperorigin.simplenbt.commands.commandparser.CommandParameterEnum;
+import kipperorigin.simplenbt.commands.CommandMapManager;
 import kipperorigin.simplenbt.resources.Colorize;
-import kipperorigin.simplenbt.resources.MobCommandMap;
 
 public class MobHorseVariant extends Command {
 
 	public MobHorseVariant() {
 		super("mob horse variant");
-		addTextParameter(new CommandParameterEnum(Variant.class));
+		addBaseParameter(new CommandParameterEnum(Variant.class));
 		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> textParameters) {
-		if (!MobCommandMap.containsKey(player)) {
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
+		Map<String, LivingEntity> commandMap = CommandMapManager.getLivingEntityCommandMap();
+		if (!commandMap.containsKey(player.getName())) {
 			player.sendMessage(Colorize.addColor("&cPlease select a &6horse&c!"));
 			return;
-		} else if (MobCommandMap.getValue(player) == null || !(MobCommandMap.getValue(player) instanceof Horse)) {
+		} else if (commandMap.get(player.getName()) == null || !(commandMap.get(player.getName()) instanceof Horse)) {
 			player.sendMessage(Colorize.addColor("&cPlease select a &6horse&c!"));
 			return;
-		} 
+		}
 		
-		Horse horse = (Horse) MobCommandMap.getValue(player);
+		Horse horse = (Horse) commandMap.get(player.getName());
 		
-		horse.setVariant((Variant) textParameters.get(0));
+		horse.setVariant((Variant) baseParameters.get(0));
 	}
 
 }

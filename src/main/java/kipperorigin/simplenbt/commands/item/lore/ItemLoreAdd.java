@@ -5,8 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.bukkit.entity.Player;
-
-import kipperorigin.simplenbt.commands.commandparser.Command;
+import org.cubeville.commons.Command;
 
 public class ItemLoreAdd extends Command {
 
@@ -16,7 +15,7 @@ public class ItemLoreAdd extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> textParameters) {
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
 		// TODO Auto-generated method stub
 		
 	}

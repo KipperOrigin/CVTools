@@ -7,6 +7,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.cubeville.commons.CommandParser;
+
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 
 import kipperorigin.simplenbt.commands.*;
 import kipperorigin.simplenbt.commands.armor.ArmorColorByName;
@@ -17,7 +21,6 @@ import kipperorigin.simplenbt.commands.book.BookMain;
 import kipperorigin.simplenbt.commands.book.BookSetAuthor;
 import kipperorigin.simplenbt.commands.book.BookSetTitle;
 import kipperorigin.simplenbt.commands.book.BookUnsign;
-import kipperorigin.simplenbt.commands.commandparser.CommandParser;
 import kipperorigin.simplenbt.commands.firework.FireworkEffectAdd;
 import kipperorigin.simplenbt.commands.firework.FireworkEffectClear;
 import kipperorigin.simplenbt.commands.firework.FireworkEffectRemove;
@@ -47,24 +50,27 @@ import kipperorigin.simplenbt.commands.potion.PotionSetType;
 import kipperorigin.simplenbt.commands.skull.SkullSetOwner;
 import kipperorigin.simplenbt.commands.skull.SkullSetType;
 import kipperorigin.simplenbt.events.EventManager;
-import kipperorigin.simplenbt.resources.MobCommandMap;
+import kipperorigin.simplenbt.events.ProtocolEventManager;
 
 @SuppressWarnings("unused")
 public class Main extends JavaPlugin {
 	
 	EventManager eventManager;
+	ProtocolEventManager pmManager;
 	
 	public void onEnable() {   
 		CommandManager.registerCommands();
+		CommandMapManager.registerCommandMaps();
 		eventManager = new EventManager(this);
-		MobCommandMap.eventCommands = new HashMap<>();
+		pmManager = new ProtocolEventManager(this);
 		
+		pmManager.registerEvents();
 		eventManager.registerEvents();
 	}
 	
 	public void onDisable() {
 		CommandManager.commandParser = null;
-		MobCommandMap.eventCommands = null;
+		CommandMapManager.unregisterCommandMaps();
 	}
 
     @Override                                                                                                                                                                                  

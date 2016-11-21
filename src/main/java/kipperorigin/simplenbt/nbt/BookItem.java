@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_9_R2.inventory.CraftItemStack;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 
 import kipperorigin.simplenbt.resources.Colorize;
@@ -15,7 +14,6 @@ public class BookItem extends org.bukkit.inventory.ItemStack {
 	private net.minecraft.server.v1_9_R2.ItemStack item = null;
 	private BookMeta meta = null;
 	private NBTTagCompound tags = null;
-	Colorize colorize = new Colorize();
 
 	public BookItem(org.bukkit.inventory.ItemStack item) {
 		if (item.getType() == Material.WRITTEN_BOOK) {
@@ -49,11 +47,11 @@ public class BookItem extends org.bukkit.inventory.ItemStack {
 	}
 	
 	public void setAuthor(String author) {
-		meta.setAuthor(colorize.addColor(author));
+		meta.setAuthor(Colorize.addColor(author));
 	}
 	
 	public void setTitle(String title) {		
-		meta.setTitle(colorize.addColor(title));
+		meta.setTitle(Colorize.addColor(title));
 	}
 	
 	public void setPages(List<String> pages) {
@@ -62,7 +60,7 @@ public class BookItem extends org.bukkit.inventory.ItemStack {
 
 	public void colorizeBook() {
 		if (meta.hasPages())
-			meta.setPages(colorize.addColor(meta.getPages()));
+			meta.setPages(Colorize.addColor(meta.getPages()));
 		this.setAuthor(meta.getAuthor());
 		this.setTitle(meta.getTitle());
 	}

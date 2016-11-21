@@ -1,4 +1,5 @@
 package kipperorigin.simplenbt.nbt;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
@@ -19,8 +20,6 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Maps;
-
-import kipperorigin.simplenbt.nbt.Attributes.AttributeType;
 
 public class Attributes {
     public enum Operation {
