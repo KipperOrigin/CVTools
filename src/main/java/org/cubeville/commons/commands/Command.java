@@ -23,6 +23,7 @@ public abstract class Command
     private Map<String, CommandParameterType> optional;
     private Map<String, CommandParameterType> mandatory;
     private List<CommandParameterType> base;
+    int mandatoryBase;
 
     public Command(String fullCommand) {
         commands = Arrays.asList(fullCommand.split(" "));
@@ -30,6 +31,7 @@ public abstract class Command
         optional = new HashMap<>();
         mandatory = new HashMap<>();
         base = new ArrayList<>();
+        mandatoryBase = 0;
     }
 
     public String getFullCommand() {
@@ -47,6 +49,12 @@ public abstract class Command
     }
 
     protected void addBaseParameter(CommandParameterType type) {
+        if(base.size() != mandatoryBase) return;
+        base.add(type);
+        mandatoryBase++;
+    }
+
+    protected void addOptionalBaseParameter(CommandParameterType type) {
         base.add(type);
     }
     
@@ -106,7 +114,7 @@ public abstract class Command
                 }
             }
         }
-        if(baseParametersSet != base.size()) {
+        if(baseParametersSet > base.size() || baseParametersSet < mandatoryBase) {
             return "Wrong number of parameters!";
         }
         if(mandatoryParametersChecked.size() != mandatory.size()) {
