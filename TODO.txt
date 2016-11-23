@@ -1,5 +1,7 @@
 - Mobs:
-  - Sheep
-  - Creeper
   - Armor Stand (equipment slots/poses)
-  - 
+- CV Tools:
+  - Turn SNBT into CV Tools, with SNBT being one of the tools.
+  - CV Tools will be general 'tools' plugin for CV.
+  - Create Delayed Command Tool
+  - Create stopwatch 

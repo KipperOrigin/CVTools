@@ -26,6 +26,7 @@ public abstract class Command
 
     public Command(String fullCommand) {
         commands = Arrays.asList(fullCommand.split(" "));
+        //commandsSplit = Arrays.asList(fullCommand.split(" (?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"));
         flags = new HashSet<>();
         optional = new HashMap<>();
         mandatory = new HashMap<>();
