@@ -18,7 +18,6 @@ public class DelayedTask extends Command {
 	public DelayedTask(CVTools plugin) {
 		super("delay");
 		addBaseParameter(new CommandParameterInteger());
-		addBaseParameter(new CommandParameterInteger());
 		addParameter("cmd", true, new CommandParameterString());
 		addParameter("chat", true, new CommandParameterString());
 		this.plugin = plugin;
@@ -27,7 +26,6 @@ public class DelayedTask extends Command {
 	@Override
 	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
 		int delay = (int) baseParameters.get(0);
-		String command = (String) baseParameters.get(1);
 		
 		if (!flags.contains("ticks"))
 			delay *= 20;
@@ -36,9 +34,16 @@ public class DelayedTask extends Command {
 
 			@Override
 			public void run() {
-				player.performCommand(command);
+				runDelayedTask(player, parameters);
 			}
 			
 		}, delay);
+	}
+	
+	public void runDelayedTask(Player player, Map<String, Object> parameters) {
+		if (parameters.containsKey("cmd"))
+			player.performCommand((String) parameters.get("cmd"));
+		else if (parameters.containsKey("chat"))
+			player.chat((String) parameters.get("chat"));
 	}
 }
