@@ -1,6 +1,6 @@
 package org.cubeville.commons.commands;
 
-import kipperorigin.simplenbt.resources.Colorize;
+import org.cubeville.cvtools.utils.Colorize;
 
 public class CommandParameterColor implements CommandParameterType
 {
