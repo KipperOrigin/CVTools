@@ -1,5 +1,5 @@
 name: SimpleNBT
-main: kipperorigin.simplenbt.Main
+main: org.cubeville.cvtools.CVTools
 author: KipperOrigin
 version: 0.1
 

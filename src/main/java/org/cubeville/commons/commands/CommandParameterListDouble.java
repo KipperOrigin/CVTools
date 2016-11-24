@@ -4,7 +4,7 @@ import java.lang.NumberFormatException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandParameterListDouble
+public class CommandParameterListDouble implements CommandParameterType
 {
     int length;
 
