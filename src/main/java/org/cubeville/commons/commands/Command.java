@@ -124,7 +124,7 @@ public abstract class Command
         return null;
     }
 
-    public void execute(Player player, String[] args) {
+    public void execute(Player player, String[] args) throws CommandExecutionException {
         Set<String> flags = new HashSet<>();
         Map<String, Object> parameters = new HashMap<>();
         List<Object> baseParameters = new ArrayList<>();
@@ -151,5 +151,5 @@ public abstract class Command
         execute(player, flags, parameters, baseParameters);
     }
     
-    public abstract void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters);
+    public abstract void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) throws CommandExecutionException;
 }

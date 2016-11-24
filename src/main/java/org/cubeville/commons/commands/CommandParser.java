@@ -18,25 +18,31 @@ public class CommandParser
     }
 
     public boolean execute(Player player, String[] args) {
-        String parameterError = null;
-        for(Command command: commands) {
-            if(command.checkCommand(args)) {
-                parameterError = command.checkParameters(args);
-                if(parameterError == null) {
-                    command.execute(player, args);
-                    return true;
+        try {
+            String parameterError = null;
+            for(Command command: commands) {
+                if(command.checkCommand(args)) {
+                    parameterError = command.checkParameters(args);
+                    if(parameterError == null) {
+                        command.execute(player, args);
+                        return true;
+                    }
                 }
             }
+            
+            if(parameterError != null) {
+                player.sendMessage(parameterError);
+            }
+            
+            else {
+                player.sendMessage("Unknown command!");
+            }
+            return false;
         }
-
-        if(parameterError != null) {
-            player.sendMessage(parameterError);
+        catch(CommandExecutionException e) {
+            player.sendMessage(e.getMessage());
+            return true;
         }
-
-        else {
-            player.sendMessage("Unknown command!");
-        }
-        return false;
     }
  
 }
