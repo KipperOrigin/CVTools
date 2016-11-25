@@ -25,6 +25,7 @@ public class CommandParser
                     parameterError = command.checkParameters(args);
                     if(parameterError == null) {
                         command.execute(player, args);
+                        player.sendMessage(command.getSuccessMessage());
                         return true;
                     }
                 }

@@ -40,6 +40,10 @@ public abstract class Command
         for(int i = 1; i < commands.size(); i++) ret += " " + commands.get(i);
         return ret;
     }
+
+    public String getSuccessMessage() {
+        return "Command executed successfully.";
+    }
     
     public String[] getArgs() {
     	return (String[]) commands.toArray();
