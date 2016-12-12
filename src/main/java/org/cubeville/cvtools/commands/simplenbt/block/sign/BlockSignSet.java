@@ -36,7 +36,7 @@ public class BlockSignSet extends Command {
 			return;
 		}
 		
-		if ((int) baseParameters.get(0) > 4 || (int) baseParameters.get(0) < 0) {
+		if ((int) baseParameters.get(0) > 4 || (int) baseParameters.get(0) < 1) {
  			player.sendMessage(Colorize.addColor("&cInvalid sign line!"));
 			return;
 		}

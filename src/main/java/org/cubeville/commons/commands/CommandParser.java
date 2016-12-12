@@ -44,6 +44,10 @@ public class CommandParser
             player.sendMessage(e.getMessage());
             return true;
         }
+        catch(IllegalArgumentException e) {
+            player.sendMessage(e.getMessage());
+            return true;
+        }
     }
  
 }

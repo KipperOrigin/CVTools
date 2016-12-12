@@ -61,6 +61,7 @@ public class CVTools extends JavaPlugin {
 	
 	public void onEnable() {   
 		CommandManager.registerAllCommands(this);
+		CommandMapManager.registerCommandMaps();
 		eventManager = new EventManager(this);
 		pmManager = new ProtocolEventManager(this);
 		

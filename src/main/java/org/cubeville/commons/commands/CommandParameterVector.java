@@ -29,4 +29,3 @@ public class CommandParameterVector implements CommandParameterType
     	return vec;
     }
 }
-
