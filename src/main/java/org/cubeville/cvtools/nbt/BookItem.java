@@ -5,11 +5,11 @@ import java.util.List;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_9_R2.inventory.CraftItemStack;
 import org.bukkit.inventory.meta.BookMeta;
-import org.cubeville.cvtools.utils.Colorize;
+import org.cubeville.commons.utils.Colorize;
 
 import net.minecraft.server.v1_9_R2.NBTTagCompound;
 
-public class BookItem extends org.bukkit.inventory.ItemStack {
+public class BookItem {
 	
 	private net.minecraft.server.v1_9_R2.ItemStack item = null;
 	private BookMeta meta = null;

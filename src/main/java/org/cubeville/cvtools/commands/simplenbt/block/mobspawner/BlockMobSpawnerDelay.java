@@ -9,22 +9,24 @@ import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterEnum;
+import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.CVTools;
 import org.cubeville.cvtools.commands.CommandMapManager;
-import org.cubeville.cvtools.utils.Colorize;
 
-public class MobSpawnerDelay extends Command {
+public class BlockMobSpawnerDelay extends Command {
 
 	CVTools plugin;
 	
-	public MobSpawnerDelay() {
+	public BlockMobSpawnerDelay() {
 		super("block spawner delay");
 		addBaseParameter(new CommandParameterEnum(EntityType.class));
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+			throws CommandExecutionException {
 		Map<String, Block> commandMap = CommandMapManager.getBlockCommandMap();
 		
 		if (!commandMap.containsKey(player.getName())) {

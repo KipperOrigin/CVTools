@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_9_R2.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.cubeville.cvtools.nbt.Attributes.Attribute;
 import org.cubeville.cvtools.nbt.Attributes.AttributeType;
+
+import net.minecraft.server.v1_9_R2.NBTTagCompound;
+import net.minecraft.server.v1_9_R2.NBTTagList;
 
 public class NBTItem {
 
@@ -157,6 +161,31 @@ public class NBTItem {
 		item = attributes.getStack();
 		itemMeta = item.getItemMeta();
 	}
+	
+	public void addGlow() {
+        net.minecraft.server.v1_9_R2.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
+        NBTTagCompound tag = null;
+        if (!nmsStack.hasTag()) {
+            tag = new NBTTagCompound();
+            nmsStack.setTag(tag);
+        }
+        if (tag == null) tag = nmsStack.getTag();
+        NBTTagList ench = new NBTTagList();
+        tag.set("ench", ench);
+        nmsStack.setTag(tag);
+        item = CraftItemStack.asCraftMirror(nmsStack);
+    }
+	
+    public void removeGlow() {
+        net.minecraft.server.v1_9_R2.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
+        NBTTagCompound tag = null;
+        if (nmsStack.hasTag()) {
+            tag = nmsStack.getTag();
+            tag.remove("ench");
+            nmsStack.setTag(tag);
+            item = CraftItemStack.asCraftMirror(nmsStack);
+        }
+    }
 	
 	public List<String> getAttributes() {
 		List<String> attributeNames = new ArrayList<String>();

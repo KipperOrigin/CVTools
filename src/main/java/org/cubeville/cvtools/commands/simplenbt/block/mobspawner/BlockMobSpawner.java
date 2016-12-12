@@ -9,22 +9,23 @@ import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterEnum;
-import org.cubeville.cvtools.CVTools;
+import org.cubeville.commons.commands.CommandParameterInteger;
+import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.commands.CommandMapManager;
-import org.cubeville.cvtools.utils.Colorize;
 
-public class MobSpawnerEntity extends Command {
-
-	CVTools plugin;
+public class BlockMobSpawner extends Command {
 	
-	public MobSpawnerEntity() {
-		super("block spawner entity");
-		addBaseParameter(new CommandParameterEnum(EntityType.class));
+	public BlockMobSpawner() {
+		super("block spawner");
+		addParameter("entity", true, new CommandParameterEnum(EntityType.class));
+		addParameter("delay", true, new CommandParameterInteger());
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+			throws CommandExecutionException {
 		Map<String, Block> commandMap = CommandMapManager.getBlockCommandMap();
 		
 		if (!commandMap.containsKey(player.getName())) {
@@ -36,8 +37,12 @@ public class MobSpawnerEntity extends Command {
 		}
 		
 		CreatureSpawner spawner = (CreatureSpawner) commandMap.get(player.getName()).getState();
-
-		spawner.setSpawnedType((EntityType) baseParameters.get(0));
+		
+		if (parameters.containsKey("entity"))
+			spawner.setSpawnedType((EntityType) parameters.get("entity"));
+		if (parameters.containsKey("delay"))
+			spawner.setDelay((int) parameters.get("delay"));
+		
 		spawner.update();
 	}
 }

@@ -9,17 +9,19 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterString;
 
-public class SkullSetOwner extends Command {
+public class SkullOwner extends Command {
 
-	public SkullSetOwner() {
+	public SkullOwner() {
 		super("skull owner");
 		addBaseParameter(new CommandParameterString());
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+			throws CommandExecutionException {
 		ItemStack item = player.getInventory().getItemInMainHand();
 		SkullMeta meta;
 

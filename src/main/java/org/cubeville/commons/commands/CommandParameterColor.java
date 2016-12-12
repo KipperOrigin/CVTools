@@ -1,6 +1,6 @@
 package org.cubeville.commons.commands;
 
-import org.cubeville.cvtools.utils.Colorize;
+import org.cubeville.commons.utils.Colorize;
 
 public class CommandParameterColor implements CommandParameterType
 {

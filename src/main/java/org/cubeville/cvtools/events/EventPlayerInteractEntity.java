@@ -8,8 +8,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.commands.CommandMapManager;
-import org.cubeville.cvtools.utils.Colorize;
 
 public class EventPlayerInteractEntity implements Listener {
     
@@ -28,6 +28,9 @@ public class EventPlayerInteractEntity implements Listener {
 		
 		if (entity instanceof LivingEntity) {
 			if (livingEntityCommandMap.containsKey(name)) {
+				
+				event.setCancelled(true);
+				
 				if (livingEntityCommandMap.get(name) == entity)
 					return;
 				
@@ -39,9 +42,11 @@ public class EventPlayerInteractEntity implements Listener {
 					event.getPlayer().sendMessage(Colorize.addColor("&aMob &6" + entity.getName() + "&a selected!"));
 			}
 		}
-		event.setCancelled(true);
 			
 		if (entityCommandMap.containsKey(name)) {
+
+			event.setCancelled(true);
+			
 			if (entityCommandMap.get(name) == entity)
 				return;
 				

@@ -6,16 +6,18 @@ import java.util.Set;
 
 import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandExecutionException;
 
-public class ItemSetName extends Command {
+public class ItemName extends Command {
 
-	public ItemSetName() {
+	public ItemName() {
 		super("item name");
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+			throws CommandExecutionException {
 		// TODO Auto-generated method stub
 		
 	}

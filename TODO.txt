@@ -1,7 +1,9 @@
-- Mobs:
+- Entities:
   - Armor Stand (equipment slots/poses)
-- CV Tools:
-  - Turn SNBT into CV Tools, with SNBT being one of the tools.
-  - CV Tools will be general 'tools' plugin for CV.
-  - Create Delayed Command Tool
-  - Create stopwatch 
+  - Painting (Change art| Find out how it is handled, where does the art originate, does force make it force through blocks etc.)
+- Block State:
+  - Custom Name (seems to be a 1.10/11 thing) Should be possible through NMS
+  - Lockable (seems to be a 1.10/11 thing) Should be possible through NMS
+- Items:
+  - Repairable (set repair cost)
+  

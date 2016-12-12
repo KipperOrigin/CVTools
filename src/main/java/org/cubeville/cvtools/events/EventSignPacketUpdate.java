@@ -3,7 +3,7 @@ package org.cubeville.cvtools.events;
 import org.bukkit.Location;
 import org.bukkit.block.Sign;
 import org.bukkit.plugin.Plugin;
-import org.cubeville.cvtools.utils.Colorize;
+import org.cubeville.commons.utils.Colorize;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;
