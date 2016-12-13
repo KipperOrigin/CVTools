@@ -61,7 +61,7 @@ public class LoadoutHandler {
 	}
 	
 	public static boolean applyLoadoutFromSign(Player player, Sign sign) {		
-		LoadoutContainer lc = CVTools.loadoutManager.getLoadout(sign.getLine(2));
+            LoadoutContainer lc = CVTools.getInstance().getLoadoutManager().getLoadout(sign.getLine(2));
 		
 		if (lc == null)
 			return false;

@@ -22,10 +22,10 @@ public class LoadoutEdit extends Command{
 	@Override
 	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
 			throws CommandExecutionException {
-		if (!CVTools.loadoutManager.contains((String) baseParameters.get(0)))
+            if (!CVTools.getInstance().getLoadoutManager().contains((String) baseParameters.get(0)))
 			return;
 		
-		LoadoutContainer loadout = CVTools.loadoutManager.getLoadout((String) baseParameters.get(0));
+            LoadoutContainer loadout = CVTools.getInstance().getLoadoutManager().getLoadout((String) baseParameters.get(0));
 		String loadoutName = "main";
 		
 		if (parameters.containsKey("team"))

@@ -24,56 +24,70 @@ import com.comphenix.protocol.ProtocolManager;
 @SuppressWarnings("unused")
 public class CVTools extends JavaPlugin {
 	
-	EventManager eventManager;
-	ProtocolEventManager pmManager;
-	public static LoadoutManager loadoutManager;
-	
-	public void onEnable() {   
-		ConfigurationSerialization.registerClass(LoadoutContainer.class, "LoadoutContainer");
+    EventManager eventManager;
+    ProtocolEventManager pmManager;
+    public LoadoutManager loadoutManager;
+    public static CVTools instance;
+
+    public static CVTools getInstance() {
+        return instance;
+    }
+
+    public LoadoutManager getLoadoutManager() {
+        return loadoutManager;
+    }
+    
+    public void onEnable() {
+        instance = this;
+        
+        ConfigurationSerialization.registerClass(LoadoutContainer.class, "LoadoutContainer");
+        ConfigurationSerialization.registerClass(LoadoutManager.class, "LoadoutManager");
 		
-		CommandManager.registerAllCommands(this);
-		CommandMapManager.registerMaps();
-		eventManager = new EventManager(this);
-		pmManager = new ProtocolEventManager(this);
-		loadoutManager = new LoadoutManager(this);
-		
-		pmManager.registerEvents();
-		eventManager.registerEvents();
-		loadoutManager.reloadLoadouts();
-	}
+        CommandManager.registerAllCommands(this);
+        CommandMapManager.registerMaps();
+        eventManager = new EventManager(this);
+        pmManager = new ProtocolEventManager(this);
+
+        loadoutManager = (LoadoutManager) getConfig().get("LoadoutManager");
+        if(loadoutManager == null) loadoutManager = new LoadoutManager();
+        
+        pmManager.registerEvents();
+        eventManager.registerEvents();
+    }
 	
-	public void onDisable() {
-		CommandManager.nullifyCommandParsers();
-		CommandMapManager.unregisterMaps();
-		loadoutManager.saveLoadouts();
-	}
+    public void onDisable() {
+        getConfig().set("LoadoutManager", loadoutManager);
+        saveConfig();
+        CommandManager.nullifyCommandParsers();
+        CommandMapManager.unregisterMaps();
+    }
 	
     @Override                                                                                                                                                                                  
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args)                                                                                               
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args)                                                                                              
     {                                                                                                                                                                                          
         if(!(sender instanceof Player)) return false;                                                                                                                                          
         Player player = (Player)sender;                                                                                                                                                        
                                                                                                                                                                                                
         if(command.getName().equals("snbt")) {   
-        	if (!player.hasPermission("snbt.admin")) {
-        		player.sendMessage("Need permissions to use!");
-        		return false;
-        	} else 
-        		return CommandManager.snbtCommandParser.execute(player, args);
+            if (!player.hasPermission("snbt.admin")) {
+                player.sendMessage("Need permissions to use!");
+                return false;
+            } else 
+                return CommandManager.snbtCommandParser.execute(player, args);
 
         } else if (command.getName().equals("cvtools")) {
-        	if (!player.hasPermission("cvtools.admin")) {
-        		player.sendMessage("Need permissions to use!");
-        		return false;
-        	} else
-        		return CommandManager.toolsCommandParser.execute(player, args);
+            if (!player.hasPermission("cvtools.admin")) {
+                player.sendMessage("Need permissions to use!");
+                return false;
+            } else
+                return CommandManager.toolsCommandParser.execute(player, args);
         	
         } else if (command.getName().equals("pvp")) {
-        	if (!player.hasPermission("cvpvp.admin")) {
-        		player.sendMessage("Need permissions to use!");
-        		return false;
-        	} else
-        		return CommandManager.pvpCommandParser.execute(player, args);
+            if (!player.hasPermission("cvpvp.admin")) {
+                player.sendMessage("Need permissions to use!");
+                return false;
+            } else
+                return CommandManager.pvpCommandParser.execute(player, args);
         } else {
             return false;                                                                                                                                                                      
         }                                                                                                                                                                                      

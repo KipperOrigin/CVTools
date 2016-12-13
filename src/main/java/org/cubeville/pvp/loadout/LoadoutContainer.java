@@ -10,109 +10,99 @@ import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+@SerializableAs("LoadoutContainer")
 public class LoadoutContainer implements ConfigurationSerializable {
 
-	Map<String, Inventory> inventories;
-	private String loadoutName;
+    Map<String, Inventory> inventories;
+    private String loadoutName;
 
-	
-	public LoadoutContainer(Player player, String title) {
-		Inventory inv = Bukkit.createInventory(null, 54, title.toLowerCase() + ":main");
-		inventories = new HashMap<>();
-		inventories.put("main", inv);
-		loadoutName = title;
-		player.sendMessage(inventories.get("main").getName());
-		player.openInventory(inv);
-	}
-	
-	public LoadoutContainer(String title, Map<String, Inventory> inventories) {
-		loadoutName = title;
-		this.inventories = inventories;
-	}
-	
-	public Map<String, Inventory> getInventories() {
-		return inventories;
-	}
-	
-	public Inventory getMainInventory() {
-		return inventories.get("main");
-	}
-	
-	public Inventory getInventory(String teamName) {
-		return inventories.get(teamName.toLowerCase());
-	}
-	
-	public String getName() {
-		return loadoutName;
-	}
-	
-	public void createInventory(Player player, String teamName) {
-		Inventory inv = Bukkit.createInventory(null, 54, loadoutName + ":" + teamName);
-		inventories.put(teamName.toLowerCase(), inv);
-		player.sendMessage(inv.getName());
-		player.openInventory(inv);
-	}
-	
-	public boolean editInventory(Player player, String teamName) {
-		if (!inventories.containsKey(teamName.toLowerCase()))
-			return false;
-		
-		Inventory inv = inventories.get(teamName.toLowerCase());
-		player.openInventory(inv);
-		
-		return true;
-	}
-	
-	public boolean containsInventory(String name) {
-		return (inventories.containsKey(name));
-	}
+    @SuppressWarnings("unchecked")
+    public LoadoutContainer (Map<String, Object> config) {
+        inventories = new HashMap<>();
+        loadoutName = (String) config.get("name");
+        Map<String, List<ItemStack>> lists = (Map<String, List<ItemStack>>) config.get("loadouts");
+        for(String invname: lists.keySet()) {
+            Inventory inv = Bukkit.createInventory(null, 54, invname);
+            for(int i = 0; i < lists.get(invname).size(); i++) {
+                inv.setItem(i, lists.get(invname).get(i));
+            }
+            inventories.put(invname, inv);
+        }
+    }
 
-	@Override
-	public Map<String, Object> serialize() {
-		Map<String, Object> loadoutMap = new LinkedHashMap<>();
-		Iterator<Entry<String, Inventory>> it = inventories.entrySet().iterator();
-		List<ItemStack> items = new ArrayList<>();
+    @Override
+    public Map<String, Object> serialize() {
+        Map<String, Object> ret = new HashMap<>();
+        {
+            Map<String, Object> inventoryMap = new HashMap<>();
+            for(String invname: inventories.keySet()) {
+                List<ItemStack> itemList = new ArrayList<>();
+                for(int i = 0; i < inventories.get(invname).getSize(); i++) {
+                    itemList.add(inventories.get(invname).getItem(i));
+                }
+                inventoryMap.put(invname, itemList);
+            }
+            ret.put("loadouts", inventoryMap);
+        }
+        ret.put("name", loadoutName);
+        return ret;
+    }
+
+    public LoadoutContainer(Player player, String title) {
+        Inventory inv = Bukkit.createInventory(null, 54, title.toLowerCase() + ":main");
+        inventories = new HashMap<>();
+        inventories.put("main", inv);
+        loadoutName = title;
+        player.sendMessage(inventories.get("main").getName());
+        player.openInventory(inv);
+    }
+	
+    public LoadoutContainer(String title, Map<String, Inventory> inventories) {
+        loadoutName = title;
+        this.inventories = inventories;
+    }
+	
+    public Map<String, Inventory> getInventories() {
+        return inventories;
+    }
+	
+    public Inventory getMainInventory() {
+        return inventories.get("main");
+    }
+	
+    public Inventory getInventory(String teamName) {
+        return inventories.get(teamName.toLowerCase());
+    }
+	
+    public String getName() {
+        return loadoutName;
+    }
+	
+    public void createInventory(Player player, String teamName) {
+        Inventory inv = Bukkit.createInventory(null, 54, loadoutName + ":" + teamName);
+        inventories.put(teamName.toLowerCase(), inv);
+        player.sendMessage(inv.getName());
+        player.openInventory(inv);
+    }
+	
+    public boolean editInventory(Player player, String teamName) {
+        if (!inventories.containsKey(teamName.toLowerCase()))
+            return false;
 		
-		loadoutMap.put("loadoutName", loadoutName);
+        Inventory inv = inventories.get(teamName.toLowerCase());
+        player.openInventory(inv);
 		
-		while (it.hasNext()) {
-			Inventory inventory = it.next().getValue();
-			for (int i = 0; i < inventory.getSize(); i++) {
-				items.add(inventory.getItem(i));
-			}
-			loadoutMap.put(inventory.getName(), items);
-		}
-		
-		return null;
-	}
+        return true;
+    }
+	
+    public boolean containsInventory(String name) {
+        return (inventories.containsKey(name));
+    }
+
 	 
-	@SuppressWarnings("unchecked")
-	public static LoadoutContainer deserialize(Map<String, Object> loadoutMap) {
-		Map<String, Inventory> inventories = new HashMap<>();
-		Iterator<Entry<String, Object>> it = loadoutMap.entrySet().iterator();
-		
-		if (!loadoutMap.containsKey("loadoutName"))
-			return null;
-		
-		String loadoutName = (String) loadoutMap.get("loadoutName"); 
-		
-		while(it.hasNext()) {
-			if (it.next().getKey() == "loadoutName")
-				continue;
-			Inventory inv = Bukkit.createInventory(null, 54, it.next().getKey().toString());
-			List<ItemStack> items = (List<ItemStack>) it.next().getValue();
-			for (ItemStack item: items) {
-				int i = 0;
-				inv.setItem(i, item);
-				i++;
-			}
-		}
-		
-		return new LoadoutContainer(loadoutName, inventories);
-	}
-	
 }
