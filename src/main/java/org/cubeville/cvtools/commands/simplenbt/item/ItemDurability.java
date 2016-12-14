@@ -9,11 +9,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterShort;
 
-public class ItemSetDurability extends Command {
+public class ItemDurability extends Command {
 
-	public ItemSetDurability() {
+	public ItemDurability() {
 		super("item durability");
 		addParameter("set", true, new CommandParameterShort());
 		addFlag("unbreakable");
@@ -22,7 +23,8 @@ public class ItemSetDurability extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+			throws CommandExecutionException {
 		ItemStack item = player.getInventory().getItemInMainHand();
 		
 		if (item == null || item.getType() == Material.AIR)

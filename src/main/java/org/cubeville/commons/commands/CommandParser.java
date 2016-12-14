@@ -18,6 +18,16 @@ public class CommandParser
     }
 
     public boolean execute(Player player, String[] args) {
+        String fullCommand = "";
+    	
+        for (String arg: args)
+        	fullCommand += arg + " ";
+        
+        args = fullCommand.split(" (?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+        
+        for (int x = 0; x < args.length; x++)
+        	args[x] = args[x].replace("\"", "");
+    	
         try {
             String parameterError = null;
             for(Command command: commands) {

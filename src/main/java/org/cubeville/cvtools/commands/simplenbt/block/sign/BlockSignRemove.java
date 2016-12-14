@@ -8,9 +8,10 @@ import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterInteger;
+import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.commands.CommandMapManager;
-import org.cubeville.cvtools.utils.Colorize;
 
 public class BlockSignRemove extends Command {
 
@@ -20,7 +21,8 @@ public class BlockSignRemove extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+			throws CommandExecutionException {
 		Map<String, Block> commandMap = CommandMapManager.getBlockCommandMap();
 		
 		if (!commandMap.containsKey(player.getName())) {

@@ -7,18 +7,20 @@ import java.util.Set;
 import org.bukkit.DyeColor;
 import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterEnum;
 import org.cubeville.cvtools.nbt.BannerItem;
 
-public class BannerSetColor extends Command {
+public class BannerColor extends Command {
 
-    public BannerSetColor() {                                                                     
+    public BannerColor() {                                                                     
         super("banner color");
         addBaseParameter(new CommandParameterEnum(DyeColor.class));
     }
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+			throws CommandExecutionException {
 		BannerItem banner = null;
 		
 		try {

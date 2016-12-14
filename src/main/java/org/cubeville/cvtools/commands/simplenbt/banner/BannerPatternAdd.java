@@ -8,6 +8,7 @@ import org.bukkit.DyeColor;
 import org.bukkit.block.banner.PatternType;
 import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterEnum;
 import org.cubeville.commons.commands.CommandParameterInteger;
 import org.cubeville.cvtools.nbt.BannerItem;
@@ -23,7 +24,8 @@ public class BannerPatternAdd extends Command {
     }
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+			throws CommandExecutionException {
 		BannerItem banner = null;
 		
 		try {

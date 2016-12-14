@@ -1,4 +1,4 @@
-name: SimpleNBT
+name: CVTools
 main: org.cubeville.cvtools.CVTools
 author: KipperOrigin
 version: 0.1
@@ -7,9 +7,19 @@ softdepend: [ProtocolLib]
 
 commands:
   snbt:
-    description: Base Command
-    
+    description: SNBT Base Command
+  cvtools:
+    description: CVTools Base Command
+  pvp:
+    description: PvP Base Command
+       
 permissions:
   snbt.admin:
-    description: Gives player access to every command.
+    description: Gives player access to every SNBT command.
+    default: op
+  cvtools.admin:
+    description: Gives player access to every CVTools command.
+    default: op
+  cvpvp.admin:
+    description: Gives player access to every PvP command.
     default: op

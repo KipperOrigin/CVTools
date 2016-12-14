@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 // TODO: Make optional textparameters
 // TODO: Use quotes to include spaces
 // TODO: Aliases for prefixed parameters and command parts?
-// TODO: Default values for optional parametes
+// TODO: Default values for optional parameters
 
 public abstract class Command
 {
@@ -27,7 +27,6 @@ public abstract class Command
 
     public Command(String fullCommand) {
         commands = Arrays.asList(fullCommand.split(" "));
-        //commandsSplit = Arrays.asList(fullCommand.split(" (?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"));
         flags = new HashSet<>();
         optional = new HashMap<>();
         mandatory = new HashMap<>();

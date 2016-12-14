@@ -7,6 +7,7 @@ import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterInteger;
 import org.cubeville.commons.commands.CommandParameterString;
 import org.cubeville.cvtools.CVTools;
@@ -24,7 +25,8 @@ public class DelayedTask extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+			throws CommandExecutionException {
 		int delay = (int) baseParameters.get(0);
 		
 		if (!flags.contains("ticks"))

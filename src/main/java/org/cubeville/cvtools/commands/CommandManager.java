@@ -17,21 +17,25 @@ import org.cubeville.cvtools.commands.simplenbt.item.enchantments.*;
 import org.cubeville.cvtools.commands.simplenbt.item.flags.*;
 import org.cubeville.cvtools.commands.simplenbt.item.lore.*;
 import org.cubeville.cvtools.commands.simplenbt.mob.*;
+import org.cubeville.cvtools.commands.simplenbt.mob.armorstand.*;
 import org.cubeville.cvtools.commands.simplenbt.mob.horse.*;
 import org.cubeville.cvtools.commands.simplenbt.mob.other.*;
 import org.cubeville.cvtools.commands.simplenbt.player.*;
 import org.cubeville.cvtools.commands.simplenbt.potion.*;
 import org.cubeville.cvtools.commands.simplenbt.skull.*;
 import org.cubeville.cvtools.commands.stopwatch.*;
+import org.cubeville.pvp.commands.*;
 
 public class CommandManager {
 	
 	public static CommandParser snbtCommandParser;
 	public static CommandParser toolsCommandParser;
+	public static CommandParser pvpCommandParser;
 	
 	public static void registerAllCommands(CVTools plugin) {
 		registerSNBTCommands();
 		registerToolsCommands(plugin);
+		registerPvPCommands();
 	}
 	
 	public static void registerSNBTCommands() {
@@ -43,15 +47,18 @@ public class CommandManager {
 		
 		// BANNER
 		snbtCommandParser.addCommand(new BannerPatternAdd());
+		snbtCommandParser.addCommand(new BannerPatternClear());
+		snbtCommandParser.addCommand(new BannerPatternRemove());
+		snbtCommandParser.addCommand(new BannerColor());
 		
 		// BLOCK
 		snbtCommandParser.addCommand(new BlockDeselect());
 		snbtCommandParser.addCommand(new BlockSelect());
 		
 		// BLOCK -- mobspawner
-		snbtCommandParser.addCommand(new MobSpawner());
-		snbtCommandParser.addCommand(new MobSpawnerDelay());
-		snbtCommandParser.addCommand(new MobSpawnerEntity());
+		snbtCommandParser.addCommand(new BlockMobSpawner());
+		snbtCommandParser.addCommand(new BlockMobSpawnerDelay());
+		snbtCommandParser.addCommand(new BlockMobSpawnerEntity());
 		
 		// BLOCK -- sign
 		snbtCommandParser.addCommand(new BlockSignClear());
@@ -60,15 +67,16 @@ public class CommandManager {
 		snbtCommandParser.addCommand(new BlockSignSet());
 		
 		// BOOK
-		snbtCommandParser.addCommand(new BookMain());
+		snbtCommandParser.addCommand(new BookAuthor());
 		snbtCommandParser.addCommand(new BookColorize());    
-		snbtCommandParser.addCommand(new BookSetAuthor());
-		snbtCommandParser.addCommand(new BookSetTitle());
+		snbtCommandParser.addCommand(new BookMain());
+		snbtCommandParser.addCommand(new BookTitle());
 		snbtCommandParser.addCommand(new BookUnsign());
 		
 		// ENTITY
 		snbtCommandParser.addCommand(new EntityDeselect());
 		snbtCommandParser.addCommand(new EntityGlow());
+		snbtCommandParser.addCommand(new EntityInfo());
 		snbtCommandParser.addCommand(new EntityName());
 		snbtCommandParser.addCommand(new EntityRide());
 		snbtCommandParser.addCommand(new EntitySelect());
@@ -78,12 +86,13 @@ public class CommandManager {
 		snbtCommandParser.addCommand(new FireworkEffectAdd());
 		snbtCommandParser.addCommand(new FireworkEffectClear());
 		snbtCommandParser.addCommand(new FireworkEffectRemove());
-		snbtCommandParser.addCommand(new FireworkSetPower());
+		snbtCommandParser.addCommand(new FireworkPower());
 		
 		// ITEM	
-		snbtCommandParser.addCommand(new ItemSetDurability());
-		snbtCommandParser.addCommand(new ItemSetName());
-		snbtCommandParser.addCommand(new ItemSetType());
+		snbtCommandParser.addCommand(new ItemDurability());
+		snbtCommandParser.addCommand(new ItemGlow());
+		snbtCommandParser.addCommand(new ItemName());
+		snbtCommandParser.addCommand(new ItemType());
 		
 		// ITEM --flags
 		snbtCommandParser.addCommand(new ItemFlags());
@@ -111,9 +120,15 @@ public class CommandManager {
 		snbtCommandParser.addCommand(new MobAge());
 		snbtCommandParser.addCommand(new MobAI());
 		snbtCommandParser.addCommand(new MobDeselect());
+		snbtCommandParser.addCommand(new MobEquipment());
 		snbtCommandParser.addCommand(new MobSelect());
 		snbtCommandParser.addCommand(new MobTame());
 
+		// MOB --armor stand
+		snbtCommandParser.addCommand(new MobArmorStandMarker());
+		snbtCommandParser.addCommand(new MobArmorStandPoses());
+		snbtCommandParser.addCommand(new MobArmorStandSmall());
+		
 		// MOB --horse
 		snbtCommandParser.addCommand(new MobHorseColor());
 		snbtCommandParser.addCommand(new MobHorseStyle());
@@ -135,24 +150,33 @@ public class CommandManager {
 		snbtCommandParser.addCommand(new PotionEffectAdd());
 		snbtCommandParser.addCommand(new PotionEffectClear());
 		snbtCommandParser.addCommand(new PotionEffectRemove());
-		snbtCommandParser.addCommand(new PotionSetType());
+		snbtCommandParser.addCommand(new PotionType());
 		
 		// SKULL
-		snbtCommandParser.addCommand(new SkullSetOwner());
-		snbtCommandParser.addCommand(new SkullSetType());
+		snbtCommandParser.addCommand(new SkullOwner());
+		snbtCommandParser.addCommand(new SkullType());
 	}
 	
 	public static void registerToolsCommands(CVTools plugin) {
 		toolsCommandParser = new CommandParser();
 		
-		// DELAYED TASK
+		// OTHER
+		toolsCommandParser.addCommand(new ChatColor());
+		toolsCommandParser.addCommand(new CheckSign());
 		toolsCommandParser.addCommand(new DelayedTask(plugin));
 		
 		// STOPWATCH
-		toolsCommandParser.addCommand(new StopWatchEnd());
+		toolsCommandParser.addCommand(new StopWatchStop());
 		toolsCommandParser.addCommand(new StopWatchGet());
 		toolsCommandParser.addCommand(new StopWatchRestart());
 		toolsCommandParser.addCommand(new StopWatchStart());
+	}
+	
+	public static void registerPvPCommands() {
+		pvpCommandParser = new CommandParser();
+		
+		pvpCommandParser.addCommand(new LoadoutCreate());
+		pvpCommandParser.addCommand(new SubLoadoutEdit());		
 	}
 	
 	public static void nullifyCommandParsers() {

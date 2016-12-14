@@ -9,17 +9,19 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterInteger;
 
-public class FireworkSetPower extends Command {
+public class FireworkPower extends Command {
 
-    public FireworkSetPower() {                                                                     
+    public FireworkPower() {                                                                     
         super("firework power");
 		addBaseParameter(new CommandParameterInteger());
     }
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+			throws CommandExecutionException {
 		ItemStack item = player.getInventory().getItemInMainHand();
 		
 		if (item.getType() != Material.FIREWORK)

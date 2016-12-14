@@ -8,17 +8,19 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterShort;
 
-public class SkullSetType extends Command {
+public class SkullType extends Command {
 
-	public SkullSetType() {
+	public SkullType() {
 		super("skull type");
 		addBaseParameter(new CommandParameterShort());
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+			throws CommandExecutionException {
 
 		ItemStack item = player.getInventory().getItemInMainHand();
 		short data = (short) baseParameters.get(0);

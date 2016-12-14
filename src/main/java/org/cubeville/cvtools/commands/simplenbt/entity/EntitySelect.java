@@ -6,8 +6,10 @@ import java.util.Set;
 
 import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
-import org.cubeville.cvtools.commands.CommandMapManager;
-import org.cubeville.cvtools.utils.Colorize;
+import org.cubeville.commons.commands.CommandExecutionException;
+import org.cubeville.commons.utils.Colorize;
+import org.cubeville.cvtools.commands.commandmap.CommandMap;
+import org.cubeville.cvtools.commands.commandmap.CommandMapManager;
 
 public class EntitySelect extends Command {
 
@@ -17,14 +19,15 @@ public class EntitySelect extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
-		if (!CommandMapManager.getEntityCommandMap().containsKey(player.getName()))
-			CommandMapManager.getEntityCommandMap().put(player.getName(), null);
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+			throws CommandExecutionException {
+		CommandMap commandMap = CommandMapManager.primaryMap;
 		
-		if (CommandMapManager.getLivingEntityCommandMap().containsKey(player.getName()))
-			CommandMapManager.getLivingEntityCommandMap().remove(player.getName());
-		
-		player.sendMessage(Colorize.addColor("&aYou may now select a &6entity&a!"));
+		if (!commandMap.contains(player)) {
+			commandMap.put(player, null);
+			player.sendMessage(Colorize.addColor("&aYou may now select a &6entity&a!"));
+		} else
+			player.sendMessage(Colorize.addColor("&cYou are already selecting an &6entity&c!"));
 	}
 
 }

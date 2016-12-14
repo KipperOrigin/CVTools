@@ -6,8 +6,9 @@ import java.util.Set;
 
 import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandExecutionException;
+import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.commands.CommandMapManager;
-import org.cubeville.cvtools.utils.Colorize;
 
 public class BlockDeselect extends Command {
 
@@ -17,7 +18,8 @@ public class BlockDeselect extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+			throws CommandExecutionException {
 		if (CommandMapManager.getBlockCommandMap().containsKey(player.getName())) {
 			if (CommandMapManager.getBlockCommandMap().get(player.getName()) == null) {
 				player.sendMessage(Colorize.addColor("&cSelection cancelled!"));

@@ -1,4 +1,4 @@
-package org.cubeville.cvtools.utils;
+package org.cubeville.commons.utils;
 
 import java.util.ArrayList;
 import java.util.List;

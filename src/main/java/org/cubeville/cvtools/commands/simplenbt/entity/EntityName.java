@@ -4,12 +4,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
+import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterString;
-import org.cubeville.cvtools.commands.CommandMapManager;
-import org.cubeville.cvtools.utils.Colorize;
+import org.cubeville.commons.utils.Colorize;
+import org.cubeville.cvtools.commands.commandmap.CommandMap;
+import org.cubeville.cvtools.commands.commandmap.CommandMapManager;
+import org.cubeville.cvtools.commands.commandmap.CommandMapValueException;
 
 public class EntityName extends Command {
 
@@ -21,17 +24,17 @@ public class EntityName extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) {
-		Map<String, LivingEntity> commandMap = CommandMapManager.getLivingEntityCommandMap();
-		if (!commandMap.containsKey(player.getName())) {
-			player.sendMessage(Colorize.addColor("&cPlease select an &6mob&c!"));
-			return;
-		} else if (commandMap.get(player.getName()) == null) {
-			player.sendMessage(Colorize.addColor("&cPlease select an &6mob&c!"));
-			return;
-		}
+	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+			throws CommandExecutionException {
 		
-		LivingEntity entity = commandMap.get(player.getName());
+		CommandMap commandMap = CommandMapManager.primaryMap;
+		Entity entity = null;
+		
+		try {
+			entity = (Entity) commandMap.getUnsafe(player);
+		} catch (CommandMapValueException e) {
+			player.sendMessage(e.toString());
+		}
 		
 		if (parameters.containsKey("name") && !flags.contains("remove")) {
 			entity.setCustomName(Colorize.addColor((String) parameters.get("name")));
