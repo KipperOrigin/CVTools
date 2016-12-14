@@ -5,13 +5,14 @@ public class CommandMapManager {
 	public static CommandMap primaryMap;
 	public static CommandMap secondaryMap;
 
-	public void registerMaps() {
+	public static void registerMaps() {
 		primaryMap = new CommandMap();
 		secondaryMap = new CommandMap();
 	}
 	
-	public void unregisterMaps() {
+	public static void unregisterMaps() {
 		primaryMap = null;
 		secondaryMap = null;
 	}
+	
 }

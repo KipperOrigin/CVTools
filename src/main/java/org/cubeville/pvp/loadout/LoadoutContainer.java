@@ -21,7 +21,7 @@ public class LoadoutContainer implements ConfigurationSerializable {
 
 	
 	public LoadoutContainer(Player player, String title) {
-		Inventory inv = Bukkit.createInventory(null, 54, title + ":main");
+		Inventory inv = Bukkit.createInventory(null, 54, title.toLowerCase() + ":main");
 		inventories = new HashMap<>();
 		inventories.put("main", inv);
 		loadoutName = title;
@@ -38,25 +38,37 @@ public class LoadoutContainer implements ConfigurationSerializable {
 		return inventories;
 	}
 	
+	public Inventory getMainInventory() {
+		return inventories.get("main");
+	}
+	
+	public Inventory getInventory(String teamName) {
+		return inventories.get(teamName.toLowerCase());
+	}
+	
 	public String getName() {
 		return loadoutName;
 	}
 	
 	public void createInventory(Player player, String teamName) {
 		Inventory inv = Bukkit.createInventory(null, 54, loadoutName + ":" + teamName);
-		inventories.put(teamName, inv);
+		inventories.put(teamName.toLowerCase(), inv);
 		player.sendMessage(inv.getName());
 		player.openInventory(inv);
 	}
 	
 	public boolean editInventory(Player player, String teamName) {
-		if (!inventories.containsKey(teamName))
+		if (!inventories.containsKey(teamName.toLowerCase()))
 			return false;
 		
-		Inventory inv = inventories.get(teamName);
+		Inventory inv = inventories.get(teamName.toLowerCase());
 		player.openInventory(inv);
 		
 		return true;
+	}
+	
+	public boolean containsInventory(String name) {
+		return (inventories.containsKey(name));
 	}
 
 	@Override

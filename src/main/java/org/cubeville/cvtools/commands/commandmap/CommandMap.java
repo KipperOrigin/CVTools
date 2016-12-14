@@ -4,21 +4,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.entity.Player;
+import org.cubeville.cvtools.commands.commandmap.commandmaptypes.CommandMapType;
 
 public class CommandMap {
 	
-	public Map<String, CommandMapType> commandMap;
+	public Map<String, Object> commandMap;
 	
 	public CommandMap() {
 		commandMap = new HashMap<>();
 	}
 	
-	public void put(Player player, CommandMapType value) {
+	public void put(Player player, Object value) {
 		commandMap.put(player.getName(), value);
 	}
 
 	public boolean contains(Player player) {
-		return commandMap.containsKey(player);
+		return commandMap.containsKey(player.getName());
 	}
 	
 	public boolean contains(CommandMapType value) {
@@ -28,15 +29,15 @@ public class CommandMap {
 			return false;
 	}
 	
-	public CommandMapType get(Player player) {
+	public Object get(Player player) {
 		return commandMap.get(player.getName());
 	}
 	
-	public Map<String, CommandMapType> getRawMap() {
+	public Map<String, Object> getRawMap() {
 		return commandMap;
 	}
 	
-	public CommandMapType getUnsafe(Player player) throws CommandMapValueException {
+	public Object getUnsafe(Player player) throws CommandMapValueException {
 		if (commandMap.containsKey(player.getName()))
 			if (commandMap.get(player.getName()) == null)
 				throw new CommandMapValueException("Command map has " + player.getName() + " but contains no value!");

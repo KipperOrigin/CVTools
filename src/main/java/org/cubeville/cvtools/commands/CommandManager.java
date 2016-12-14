@@ -175,8 +175,9 @@ public class CommandManager {
 	public static void registerPvPCommands() {
 		pvpCommandParser = new CommandParser();
 		
+		pvpCommandParser.addCommand(new LoadoutApply());
 		pvpCommandParser.addCommand(new LoadoutCreate());
-		pvpCommandParser.addCommand(new SubLoadoutEdit());		
+		pvpCommandParser.addCommand(new LoadoutEdit());		
 	}
 	
 	public static void nullifyCommandParsers() {

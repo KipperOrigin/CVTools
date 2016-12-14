@@ -7,34 +7,36 @@ import java.util.Set;
 import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
+import org.cubeville.commons.commands.CommandParameterOnlinePlayer;
 import org.cubeville.commons.commands.CommandParameterString;
 import org.cubeville.cvtools.CVTools;
 import org.cubeville.pvp.loadout.LoadoutContainer;
+import org.cubeville.pvp.loadout.LoadoutHandler;
 
-public class SubLoadoutEdit extends Command{
+public class LoadoutApply extends Command {
 
-	public SubLoadoutEdit() {
-		super("loadout edit");
+	public LoadoutApply() {
+		super("loadout apply");
 		addBaseParameter(new CommandParameterString());
 		addParameter("team", true, new CommandParameterString());
+		addParameter("player", true, new CommandParameterOnlinePlayer());
 	}
 
 	@Override
 	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
 			throws CommandExecutionException {
-		if (!CVTools.loadoutManager.contains((String) baseParameters.get(0)))
-			return;
-		
+		String team = "main";
+		Player playerInv = player;
 		LoadoutContainer loadout = CVTools.loadoutManager.getLoadout((String) baseParameters.get(0));
-		String loadoutName = "main";
 		
+		if (loadout == null)
+			return;
 		if (parameters.containsKey("team"))
-			loadoutName = (String) parameters.get("team");
-
-		player.sendMessage(loadoutName);
+			team = (String) parameters.get("team");
+		if (parameters.containsKey("player"))
+			playerInv = (Player) parameters.get("player");
 		
-		if (!loadout.editInventory(player, loadoutName))
-			player.sendMessage("No loadout exists!");
+		LoadoutHandler.applyLoadoutToPlayer(playerInv, loadout, team);
 	}
 
 }

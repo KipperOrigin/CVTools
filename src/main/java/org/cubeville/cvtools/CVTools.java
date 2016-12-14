@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.cubeville.commons.commands.CommandParser;
 import org.cubeville.cvtools.commands.CommandManager;
-import org.cubeville.cvtools.commands.CommandMapManager;
+import org.cubeville.cvtools.commands.commandmap.CommandMapManager;
 import org.cubeville.cvtools.events.EventManager;
 import org.cubeville.cvtools.events.ProtocolEventManager;
 import org.cubeville.pvp.loadout.LoadoutContainer;
@@ -32,7 +32,7 @@ public class CVTools extends JavaPlugin {
 		ConfigurationSerialization.registerClass(LoadoutContainer.class, "LoadoutContainer");
 		
 		CommandManager.registerAllCommands(this);
-		CommandMapManager.registerCommandMaps();
+		CommandMapManager.registerMaps();
 		eventManager = new EventManager(this);
 		pmManager = new ProtocolEventManager(this);
 		loadoutManager = new LoadoutManager(this);
@@ -44,7 +44,7 @@ public class CVTools extends JavaPlugin {
 	
 	public void onDisable() {
 		CommandManager.nullifyCommandParsers();
-		CommandMapManager.unregisterCommandMaps();
+		CommandMapManager.unregisterMaps();
 		loadoutManager.saveLoadouts();
 	}
 	

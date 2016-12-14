@@ -1,36 +1,47 @@
 package org.cubeville.cvtools.events;
 
 import org.bukkit.Material;
+import org.bukkit.block.Sign;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.cubeville.commons.utils.Colorize;
-import org.cubeville.cvtools.commands.CommandMapManager;
+import org.cubeville.cvtools.commands.commandmap.CommandMapManager;
+import org.cubeville.pvp.loadout.LoadoutHandler;
 
 public class EventPlayerInteract implements Listener {
     
-	@EventHandler
+	@EventHandler (priority = EventPriority.MONITOR)
 	public void onPlayerInteract(PlayerInteractEvent event) {
-		if (CommandMapManager.getBlockCommandMap().containsKey(event.getPlayer().getName())) {	
-			if (CommandMapManager.getBlockCommandMap().get(event.getPlayer().getName()) == event.getClickedBlock()) 
+		Player player = event.getPlayer();
+		
+		if (CommandMapManager.primaryMap.contains(player)) {
+			if (CommandMapManager.primaryMap.get(player) == event.getClickedBlock())
 				return;
-			
 			if (event.getAction() != Action.RIGHT_CLICK_BLOCK)
-				return;
-			
+				return;	
 			if (event.getHand() != EquipmentSlot.HAND)
 				return;
 			
-			if (event.getPlayer().getInventory().getItemInMainHand() != null && event.getPlayer().getInventory().getItemInMainHand().getType() != Material.AIR)
-				return;
-			
+			CommandMapManager.primaryMap.put(player, event.getClickedBlock());
+			player.sendMessage(Colorize.addColor("&aBlock &6" + event.getClickedBlock().getType().name() + "&a selected!"));
 			event.setCancelled(true);
-			
-			CommandMapManager.getBlockCommandMap().put(event.getPlayer().getName(), event.getClickedBlock());
-			
-			event.getPlayer().sendMessage(Colorize.addColor("&aBlock &6" + event.getClickedBlock().getType().name() + "&a selected!"));
-		} 
+		}
+	}
+	
+	@EventHandler (priority = EventPriority.HIGH)
+	public void onPlayerInteractSign(PlayerInteractEvent event) {
+		if (event.getClickedBlock().getType() == Material.WALL_SIGN) {
+			Sign sign = (Sign) event.getClickedBlock().getState();
+			if (sign.getLine(1).equalsIgnoreCase("[load-out]")) {
+				LoadoutHandler.applyLoadoutFromSign(event.getPlayer(), sign);
+				event.setCancelled(true);
+				return;
+			}
+		}
 	}
 }
