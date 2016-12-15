@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterEnumeratedStringList;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.cvtools.nbt.NBTItem;
 
 public class ItemFlags  extends Command {
@@ -31,7 +32,7 @@ public class ItemFlags  extends Command {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		NBTItem item = new NBTItem(player.getInventory().getItemInMainHand());
 		Set<String> removeArgs = (Set<String>) parameters.get("remove");
@@ -64,5 +65,6 @@ public class ItemFlags  extends Command {
 		}
 		
 		player.getInventory().setItemInMainHand(item.asItemStack());
+                return null;
 	}
 }

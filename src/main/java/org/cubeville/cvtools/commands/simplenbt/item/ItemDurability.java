@@ -11,6 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterShort;
+import org.cubeville.commons.commands.CommandResponse;
 
 public class ItemDurability extends Command {
 
@@ -23,12 +24,12 @@ public class ItemDurability extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		ItemStack item = player.getInventory().getItemInMainHand();
 		
 		if (item == null || item.getType() == Material.AIR)
-			return;
+			return null;
 		
 		if (parameters.containsKey("set") && !flags.contains("unbreakable") && !flags.contains("max"))
 			item.setDurability((short) (item.getType().getMaxDurability() - ((short) parameters.get("set"))));
@@ -42,8 +43,7 @@ public class ItemDurability extends Command {
 		}
 		else if (!parameters.containsKey("set") && !flags.contains("unbreakable") && flags.contains("max"))
 			item.setDurability((short) 0);
-		else
-			return;
+                return null;
 		
 	}
 

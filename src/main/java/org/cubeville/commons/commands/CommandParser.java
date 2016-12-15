@@ -35,9 +35,14 @@ public class CommandParser
                 if(command.checkCommand(args)) {
                     parameterError = command.checkParameters(args);
                     if(parameterError == null) {
-                        command.execute(player, args);
-                        for (String message: command.getSuccessMessages())
-                        	player.sendMessage(Colorize.addColor(message));
+                        CommandResponse response = command.execute(player, args);
+                        if(response == null) {
+                            player.sendMessage(Colorize.addColor("&aCommand executed successfully."));
+                        }
+                        else {
+                            for (String message: response.getMessages())
+                                player.sendMessage(Colorize.addColor(message));
+                        }
                         return true;
                     }
                 }

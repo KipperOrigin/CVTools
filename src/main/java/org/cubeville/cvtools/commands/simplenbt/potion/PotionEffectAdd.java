@@ -11,6 +11,7 @@ import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterInteger;
 import org.cubeville.commons.commands.CommandParameterPotionEffectType;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.cvtools.nbt.PotionItem;
 import org.cubeville.cvtools.nbt.PotionItem.NBTPotionEffect;
 
@@ -25,14 +26,14 @@ public class PotionEffectAdd extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 
 		if (player.getInventory().getItemInMainHand().getType() != Material.POTION 
 				&& player.getInventory().getItemInMainHand().getType() != Material.LINGERING_POTION 
 				&& player.getInventory().getItemInMainHand().getType() != Material.SPLASH_POTION 
 				&& player.getInventory().getItemInMainHand().getType() != Material.TIPPED_ARROW)
-			return;
+			return null;
 		
 		PotionItem potionItem = new PotionItem(player.getInventory().getItemInMainHand());
 		PotionEffectType type = (PotionEffectType) baseParameters.get(0);
@@ -56,6 +57,8 @@ public class PotionEffectAdd extends Command {
 		potionItem.addEffect(potionEffect.getPotionEffect());
 		
 		player.getInventory().setItemInMainHand(potionItem.asItemStack());
+
+                return null;
 	}
 
 }

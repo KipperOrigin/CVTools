@@ -13,6 +13,7 @@ import org.bukkit.entity.Slime;
 import org.bukkit.entity.Tameable;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
@@ -24,15 +25,15 @@ public class EntityInfo extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
 			throws CommandExecutionException {
 		Map<String, Entity> commandMap = CommandMapManager.getEntityCommandMap();
 		if (!commandMap.containsKey(player.getName())) {
 			player.sendMessage(Colorize.addColor("&cPlease select an &6mob&c!"));
-			return;
+			return null;
 		} else if (commandMap.get(player.getName()) == null) {
 			player.sendMessage(Colorize.addColor("&cPlease select an &6mob&c!"));
-			return;
+			return null;
 		}
 		
 		Entity entity = commandMap.get(player.getName());
@@ -70,6 +71,6 @@ public class EntityInfo extends Command {
 			player.sendMessage(Colorize.addColor(message));
 		}
 
-		
+                return null;
 	}
 }

@@ -9,6 +9,7 @@ import org.bukkit.FireworkEffect;
 import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
+import org.cubeville.commons.commands.CommandResponse;
 
 public class FireworkEffectAdd extends Command {
 
@@ -19,7 +20,7 @@ public class FireworkEffectAdd extends Command {
     }
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		FireworkEffect.Builder builder = FireworkEffect.builder();
 		
@@ -36,6 +37,7 @@ public class FireworkEffectAdd extends Command {
 		builder.with((FireworkEffect.Type) baseParameters.get(0));
 		builder.withColor((Color[]) parameters.get("colors"));
 		builder.withFade((Color[]) parameters.get("fades"));
+                return null;
 	}
 
 }

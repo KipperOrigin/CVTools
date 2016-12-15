@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterString;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.cvtools.CVTools;
 import org.cubeville.pvp.loadout.LoadoutContainer;
 
@@ -20,7 +21,7 @@ public class LoadoutEdit extends Command{
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
 			throws CommandExecutionException {
 		LoadoutContainer loadout = CVTools.getInstance().getLoadoutManager().getLoadout((String) baseParameters.get(0));
 		String loadoutName = "main";
@@ -38,6 +39,8 @@ public class LoadoutEdit extends Command{
 		if (!loadout.editInventory(player, loadoutName)) {
 			throw new CommandExecutionException("&cNo loadout exists!");
 		}
+
+                return null;
 	}
 
 }

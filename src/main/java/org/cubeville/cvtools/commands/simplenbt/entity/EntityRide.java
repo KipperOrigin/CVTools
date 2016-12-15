@@ -9,6 +9,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
@@ -25,20 +26,20 @@ public class EntityRide extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		if (flags.contains("reverse") && !flags.contains("stack") && flags.contains("unstack")) {
 			dismountAll(player);
-			return;
+			return null;
 		}
 		
 		Map<String, Entity> commandMap = CommandMapManager.getEntityCommandMap();
 		if (!commandMap.containsKey(player.getName())) {
 			player.sendMessage(Colorize.addColor("&cPlease select a &6entity&c!"));
-			return;
+			return null;
 		} else if (commandMap.get(player.getName()) == null) {
 			player.sendMessage(Colorize.addColor("&cPlease select a &6entity&c!"));
-			return;
+			return null;
 		}
 			
 		if (flags.contains("reverse") && !flags.contains("stack") && !flags.contains("unstack")) {
@@ -52,6 +53,7 @@ public class EntityRide extends Command {
 			if (getHighestEntity(commandMap.get(player.getName())) != player)
 				getHighestEntity(commandMap.get(player.getName())).setPassenger(player);
 		}
+                return null;
 	}
 	
 	public static Entity getHighestEntity(Entity e) {

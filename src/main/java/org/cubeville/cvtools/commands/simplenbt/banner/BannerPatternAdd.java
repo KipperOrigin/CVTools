@@ -11,6 +11,7 @@ import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterEnum;
 import org.cubeville.commons.commands.CommandParameterInteger;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.cvtools.nbt.BannerItem;
 
 public class BannerPatternAdd extends Command {
@@ -24,14 +25,14 @@ public class BannerPatternAdd extends Command {
     }
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		BannerItem banner = null;
 		
 		try {
 			banner = new BannerItem(player.getInventory().getItemInMainHand());
 		} catch (IllegalArgumentException e) {
-			return;
+			return null;
 		}
 		
 		if (parameters.containsKey("set") && !parameters.containsKey("insert"))
@@ -45,8 +46,9 @@ public class BannerPatternAdd extends Command {
 		
 		else 
 			//addParameterError("Cannot insert and set at the same time!")
-			return;
+			return null;
 		
 		player.getInventory().setItemInMainHand(banner.asItemStack());
+                return null;
 	}
 }

@@ -10,6 +10,7 @@ import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterInteger;
 import org.cubeville.commons.commands.CommandParameterString;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.cvtools.CVTools;
 
 public class DelayedTask extends Command {
@@ -25,7 +26,7 @@ public class DelayedTask extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		int delay = (int) baseParameters.get(0);
 		
@@ -40,6 +41,7 @@ public class DelayedTask extends Command {
 			}
 			
 		}, delay);
+                return null;
 	}
 	
 	public void runDelayedTask(Player player, Map<String, Object> parameters) {

@@ -12,6 +12,7 @@ import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterBoolean;
 import org.cubeville.commons.commands.CommandParameterString;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
@@ -24,15 +25,15 @@ public class MobTame extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		Map<String, LivingEntity> commandMap = CommandMapManager.getLivingEntityCommandMap();
 		if (!commandMap.containsKey(player.getName())) {
 			player.sendMessage(Colorize.addColor("&cPlease select a &6tameable mob&c!"));
-			return;
+			return null;
 		} else if (commandMap.get(player.getName()) == null || !Tameable.class.isAssignableFrom(commandMap.get(player.getName()).getClass())) {
 			player.sendMessage(Colorize.addColor("&cPlease select a &6tameable mob&c!"));
-			return;
+			return null;
 		}
 		
 		Tameable entity = (Tameable) commandMap.get(player.getName());
@@ -43,7 +44,7 @@ public class MobTame extends Command {
 			if (Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer((String) parameters.get("player"))))
 				playerT = Bukkit.getPlayer((String) parameters.get("player"));
 			else
-				return;
+				return null;
 		
 		if (tame) {
 			entity.setOwner(playerT);
@@ -52,6 +53,7 @@ public class MobTame extends Command {
 		}
 		
 		entity.setTamed(tame);
+                return null;
 	}
 
 }

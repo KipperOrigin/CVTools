@@ -11,6 +11,7 @@ import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterEnum;
 import org.cubeville.commons.commands.CommandParameterShort;
+import org.cubeville.commons.commands.CommandResponse;
 
 public class ItemType extends Command {
 
@@ -21,17 +22,19 @@ public class ItemType extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		ItemStack item = player.getInventory().getItemInMainHand();
 		
 		if (item == null || item.getType() == Material.AIR)
-			return;
+			return null;
 		
 		item.setType((Material) baseParameters.get(0));
 		
 		if (parameters.containsKey("data"))
 			item.setDurability((short) parameters.get("data"));
+
+                return null;
 	}
 
 }

@@ -9,6 +9,7 @@ import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterOnlinePlayer;
 import org.cubeville.commons.commands.CommandParameterString;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.cvtools.CVTools;
 import org.cubeville.pvp.loadout.LoadoutContainer;
 import org.cubeville.pvp.loadout.LoadoutHandler;
@@ -23,7 +24,7 @@ public class LoadoutApply extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
 			throws CommandExecutionException {
 		String team = "main";
 		Player playerInv = player;
@@ -39,7 +40,7 @@ public class LoadoutApply extends Command {
 		if (!LoadoutHandler.applyLoadoutToPlayer(playerInv, loadout, team)) {
 			throw new CommandExecutionException("&cSub Loadout &6" + parameters.get("team") + "&c does not exist for &6" + baseParameters.get(0));
 		}
-		setBaseSuccessMessage("&aLoadout &6" + loadout.getInventory(team).getName() + "&a applied to &6" + playerInv.getName());
+		return new CommandResponse("&aLoadout &6" + loadout.getInventory(team).getName() + "&a applied to &6" + playerInv.getName());
 	}
 
 }

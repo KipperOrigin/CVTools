@@ -13,6 +13,7 @@ import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterInteger;
 import org.cubeville.commons.commands.CommandParameterString;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.commons.utils.BlockGetter;
 import org.cubeville.commons.utils.Colorize;
 
@@ -25,13 +26,14 @@ public class CheckSign extends Command {
     }
 
     @Override
-    public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
         throws CommandExecutionException {
 
+        CommandResponse ret = new CommandResponse();
+        
         List<Block> signs = BlockGetter.getBlocksInRadiusByType(player.getLocation(), (int) baseParameters.get(0), Material.SIGN_POST, Material.WALL_SIGN);
         CharSequence cs = (String) baseParameters.get(1);
         int amount = 0;
-        List<String> signlist = new ArrayList<>();
         for (Block sign: signs) {
             boolean contains = false;
             Sign signState = (Sign) sign.getState();
@@ -45,13 +47,12 @@ public class CheckSign extends Command {
             }
             if (contains) {
                 amount += 1;
-                signlist.add(sign.getLocation().getBlockX() + "/" + sign.getLocation().getBlockY() + "/" + sign.getLocation().getBlockZ() + ": " + lineCon);
+                ret.addMessage(sign.getLocation().getBlockX() + "/" + sign.getLocation().getBlockY() + "/" + sign.getLocation().getBlockZ() + "&a: " + lineCon);
             }
 	}
-        
-        player.sendMessage(Colorize.addColor((amount > 0 ? "&a" : "&c") + amount + " sign(s) contain the string &6" + (String) baseParameters.get(1)) + (amount > 0 ? ":" : "."));
-        for(String s: signlist) {
-            player.sendMessage(s);
-        }
+
+        ret.setBaseMessage((amount > 0 ? "&a" : "&c") + amount + " sign(s) contain the string &6" + (String) baseParameters.get(1) + (amount > 0 ? "&a:" : "&c."));
+
+        return ret;
     }
 }

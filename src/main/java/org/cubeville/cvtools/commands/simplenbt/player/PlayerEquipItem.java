@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterString;
+import org.cubeville.commons.commands.CommandResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 
@@ -21,7 +22,7 @@ public class PlayerEquipItem extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
 			throws CommandExecutionException {
 		String slot = (String) baseParameters.get(0);
 		Player playerI = player;
@@ -30,12 +31,12 @@ public class PlayerEquipItem extends Command {
 			if (Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer((String) parameters.get("player"))))
 				playerI = Bukkit.getPlayer((String) parameters.get("player"));
 			else
-				return;
+				return null;
 		
 		ItemStack inhand = player.getInventory().getItemInMainHand();
 		
 		if (inhand == null || inhand.getType() == Material.AIR)
-			return;
+			return null;
 		
 		ItemStack equipped = new ItemStack(Material.AIR);
 		
@@ -61,6 +62,7 @@ public class PlayerEquipItem extends Command {
 			playerI.getInventory().setItemInMainHand(equipped);
 		else
 			playerI.getInventory().setItem(playerI.getInventory().firstEmpty(), equipped);
+                return null;
 	}
 
 }

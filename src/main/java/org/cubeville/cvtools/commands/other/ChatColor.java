@@ -7,6 +7,7 @@ import java.util.Set;
 import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.commons.utils.Colorize;
 
 public class ChatColor extends Command {
@@ -18,7 +19,7 @@ public class ChatColor extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		// TODO Auto-generated method stub
 		String[] colors = {"1 - &1Dark_Blue      &r2 - &2Dark_Green"
@@ -55,6 +56,7 @@ public class ChatColor extends Command {
 				player.sendMessage(Colorize.addColor(color));
 		}
 		player.sendMessage(Colorize.addColor("&c================================"));
+                return null;
 	}
 
 }

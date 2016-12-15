@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterString;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.cvtools.nbt.BookItem;
 
 public class BookMain extends Command {
@@ -22,10 +23,10 @@ public class BookMain extends Command {
     }
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		if (player.getInventory().getItemInMainHand().getType() != Material.WRITTEN_BOOK)
-			return;
+                    return null;;
 		BookItem book = new BookItem(player.getInventory().getItemInMainHand());
 		
 		if (flags.contains("unsign"))
@@ -38,6 +39,6 @@ public class BookMain extends Command {
 		book.setTitle((String) parameters.get("title"));
 		
 		player.getInventory().setItemInMainHand(book.asItemStack());
-
+                return null;
 	}
 }

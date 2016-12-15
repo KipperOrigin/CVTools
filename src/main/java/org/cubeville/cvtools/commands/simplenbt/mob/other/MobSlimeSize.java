@@ -10,6 +10,7 @@ import org.bukkit.entity.Slime;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterInteger;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
@@ -22,22 +23,23 @@ public class MobSlimeSize extends Command {
 	}
 	
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		Map<String, LivingEntity> commandMap = CommandMapManager.getLivingEntityCommandMap();
 		if (!commandMap.containsKey(player.getName())) {
 			player.sendMessage(Colorize.addColor("&cPlease select a &6slime &cor&6 magma cube&c!"));
-			return;
+			return null;
 		} else if (commandMap.get(player.getName()) == null || !(commandMap.get(player.getName()) instanceof Slime)) {
 			player.sendMessage(Colorize.addColor("&cPlease select a &6slime &cor&6 magma cube&c!"));
-			return;
+			return null;
 		}
 		
 		if ((int) baseParameters.get(0) > 32) {
 			player.sendMessage(Colorize.addColor("&cPlease use a size smaller than &632&c!"));
-			return;
+			return null;
 		} else
 			((Slime) commandMap.get(player.getName())).setSize((int) baseParameters.get(0));
+                return null;
 	}
 }
 

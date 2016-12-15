@@ -11,6 +11,7 @@ import org.bukkit.entity.Villager.Profession;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterEnum;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.commands.CommandMapManager;
 import org.bukkit.entity.Zombie;
@@ -23,20 +24,20 @@ public class MobVillagerProfession extends Command {
 	}
 	
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		Map<String, LivingEntity> commandMap = CommandMapManager.getLivingEntityCommandMap();
 		if (!commandMap.containsKey(player.getName())) {
 			player.sendMessage(Colorize.addColor("&cPlease select a &6villager &cor&6 zombie villager&c!"));
-			return;
+			return null;
 		} else if (commandMap.get(player.getName()) == null || (!(commandMap.get(player.getName()) instanceof Zombie) && !(commandMap.get(player.getName()) instanceof Villager))) {
 			player.sendMessage(Colorize.addColor("&cPlease select a &6villager &cor&6 zombie villager&c!"));
-			return;
+			return null;
 		}
 		
 		if (commandMap.get(player.getName()) instanceof Zombie)
 			if (!((Zombie) commandMap.get(player.getName())).isVillager())
-				return;
+				return null;
 			else
 				((Zombie) commandMap.get(player.getName())).setVillagerProfession((Profession) baseParameters.get(0));
 		
@@ -44,6 +45,6 @@ public class MobVillagerProfession extends Command {
 			((Villager) commandMap.get(player.getName())).setProfession((Profession) baseParameters.get(0));
 		}
 
-		
+		return null;
 	}
 }

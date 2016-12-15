@@ -12,6 +12,7 @@ import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterEnum;
 import org.cubeville.commons.commands.CommandParameterFloat;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.cvtools.commands.CommandMapManager;
 import org.cubeville.commons.utils.AdvancedSlots;
 import org.cubeville.commons.utils.Colorize;
@@ -25,15 +26,15 @@ public class MobEquipment extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		Map<String, LivingEntity> commandMap = CommandMapManager.getLivingEntityCommandMap();
 		if (!commandMap.containsKey(player.getName())) {
 			player.sendMessage(Colorize.addColor("&cPlease select a &6mob&c!"));
-			return;
+			return null;
 		} else if (commandMap.get(player.getName()) == null) {
 			player.sendMessage(Colorize.addColor("&cPlease select a &6mob&c!"));
-			return;
+			return null;
 		}
 		
 		boolean chance = parameters.containsKey("chance");
@@ -48,6 +49,7 @@ public class MobEquipment extends Command {
 		
 		if (!chance)
 			player.getInventory().setItemInMainHand(item);
-		
+
+                return null;
 	}
 }

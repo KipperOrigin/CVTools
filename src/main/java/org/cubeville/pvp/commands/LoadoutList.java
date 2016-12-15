@@ -7,6 +7,7 @@ import java.util.Set;
 import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.CVTools;
 
@@ -17,7 +18,7 @@ public class LoadoutList extends Command{
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
 			throws CommandExecutionException {
 		List<String> loadouts = CVTools.getInstance().getLoadoutManager().getLoadoutNames();
 		String[] messages = {""};
@@ -45,6 +46,7 @@ public class LoadoutList extends Command{
 		for (String message: messages) {
 			player.sendMessage(Colorize.addColor(message));
 		}
+                return null;
 	}
 
 }

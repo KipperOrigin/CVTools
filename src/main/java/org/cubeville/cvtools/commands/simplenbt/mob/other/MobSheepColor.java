@@ -11,6 +11,7 @@ import org.bukkit.entity.Sheep;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterEnum;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
@@ -23,18 +24,18 @@ public class MobSheepColor extends Command {
 	}
 	
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
 			throws CommandExecutionException {
 		Map<String, LivingEntity> commandMap = CommandMapManager.getLivingEntityCommandMap();
 		if (!commandMap.containsKey(player.getName())) {
-			player.sendMessage(Colorize.addColor("&cPlease select a &6sheep&c!"));
-			return;
+			return new CommandResponse("&cPlease select a &6sheep&c!");
 		} else if (commandMap.get(player.getName()) == null || !(commandMap.get(player.getName()) instanceof Sheep)) {
-			player.sendMessage(Colorize.addColor("&cPlease select a &6sheep&c!"));
-			return;
+			return new CommandResponse("&cPlease select a &6sheep&c!");
 		}
 		
 		Sheep sheep = (Sheep) commandMap.get(player.getName());
 		sheep.setColor((DyeColor) baseParameters.get(0));
+
+                return null;
 	}
 }

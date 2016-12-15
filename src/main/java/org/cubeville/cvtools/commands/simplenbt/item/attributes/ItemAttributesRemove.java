@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterInteger;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.cvtools.nbt.NBTItem;
 
 public class ItemAttributesRemove extends Command {
@@ -19,10 +20,10 @@ public class ItemAttributesRemove extends Command {
     }
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
 			throws CommandExecutionException {
 		if (player.getInventory().getItemInMainHand().getType() == Material.AIR || player.getInventory().getItemInMainHand().getType() == null)
-			return;
+			return null;
 		
 		int i = (int) baseParameters.get(0);
 		NBTItem nbtItem = new NBTItem(player.getInventory().getItemInMainHand());
@@ -30,5 +31,6 @@ public class ItemAttributesRemove extends Command {
 		nbtItem.removeAttribute(i);
 		
 		player.getInventory().setItemInMainHand(nbtItem.asItemStack());
+                return null;
 	}
 }

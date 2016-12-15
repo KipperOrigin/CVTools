@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
+import org.cubeville.commons.commands.CommandResponse;
 
 public class ItemEnchantmentsClear extends Command {
 
@@ -18,14 +19,15 @@ public class ItemEnchantmentsClear extends Command {
     }
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		ItemStack item = player.getInventory().getItemInMainHand();
 		
 		if (item == null || item.getType() == Material.AIR)
-			return;
+			return null;
 		
 		clearEnchantments(item);
+                return null;
 	}
 	
 	public void clearEnchantments(ItemStack item) {

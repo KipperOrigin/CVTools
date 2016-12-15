@@ -7,6 +7,7 @@ import java.util.Set;
 import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.commands.commandmap.CommandMap;
 import org.cubeville.cvtools.commands.commandmap.CommandMapManager;
@@ -19,7 +20,7 @@ public class EntitySelect extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		CommandMap commandMap = CommandMapManager.primaryMap;
 		
@@ -28,6 +29,7 @@ public class EntitySelect extends Command {
 			player.sendMessage(Colorize.addColor("&aYou may now select a &6entity&a!"));
 		} else
 			player.sendMessage(Colorize.addColor("&cYou are already selecting an &6entity&c!"));
+                return null;
 	}
 
 }

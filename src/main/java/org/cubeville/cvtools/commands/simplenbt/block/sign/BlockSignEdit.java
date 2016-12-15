@@ -10,6 +10,7 @@ import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.commons.utils.Colorize;
 import org.cubeville.commons.utils.ObjectUtils;
 import org.cubeville.cvtools.commands.commandmap.CommandMap;
@@ -30,7 +31,7 @@ public class BlockSignEdit extends Command {
     private ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
 	
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		CommandMap commandMap = CommandMapManager.primaryMap;
 		Block sign;
@@ -39,11 +40,11 @@ public class BlockSignEdit extends Command {
 			sign = ObjectUtils.getObjectAsBlock(commandMap.get(player));
 		} catch (RuntimeException e) {
 			player.sendMessage(e.toString());
-			return;
+			return null;
 		}
 		
 		if (!(sign.getState() instanceof Sign))
-			return;
+			return null;
 		
 		PacketContainer editSignPacket = protocolManager.createPacket(PacketType.Play.Server.OPEN_SIGN_EDITOR);
 		
@@ -58,6 +59,7 @@ public class BlockSignEdit extends Command {
 		}
 		
 		//Figure out what is called for the sign update event 'Player KipperOrigin just tried to change non-editable sign'
+                return null;
 	}
 
 }

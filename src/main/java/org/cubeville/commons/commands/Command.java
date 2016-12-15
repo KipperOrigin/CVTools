@@ -19,7 +19,6 @@ import org.bukkit.entity.Player;
 public abstract class Command
 {
     private List<String> commands;
-    private List<String> successMessages;
     private Set<String> flags;
     private Map<String, CommandParameterType> optional;
     private Map<String, CommandParameterType> mandatory;
@@ -28,8 +27,6 @@ public abstract class Command
 
     public Command(String fullCommand) {
         commands = Arrays.asList(fullCommand.split(" "));
-        successMessages = new ArrayList<>();
-        successMessages.add("Command executed successfully.");
         flags = new HashSet<>();
         optional = new HashMap<>();
         mandatory = new HashMap<>();
@@ -42,28 +39,12 @@ public abstract class Command
         for(int i = 1; i < commands.size(); i++) ret += " " + commands.get(i);
         return ret;
     }
-
-    public String getBaseSuccessMessage() {
-    	return successMessages.get(0);
-    }
     
     public String[] getArgs() {
     	return (String[]) commands.toArray();
     }
     
-    public List<String> getSuccessMessages() {
-        return successMessages;
-    }
-    
-    protected void addSuccessMessage(String message) {
-    	successMessages.add(message);
-    }
-    
-    protected void setBaseSuccessMessage(String message) {
-    	successMessages.set(0, message);
-    }
-    
-    protected void addFlag(String flag) {
+     protected void addFlag(String flag) {
         flags.add(flag);
     }
 
@@ -142,7 +123,7 @@ public abstract class Command
         return null;
     }
 
-    public void execute(Player player, String[] args) throws CommandExecutionException {
+    public CommandResponse execute(Player player, String[] args) throws CommandExecutionException {
         Set<String> flags = new HashSet<>();
         Map<String, Object> parameters = new HashMap<>();
         List<Object> baseParameters = new ArrayList<>();
@@ -166,8 +147,8 @@ public abstract class Command
                 }
             }
         }
-        execute(player, flags, parameters, baseParameters);
+        return execute(player, flags, parameters, baseParameters);
     }
     
-    public abstract void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) throws CommandExecutionException;
+    public abstract CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) throws CommandExecutionException;
 }

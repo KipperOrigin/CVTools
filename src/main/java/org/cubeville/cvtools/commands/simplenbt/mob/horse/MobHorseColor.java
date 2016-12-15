@@ -12,6 +12,7 @@ import org.bukkit.entity.Horse.Variant;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterEnum;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
@@ -24,24 +25,25 @@ public class MobHorseColor extends Command {
 	}
 	
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		Map<String, LivingEntity> commandMap = CommandMapManager.getLivingEntityCommandMap();
 		if (!commandMap.containsKey(player.getName())) {
 			player.sendMessage(Colorize.addColor("&cPlease select a &6normal horse&c!"));
-			return;
+			return null;
 		} else if (commandMap.get(player.getName()) == null || !(commandMap.get(player.getName()) instanceof Horse)) {
 			player.sendMessage(Colorize.addColor("&cPlease select a &6normal horse&c!"));
-			return;
+			return null;
 		}
 		
 		Horse horse = (Horse) commandMap.get(player.getName());
 		
 		if (horse.getVariant() != Variant.HORSE) {
 			player.sendMessage(Colorize.addColor("&cPlease select a &6normal horse&c!"));
-			return;
+			return null;
 		}
 		
 		horse.setColor((Color) baseParameters.get(0));
+                return null;
 	}
 }

@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterShort;
+import org.cubeville.commons.commands.CommandResponse;
 
 public class SkullType extends Command {
 
@@ -19,21 +20,23 @@ public class SkullType extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 
 		ItemStack item = player.getInventory().getItemInMainHand();
 		short data = (short) baseParameters.get(0);
 		
 		if (item.getType() != Material.SKULL_ITEM)
-			return;
+			return null;
 
 		if (data < 0 || data > 5)
-			return;
+			return null;
 		
 		item.setDurability(data);
 		
 		player.getInventory().setItemInMainHand(item);
+
+                return null;
 	}
 
 }

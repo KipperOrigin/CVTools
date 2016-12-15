@@ -9,6 +9,7 @@ import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
@@ -19,16 +20,16 @@ public class BlockSignClear extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		Map<String, Block> commandMap = CommandMapManager.getBlockCommandMap();
 		
 		if (!commandMap.containsKey(player.getName())) {
 			player.sendMessage(Colorize.addColor("&cPlease select a &6sign&c!"));
-			return;
+			return null;
 		} else if (commandMap.get(player.getName()) == null || !(commandMap.get(player.getName()) instanceof Sign)) {
  			player.sendMessage(Colorize.addColor("&cPlease select a &6sign&c!"));
-			return;
+			return null;
 		}
 		
 		Sign sign = (Sign) commandMap.get(player.getName());
@@ -37,5 +38,6 @@ public class BlockSignClear extends Command {
 		sign.setLine(2, "");
 		sign.setLine(3, "");
 		sign.update();
+                return null;
 	}
 }

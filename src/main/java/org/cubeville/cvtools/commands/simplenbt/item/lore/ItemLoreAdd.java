@@ -9,6 +9,7 @@ import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterInteger;
 import org.cubeville.commons.commands.CommandParameterString;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.nbt.NBTItem;
 
@@ -22,14 +23,14 @@ public class ItemLoreAdd extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		NBTItem item;
 		
 		try {
 			item = new NBTItem(player.getInventory().getItemInMainHand());
 		} catch (NullPointerException e) {
-			return;
+			return null;
 		}
 		
 		String line = Colorize.addColor("&r" + (String) baseParameters.get(0));
@@ -42,6 +43,8 @@ public class ItemLoreAdd extends Command {
 			item.replaceLore((int) parameters.get("set") - 1, line);
 		
 		player.getInventory().setItemInMainHand(item.asItemStack());
+
+                return null;
 	}
 
 }

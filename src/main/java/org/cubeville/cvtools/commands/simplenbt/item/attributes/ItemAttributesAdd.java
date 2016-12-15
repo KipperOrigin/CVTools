@@ -12,6 +12,7 @@ import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterDouble;
 import org.cubeville.commons.commands.CommandParameterString;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.cvtools.nbt.NBTItem;
 import org.cubeville.cvtools.nbt.Attributes.AttributeType;
 
@@ -25,10 +26,10 @@ public class ItemAttributesAdd extends Command {
     }
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		if (player.getInventory().getItemInMainHand().getType() == Material.AIR || player.getInventory().getItemInMainHand().getType() == null)
-			return;
+			return null;
 		
 		String typeName = (String) baseParameters.get(0);
 		double d = (double) baseParameters.get(1);
@@ -41,7 +42,7 @@ public class ItemAttributesAdd extends Command {
 				slot = (String) parameters.get("slot");
 		
 		if (type == null)
-			return;
+			return null;
 		else if (typeName.equalsIgnoreCase("damage"))
 			d -= 1;
 		else if (typeName.equalsIgnoreCase("attspeed"))
@@ -50,5 +51,6 @@ public class ItemAttributesAdd extends Command {
 		nbtItem.addAttribute(typeName, type, d, slot);
 		
 		player.getInventory().setItemInMainHand(nbtItem.asItemStack());
+                return null;
 	}
 }

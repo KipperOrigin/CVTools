@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterBoolean;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.cvtools.nbt.NBTItem;
 
 public class ItemGlow extends Command {	
@@ -20,10 +21,10 @@ public class ItemGlow extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		if (player.getInventory().getItemInMainHand().getType() == Material.AIR || player.getInventory().getItemInMainHand().getType() == null)
-			return;
+			return null;
 		
 		NBTItem nbtItem = new NBTItem(player.getInventory().getItemInMainHand());
 		
@@ -33,6 +34,7 @@ public class ItemGlow extends Command {
 			nbtItem.addGlow();
 		
 		player.getInventory().setItemInMainHand(nbtItem.asItemStack());
+                return null;
 	}
 	
 }

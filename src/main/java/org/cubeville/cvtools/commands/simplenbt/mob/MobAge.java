@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterInteger;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
@@ -24,15 +25,15 @@ public class MobAge extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		Map<String, LivingEntity> commandMap = CommandMapManager.getLivingEntityCommandMap();
 		if (!commandMap.containsKey(player.getName())) {
 			player.sendMessage(Colorize.addColor("&cPlease select a &6adeable mob&c!"));
-			return;
+			return null;
 		} else if (commandMap.get(player.getName()) == null || !Ageable.class.isAssignableFrom(commandMap.get(player.getName()).getClass())) {
 			player.sendMessage(Colorize.addColor("&cPlease select a &6ageable mob&c!"));
-			return;
+			return null;
 		}
 		
 		Ageable entity = (Ageable) commandMap.get(player.getName());
@@ -52,5 +53,6 @@ public class MobAge extends Command {
 				entity.setAgeLock(false);
 			else
 				entity.setAgeLock(true);
+                return null;
 	}
 }

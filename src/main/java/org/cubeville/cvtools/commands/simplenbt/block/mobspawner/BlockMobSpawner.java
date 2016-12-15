@@ -12,6 +12,7 @@ import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterEnum;
 import org.cubeville.commons.commands.CommandParameterInteger;
+import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
@@ -24,16 +25,16 @@ public class BlockMobSpawner extends Command {
 	}
 
 	@Override
-	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		Map<String, Block> commandMap = CommandMapManager.getBlockCommandMap();
 		
 		if (!commandMap.containsKey(player.getName())) {
 			player.sendMessage(Colorize.addColor("&cPlease select a &6sign&c!"));
-			return;
+			return null;
 		} else if (commandMap.get(player.getName()) == null || !(commandMap.get(player.getName()).getState() instanceof CreatureSpawner)) {
  			player.sendMessage(Colorize.addColor("&cPlease select a &6sign&c!"));
-			return;
+			return null;
 		}
 		
 		CreatureSpawner spawner = (CreatureSpawner) commandMap.get(player.getName()).getState();
@@ -44,5 +45,6 @@ public class BlockMobSpawner extends Command {
 			spawner.setDelay((int) parameters.get("delay"));
 		
 		spawner.update();
+                return null;
 	}
 }
