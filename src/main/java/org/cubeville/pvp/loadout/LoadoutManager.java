@@ -36,35 +36,33 @@ public class LoadoutManager implements ConfigurationSerializable {
     }
     
     public boolean createLoadout(Player player, String title) {
-        if (loadouts.containsKey(title))
+        if (loadouts.containsKey(title.toLowerCase()))
             return false;
 		
-        player.sendMessage(title);
-		
-        loadouts.put(title, new LoadoutContainer(player, title));
+        loadouts.put(title.toLowerCase(), new LoadoutContainer(player, title));
 		
         return true;
     }
 	
     public boolean removeLoadout(String title) {
-        if (loadouts.containsKey(title)) {
-            loadouts.remove(title);
+        if (loadouts.containsKey(title.toLowerCase())) {
+            loadouts.remove(title.toLowerCase());
             return true;
         } else
             return false;
     }
 	
     public boolean editLoadout(Player player, String title, String teamName) {
-        if (!loadouts.containsKey(title))
+        if (!loadouts.containsKey(title.toLowerCase()))
             return false;
 		
-        LoadoutContainer loadout = loadouts.get(title);
+        LoadoutContainer loadout = loadouts.get(title.toLowerCase());
 	
-        return (loadout.editInventory(player, teamName));
+        return (loadout.editInventory(player, teamName.toLowerCase()));
     }
 	
     public boolean contains(String title) {
-        if (loadouts.containsKey(title))
+        if (loadouts.containsKey(title.toLowerCase()))
             return true;
         else
             return false;

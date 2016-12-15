@@ -30,13 +30,16 @@ public class LoadoutApply extends Command {
 		LoadoutContainer loadout = CVTools.getInstance().getLoadoutManager().getLoadout((String) baseParameters.get(0));
 		
 		if (loadout == null)
-			return;
+			throw new CommandExecutionException("&cLoadout &6" + baseParameters.get(0) + "&c does not exist!");
 		if (parameters.containsKey("team"))
 			team = (String) parameters.get("team");
 		if (parameters.containsKey("player"))
 			playerInv = (Player) parameters.get("player");
 		
-		LoadoutHandler.applyLoadoutToPlayer(playerInv, loadout, team);
+		if (!LoadoutHandler.applyLoadoutToPlayer(playerInv, loadout, team)) {
+			throw new CommandExecutionException("&cSub Loadout &6" + parameters.get("team") + "&c does not exist for &6" + baseParameters.get(0));
+		}
+		setBaseSuccessMessage("&aLoadout &6" + loadout.getInventory(team).getName() + "&a applied to &6" + playerInv.getName());
 	}
 
 }

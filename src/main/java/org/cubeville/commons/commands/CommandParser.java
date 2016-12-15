@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import org.bukkit.entity.Player;
+import org.cubeville.commons.utils.Colorize;
 
 public class CommandParser
 {
@@ -35,7 +36,8 @@ public class CommandParser
                     parameterError = command.checkParameters(args);
                     if(parameterError == null) {
                         command.execute(player, args);
-                        player.sendMessage(command.getSuccessMessage());
+                        for (String message: command.getSuccessMessages())
+                        	player.sendMessage(Colorize.addColor(message));
                         return true;
                     }
                 }
@@ -51,11 +53,11 @@ public class CommandParser
             return false;
         }
         catch(CommandExecutionException e) {
-            player.sendMessage(e.getMessage());
+            player.sendMessage(Colorize.addColor(e.getMessage()));
             return true;
         }
         catch(IllegalArgumentException e) {
-            player.sendMessage(e.getMessage());
+            player.sendMessage(Colorize.addColor(e.getMessage()));
             return true;
         }
     }

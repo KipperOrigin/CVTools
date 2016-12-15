@@ -4,17 +4,17 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.cubeville.cvtools.commands.CommandMapManager;
+import org.cubeville.cvtools.commands.commandmap.CommandMapManager;
 
 public class EventPlayerQuit implements Listener {
 	
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
-		CommandMapManager.removePlayerFromAll(event.getPlayer());
+		CommandMapManager.removePlayerFromAllMaps(event.getPlayer());
 	}
 	
 	@EventHandler
 	public void onPlayerKick(PlayerKickEvent event) {
-		CommandMapManager.removePlayerFromAll(event.getPlayer());
+		CommandMapManager.removePlayerFromAllMaps(event.getPlayer());
 	}
 }

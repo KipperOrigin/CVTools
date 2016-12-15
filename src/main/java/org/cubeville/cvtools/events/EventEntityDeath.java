@@ -9,7 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.SlimeSplitEvent;
-import org.cubeville.cvtools.commands.CommandMapManager;
+import org.cubeville.cvtools.commands.commandmap.CommandMap;
+import org.cubeville.cvtools.commands.commandmap.CommandMapManager;
 
 public class EventEntityDeath implements Listener {
 
@@ -24,16 +25,9 @@ public class EventEntityDeath implements Listener {
 	}
 	
 	public void removeEntity(Entity entity) {
-		if (entity instanceof LivingEntity) {
-			Map<String, LivingEntity> commandMap = CommandMapManager.getLivingEntityCommandMap();
-			if (commandMap.containsValue(entity)) {
-				commandMap.values().removeAll(Collections.singleton(entity));
-			}
-		}
-		
-		Map<String, Entity> commandMap = CommandMapManager.getEntityCommandMap();
-		if (commandMap.containsValue(entity)) {
-			commandMap.values().removeAll(Collections.singleton(entity));
+		CommandMap commandMap = CommandMapManager.primaryMap;
+		if (commandMap.contains(entity)) {
+			commandMap.getRawMap().values().removeAll(Collections.singleton(entity));
 		}
 	}
 }

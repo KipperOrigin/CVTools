@@ -20,6 +20,8 @@ public class EventPlayerInteract implements Listener {
 		Player player = event.getPlayer();
 		
 		if (CommandMapManager.primaryMap.contains(player)) {
+			if (event.getClickedBlock() == null)
+				return;
 			if (CommandMapManager.primaryMap.get(player) == event.getClickedBlock())
 				return;
 			if (event.getAction() != Action.RIGHT_CLICK_BLOCK)
@@ -35,6 +37,8 @@ public class EventPlayerInteract implements Listener {
 	
 	@EventHandler (priority = EventPriority.HIGH)
 	public void onPlayerInteractSign(PlayerInteractEvent event) {
+		if (event.getClickedBlock() == null)
+			return;
 		if (event.getClickedBlock().getType() == Material.WALL_SIGN) {
 			Sign sign = (Sign) event.getClickedBlock().getState();
 			if (sign.getLine(1).equalsIgnoreCase("[load-out]")) {
