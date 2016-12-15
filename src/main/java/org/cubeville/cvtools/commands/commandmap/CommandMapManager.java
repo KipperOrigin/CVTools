@@ -1,5 +1,7 @@
 package org.cubeville.cvtools.commands.commandmap;
 
+import org.bukkit.entity.Player;
+
 public class CommandMapManager {
 	
 	public static CommandMap primaryMap;
@@ -13,6 +15,11 @@ public class CommandMapManager {
 	public static void unregisterMaps() {
 		primaryMap = null;
 		secondaryMap = null;
+	}
+	
+	public static void removePlayerFromAllMaps(Player player) {
+		primaryMap.removePlayer(player);
+		secondaryMap.removePlayer(player);
 	}
 	
 }

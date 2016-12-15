@@ -27,9 +27,9 @@ public class LoadoutContainer implements ConfigurationSerializable {
         loadoutName = (String) config.get("name");
         Map<String, List<ItemStack>> lists = (Map<String, List<ItemStack>>) config.get("loadouts");
         for(String invname: lists.keySet()) {
-            Inventory inv = Bukkit.createInventory(null, 54, invname);
+            Inventory inv = Bukkit.createInventory(null, 54, loadoutName + ":" + invname);
             for(int i = 0; i < lists.get(invname).size(); i++) {
-                inv.setItem(i, lists.get(invname).get(i));
+                inv.setItem(i, lists.get(invname.toLowerCase()).get(i));
             }
             inventories.put(invname, inv);
         }
@@ -43,7 +43,7 @@ public class LoadoutContainer implements ConfigurationSerializable {
             for(String invname: inventories.keySet()) {
                 List<ItemStack> itemList = new ArrayList<>();
                 for(int i = 0; i < inventories.get(invname).getSize(); i++) {
-                    itemList.add(inventories.get(invname).getItem(i));
+                    itemList.add(inventories.get(invname.toLowerCase()).getItem(i));
                 }
                 inventoryMap.put(invname, itemList);
             }
@@ -58,7 +58,6 @@ public class LoadoutContainer implements ConfigurationSerializable {
         inventories = new HashMap<>();
         inventories.put("main", inv);
         loadoutName = title;
-        player.sendMessage(inventories.get("main").getName());
         player.openInventory(inv);
     }
 	
@@ -83,10 +82,13 @@ public class LoadoutContainer implements ConfigurationSerializable {
         return loadoutName;
     }
 	
+    public void removeInventory(String teamName) {
+		inventories.remove(teamName.toLowerCase());
+	}
+    
     public void createInventory(Player player, String teamName) {
         Inventory inv = Bukkit.createInventory(null, 54, loadoutName + ":" + teamName);
         inventories.put(teamName.toLowerCase(), inv);
-        player.sendMessage(inv.getName());
         player.openInventory(inv);
     }
 	

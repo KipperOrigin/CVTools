@@ -15,8 +15,6 @@ import org.cubeville.commons.utils.ObjectUtils;
 import org.cubeville.cvtools.commands.commandmap.CommandMap;
 import org.cubeville.cvtools.commands.commandmap.CommandMapManager;
 import org.cubeville.cvtools.commands.commandmap.CommandMapValueException;
-import org.cubeville.cvtools.commands.commandmap.commandmaptypes.CommandMapType;
-
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;

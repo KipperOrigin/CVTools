@@ -22,19 +22,22 @@ public class LoadoutEdit extends Command{
 	@Override
 	public void execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
 			throws CommandExecutionException {
-            if (!CVTools.getInstance().getLoadoutManager().contains((String) baseParameters.get(0)))
-			return;
-		
-            LoadoutContainer loadout = CVTools.getInstance().getLoadoutManager().getLoadout((String) baseParameters.get(0));
+		LoadoutContainer loadout = CVTools.getInstance().getLoadoutManager().getLoadout((String) baseParameters.get(0));
 		String loadoutName = "main";
 		
-		if (parameters.containsKey("team"))
+		if (!CVTools.getInstance().getLoadoutManager().contains((String) baseParameters.get(0))) {
+			throw new CommandExecutionException("&cNo loadout exists!");
+		}
+		
+		if (parameters.containsKey("team")) {
 			loadoutName = (String) parameters.get("team");
+		}
 
 		player.sendMessage(loadoutName);
 		
-		if (!loadout.editInventory(player, loadoutName))
-			player.sendMessage("No loadout exists!");
+		if (!loadout.editInventory(player, loadoutName)) {
+			throw new CommandExecutionException("&cNo loadout exists!");
+		}
 	}
 
 }

@@ -11,7 +11,8 @@ import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.block.BlockFadeEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
-import org.cubeville.cvtools.commands.CommandMapManager;
+import org.cubeville.cvtools.commands.commandmap.CommandMap;
+import org.cubeville.cvtools.commands.commandmap.CommandMapManager;
 
 public class EventBlockRemoval implements Listener {
 
@@ -41,9 +42,9 @@ public class EventBlockRemoval implements Listener {
 	}
 	
 	public void removeBlock(Block block) {
-		Map<String, Block> commandMap = CommandMapManager.getBlockCommandMap();
-		if (commandMap.containsValue(block)) {
-			commandMap.values().removeAll(Collections.singleton(block));
+		CommandMap commandMap = CommandMapManager.primaryMap;
+		if (commandMap.contains(block)) {
+			commandMap.getRawMap().values().removeAll(Collections.singleton(block));
 		}
 	}
 	

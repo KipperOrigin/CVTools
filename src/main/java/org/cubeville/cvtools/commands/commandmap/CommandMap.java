@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.entity.Player;
-import org.cubeville.cvtools.commands.commandmap.commandmaptypes.CommandMapType;
 
 public class CommandMap {
 	
@@ -17,12 +16,16 @@ public class CommandMap {
 	public void put(Player player, Object value) {
 		commandMap.put(player.getName(), value);
 	}
+	
+	public void removePlayer(Player player) {
+		commandMap.remove(player.getName());
+	}
 
 	public boolean contains(Player player) {
 		return commandMap.containsKey(player.getName());
 	}
 	
-	public boolean contains(CommandMapType value) {
+	public boolean contains(Object value) {
 		if (commandMap.containsValue(value))
 			return true;
 		else
