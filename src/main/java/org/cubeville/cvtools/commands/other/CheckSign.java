@@ -21,8 +21,9 @@ public class CheckSign extends Command {
 
     public CheckSign() {
         super("checksign");
-        addBaseParameter(new CommandParameterInteger());
         addBaseParameter(new CommandParameterString());
+        addOptionalBaseParameter(new CommandParameterInteger());
+        addFlag("we");
     }
 
     @Override
@@ -30,9 +31,19 @@ public class CheckSign extends Command {
         throws CommandExecutionException {
 
         CommandResponse ret = new CommandResponse();
+
+        List<Block> signs;
+        if(flags.size() > 0) { // WE
+            signs = BlockGetter.getBlocksInWESelectionByType(player, Material.SIGN_POST, Material.WALL_SIGN);
+        }
+        else if(baseParameters.size() == 2) {
+            signs = BlockGetter.getBlocksInRadiusByType(player.getLocation(), (int) baseParameters.get(1), Material.SIGN_POST, Material.WALL_SIGN);
+        }
+        else {
+            throw new CommandExecutionException("No radius / we.");
+        }
         
-        List<Block> signs = BlockGetter.getBlocksInRadiusByType(player.getLocation(), (int) baseParameters.get(0), Material.SIGN_POST, Material.WALL_SIGN);
-        CharSequence cs = (String) baseParameters.get(1);
+        CharSequence cs = (String) baseParameters.get(0);
         int amount = 0;
         for (Block sign: signs) {
             boolean contains = false;
@@ -49,10 +60,10 @@ public class CheckSign extends Command {
                 amount += 1;
                 ret.addMessage(sign.getLocation().getBlockX() + "/" + sign.getLocation().getBlockY() + "/" + sign.getLocation().getBlockZ() + "&a: " + lineCon);
             }
-	}
-
-        ret.setBaseMessage((amount > 0 ? "&a" : "&c") + amount + " sign(s) contain the string &6" + (String) baseParameters.get(1) + (amount > 0 ? "&a:" : "&c."));
-
+        }
+        
+        ret.setBaseMessage((amount > 0 ? "&a" : "&c") + amount + " sign(s) contain the string &6" + (String) baseParameters.get(0) + (amount > 0 ? "&a:" : "&c."));
+        
         return ret;
     }
 }
