@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
 import com.sk89q.worldedit.bukkit.*;
 import com.sk89q.worldedit.bukkit.selections.*;
@@ -63,6 +64,14 @@ public class BlockGetter {
             }                
         }
         return blocks;
+    }
+
+    public static void setWESelection(Player player, World world, Vector pos1, Vector pos2) {
+        WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
+        com.sk89q.worldedit.Vector wep1 = new com.sk89q.worldedit.Vector(pos1.getX(), pos1.getY(), pos1.getZ());
+        com.sk89q.worldedit.Vector wep2 = new com.sk89q.worldedit.Vector(pos2.getX(), pos2.getY(), pos2.getZ());
+        Selection selection = new CuboidSelection(world, wep1, wep2);
+        worldEdit.setSelection(player, selection);
     }
     
     public static List<Block> getBlocksInRadiusByType(Location loc, int radius, Material... mats) {
