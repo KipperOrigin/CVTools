@@ -22,11 +22,19 @@
       <groupId>com.comphenix.protocol</groupId>
       <artifactId>ProtocolLib</artifactId>
       <version>4.0.1</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.sk89q.worldedit</groupId>
       <artifactId>worldedit-bukkit</artifactId>
       <version>6.1.1-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.sk89q</groupId>
+      <artifactId>worldguard</artifactId>
+      <version>6.1</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
   <build>

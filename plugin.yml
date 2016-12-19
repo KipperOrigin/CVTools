@@ -3,7 +3,7 @@ main: org.cubeville.cvtools.CVTools
 author: KipperOrigin
 version: 0.1
 
-softdepend: [ProtocolLib,WorldEdit]
+softdepend: [ProtocolLib,WorldEdit,WorldGuard]
 
 commands:
   snbt:

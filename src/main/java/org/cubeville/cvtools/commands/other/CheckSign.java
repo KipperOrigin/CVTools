@@ -30,11 +30,20 @@ public class CheckSign extends Command {
         addFlag("we");
         addFlag("sel");
         addFlag("tp");
+        addParameter("wg", true, new CommandParameterString());
     }
 
     @Override
     public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
         throws CommandExecutionException {
+
+        int regionPars = 0;
+        if(flags.contains("we")) regionPars++;
+        if(parameters.containsKey("wg")) regionPars++;
+        if(baseParameters.size() == 2) regionPars++;
+        if(regionPars > 1) {
+            throw new CommandExecutionException("Only one of radius / we / wg parameters can be applied.");
+        }
 
         CommandResponse ret = new CommandResponse();
 
@@ -42,12 +51,15 @@ public class CheckSign extends Command {
         if(flags.contains("we")) {
             signs = BlockGetter.getBlocksInWESelectionByType(player, Material.SIGN_POST, Material.WALL_SIGN);
         }
+        else if(parameters.containsKey("wg")) {
+            signs = BlockGetter.getBlocksInWGRegionByType(player, (String) parameters.get("wg"), Material.SIGN_POST, Material.WALL_SIGN);
+        }
         else if(baseParameters.size() == 2) {
             if((int) baseParameters.get(1) > 25) throw new CommandExecutionException("Maximum radius is 25.");
             signs = BlockGetter.getBlocksInRadiusByType(player.getLocation(), (int) baseParameters.get(1), Material.SIGN_POST, Material.WALL_SIGN);
         }
         else {
-            throw new CommandExecutionException("No radius / we.");
+            throw new CommandExecutionException("No radius / we / wg.");
         }
 
         boolean foundfirst = false;
@@ -60,7 +72,7 @@ public class CheckSign extends Command {
             String lineCon = "";
             for (String line: lines) {
                 if(lineCon.length() > 0) lineCon += " ";
-                lineCon += line;
+                lineCon += Colorize.removeColor(line);
             }
             if (lineCon.toUpperCase().contains(cs)) {
                 amount += 1;
@@ -71,7 +83,7 @@ public class CheckSign extends Command {
                     if(flags.contains("sel")) {
                         BlockGetter.setWESelection(player, player.getLocation().getWorld(), sl, sl);
                     }
-                    if(flags.contains("tp")) {
+                    if(flags.contains("tp")) { // Go one down if space is available, also one block "back" (on sign's front)
                         Location loc = sign.getLocation();
                         loc.setX(loc.getX() + .5);
                         loc.setZ(loc.getZ() + .5);
@@ -85,4 +97,5 @@ public class CheckSign extends Command {
         
         return ret;
     }
+
 }

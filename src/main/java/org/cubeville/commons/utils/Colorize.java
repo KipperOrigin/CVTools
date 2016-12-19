@@ -17,10 +17,14 @@ public class Colorize {
     	List<String> finalStrings = new ArrayList<String>();
     	
     	for (String string: strings) {
-    		finalStrings.add(ChatColor.translateAlternateColorCodes('&', string));
+            finalStrings.add(ChatColor.translateAlternateColorCodes('&', string));
     	}
     	
-		return finalStrings;
+        return finalStrings;
+    }
+
+    public static String removeColor(String message) {
+        return ChatColor.stripColor(message);
     }
     
     public static Color getColorFromString(String string) {
