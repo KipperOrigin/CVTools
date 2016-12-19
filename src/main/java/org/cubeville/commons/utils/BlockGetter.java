@@ -9,9 +9,15 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
 import com.sk89q.worldedit.bukkit.*;
 import com.sk89q.worldedit.bukkit.selections.*;
+import com.sk89q.worldedit.BlockVector;
+
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.protection.managers.RegionManager;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 public class BlockGetter {
 	
@@ -53,6 +59,7 @@ public class BlockGetter {
         Location min = selection.getMinimumPoint();
         Location max = selection.getMaximumPoint();
         List<Block> blocks = new ArrayList<>();
+
         for(int x = min.getBlockX(); x <= max.getBlockX(); x++) {
             for(int y = min.getBlockY(); y <= max.getBlockY(); y++) {
                 for(int z = min.getBlockZ(); z <= max.getBlockZ(); z++) {
@@ -63,6 +70,37 @@ public class BlockGetter {
             }                
         }
         return blocks;
+    }
+
+    public static List<Block> getBlocksInWGRegion(Player player, String name) {
+        World world = player.getWorld();
+        
+        WorldGuardPlugin worldGuard = (WorldGuardPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
+        RegionManager regionManager = worldGuard.getRegionManager(world);
+        ProtectedRegion region = regionManager.getRegion(name);
+        if(region == null) throw new IllegalArgumentException("No region found by that name.");
+        BlockVector min = region.getMinimumPoint();
+        BlockVector max = region.getMaximumPoint();
+        List<Block> blocks = new ArrayList<>();
+
+        for(int x = min.getBlockX(); x <= max.getBlockX(); x++) {
+            for(int y = min.getBlockY(); y <= max.getBlockY(); y++) {
+                for(int z = min.getBlockZ(); z <= max.getBlockZ(); z++) {
+                    if(region.contains(new BlockVector(x, y, z))) {
+                        blocks.add(world.getBlockAt(x, y, z));
+                    }
+                }
+            }                
+        }
+        return blocks;
+    }
+    
+    public static void setWESelection(Player player, World world, Vector pos1, Vector pos2) {
+        WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
+        com.sk89q.worldedit.Vector wep1 = new com.sk89q.worldedit.Vector(pos1.getX(), pos1.getY(), pos1.getZ());
+        com.sk89q.worldedit.Vector wep2 = new com.sk89q.worldedit.Vector(pos2.getX(), pos2.getY(), pos2.getZ());
+        Selection selection = new CuboidSelection(world, wep1, wep2);
+        worldEdit.setSelection(player, selection);
     }
     
     public static List<Block> getBlocksInRadiusByType(Location loc, int radius, Material... mats) {
@@ -77,6 +115,11 @@ public class BlockGetter {
 
     public static List<Block> getBlocksInWESelectionByType(Player player, Material... mats) {
         List<Block> blocks = getBlocksInWESelection(player);
+        return getBlocksByType(blocks, mats);
+    }
+
+    public static List<Block> getBlocksInWGRegionByType(Player player, String name, Material... mats) {
+        List<Block> blocks = getBlocksInWGRegion(player, name);
         return getBlocksByType(blocks, mats);
     }
     

@@ -44,21 +44,21 @@ public abstract class Command
     	return (String[]) commands.toArray();
     }
     
-     protected void addFlag(String flag) {
+    public void addFlag(String flag) {
         flags.add(flag);
     }
 
-    protected void addBaseParameter(CommandParameterType type) {
+    public void addBaseParameter(CommandParameterType type) {
         if(base.size() != mandatoryBase) return;
         base.add(type);
         mandatoryBase++;
     }
 
-    protected void addOptionalBaseParameter(CommandParameterType type) {
+    public void addOptionalBaseParameter(CommandParameterType type) {
         base.add(type);
     }
     
-    protected void addParameter(String name, boolean optional, CommandParameterType type) {
+    public void addParameter(String name, boolean optional, CommandParameterType type) {
         if(optional) {
             this.optional.put(name, type);
         }
