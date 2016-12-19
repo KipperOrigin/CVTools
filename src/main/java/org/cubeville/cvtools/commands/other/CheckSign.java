@@ -78,9 +78,9 @@ public class CheckSign extends Command {
                 amount += 1;
                 ret.addMessage(sign.getLocation().getBlockX() + "/" + sign.getLocation().getBlockY() + "/" + sign.getLocation().getBlockZ() + "&a: " + lineCon);
                 if(!foundfirst) {
-                    Vector sl = new Vector(sign.getLocation().getBlockX(), sign.getLocation().getBlockY(), sign.getLocation().getBlockZ());
                     foundfirst = true;
                     if(flags.contains("sel")) {
+                        Vector sl = new Vector(sign.getLocation().getBlockX(), sign.getLocation().getBlockY(), sign.getLocation().getBlockZ());
                         BlockGetter.setWESelection(player, player.getLocation().getWorld(), sl, sl);
                     }
                     if(flags.contains("tp")) { // Go one down if space is available, also one block "back" (on sign's front)
@@ -92,9 +92,9 @@ public class CheckSign extends Command {
                 }
             }
         }
-        
+
         ret.setBaseMessage((amount > 0 ? "&a" : "&c") + amount + " sign(s) contain the string &6" + (String) baseParameters.get(0) + (amount > 0 ? "&a:" : "&c."));
-        
+
         return ret;
     }
 
