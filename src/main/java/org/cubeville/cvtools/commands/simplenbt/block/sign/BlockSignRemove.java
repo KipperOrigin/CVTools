@@ -11,7 +11,8 @@ import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterInteger;
 import org.cubeville.commons.commands.CommandResponse;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.commons.utils.ObjectUtils;
+import org.cubeville.cvtools.commands.CommandMap;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class BlockSignRemove extends Command {
@@ -24,25 +25,28 @@ public class BlockSignRemove extends Command {
 	@Override
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
-		Map<String, Block> commandMap = CommandMapManager.getBlockCommandMap();
+		CommandMap commandMap = CommandMapManager.primaryMap;
+		Block block;
 		
-		if (!commandMap.containsKey(player.getName())) {
-			player.sendMessage(Colorize.addColor("&cPlease select a &6sign&c!"));
-			return null;
-		} else if (commandMap.get(player.getName()) == null || !(commandMap.get(player.getName()) instanceof Sign)) {
- 			player.sendMessage(Colorize.addColor("&cPlease select a &6sign&c!"));
-			return null;
+		try {
+			block = ObjectUtils.getObjectAsBlock(commandMap.get(player));
+		} catch (RuntimeException e) {
+			throw new CommandExecutionException("&cPlease select a sign!");
 		}
+		
+		if (!(block.getState() instanceof Sign)) {
+			throw new CommandExecutionException("&cPlease select a sign!");
+		}
+		
+		Sign sign = (Sign) block.getState();
 		
 		if ((int) baseParameters.get(0) > 4 || (int) baseParameters.get(0) < 0) {
- 			player.sendMessage(Colorize.addColor("&cInvalid sign line!"));
-			return null;
+			throw new CommandExecutionException("&cInvalid sign line!");
 		}
-		
-		Sign sign = (Sign) commandMap.get(player.getName());
+
 		sign.setLine((int) baseParameters.get(0) - 1, "");
 		sign.update();
-                return null;
+		return new CommandResponse("&aLine &6" + baseParameters.get(0) + " &aremoved from sign!");
 	}
 }
 

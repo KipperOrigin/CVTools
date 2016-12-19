@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandResponse;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.cvtools.commands.CommandMap;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
 import net.minecraft.server.v1_9_R2.PacketPlayOutMount;
@@ -33,27 +33,28 @@ public class EntityRide extends Command {
 			return null;
 		}
 		
-		Map<String, Entity> commandMap = CommandMapManager.getEntityCommandMap();
-		if (!commandMap.containsKey(player.getName())) {
-			player.sendMessage(Colorize.addColor("&cPlease select a &6entity&c!"));
-			return null;
-		} else if (commandMap.get(player.getName()) == null) {
-			player.sendMessage(Colorize.addColor("&cPlease select a &6entity&c!"));
-			return null;
+		CommandMap commandMap = CommandMapManager.primaryMap;
+		if (!commandMap.contains(player)) {
+			throw new CommandExecutionException("&cPlease select an &6entity&c!");
+		} else if (!(commandMap.get(player) instanceof Entity)) {
+			throw new CommandExecutionException("&cPlease select an &6entity&c!");
 		}
+		
+		Entity entity = (Entity) commandMap.get(player);
 			
 		if (flags.contains("reverse") && !flags.contains("stack") && !flags.contains("unstack")) {
-			if (getHighestEntity(player) != commandMap.get(player.getName())) {
-				stackHighestEntity(player, commandMap.get(player.getName()));
+			if (getHighestEntity(player) != entity) {
+				stackHighestEntity(player, entity);
 			}
 		} else if (!flags.contains("reverse") && flags.contains("stack") && !flags.contains("unstack")) {
 		} else if (!flags.contains("reverse") && !flags.contains("stack") && flags.contains("unstack")) {
-			dismountAll(commandMap.get(player.getName()));
+			dismountAll(entity);
 		} else {
-			if (getHighestEntity(commandMap.get(player.getName())) != player)
-				getHighestEntity(commandMap.get(player.getName())).setPassenger(player);
+			if (getHighestEntity(entity) != player)
+				getHighestEntity(entity).setPassenger(player);
 		}
-                return null;
+		
+		return new CommandResponse("&aEntity ride successfully executed!");
 	}
 	
 	public static Entity getHighestEntity(Entity e) {

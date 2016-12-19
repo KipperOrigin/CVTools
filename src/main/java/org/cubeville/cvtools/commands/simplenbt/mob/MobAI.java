@@ -10,7 +10,7 @@ import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterBoolean;
 import org.cubeville.commons.commands.CommandResponse;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.cvtools.commands.CommandMap;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class MobAI extends Command {
@@ -23,23 +23,17 @@ public class MobAI extends Command {
 	@Override
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
-		Map<String, LivingEntity> commandMap = CommandMapManager.getLivingEntityCommandMap();
-		if (!commandMap.containsKey(player.getName())) {
-			player.sendMessage(Colorize.addColor("&cPlease select a &6mob&c!"));
-			return null;
-		} else if (commandMap.get(player.getName()) == null) {
-			player.sendMessage(Colorize.addColor("&cPlease select a &6mob&c!"));
-			return null;
+		CommandMap commandMap = CommandMapManager.primaryMap;
+		if (!commandMap.contains(player)) {
+			throw new CommandExecutionException("&cPlease select a &6mob&c!");
+		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof LivingEntity)) {
+			throw new CommandExecutionException("&cPlease select a &6mob&c!");
 		}
 		
-		commandMap.get(player.getName()).setAI((Boolean) baseParameters.get(0));
+		((LivingEntity) commandMap.get(player)).setAI((Boolean) baseParameters.get(0));
 		
 		player.sendMessage(baseParameters.get(0).toString());
 		return null;
-		//if (commandMap.get(player.getName()).hasAI())
-			//commandMap.get(player.getName()).setAI(false);
-		//else
-			//commandMap.get(player.getName()).setAI(true);
 	}
 
 }

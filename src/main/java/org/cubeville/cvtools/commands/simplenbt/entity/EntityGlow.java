@@ -8,35 +8,32 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
+import org.cubeville.commons.commands.CommandParameterBoolean;
 import org.cubeville.commons.commands.CommandResponse;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.cvtools.commands.CommandMap;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class EntityGlow extends Command {
 
 	public EntityGlow() {
 		super("entity glow");
-		// TODO Auto-generated constructor stub
+		addBaseParameter(new CommandParameterBoolean());
 	}
 
 	@Override
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
-		Map<String, Entity> commandMap = CommandMapManager.getEntityCommandMap();
-		if (!commandMap.containsKey(player.getName())) {
-			player.sendMessage(Colorize.addColor("&cPlease select an &6mob&c!"));
-			return null;
-		} else if (commandMap.get(player.getName()) == null) {
-			player.sendMessage(Colorize.addColor("&cPlease select an &6mob&c!"));
-			return null;
+		CommandMap commandMap = CommandMapManager.primaryMap;
+		if (!commandMap.contains(player)) {
+			throw new CommandExecutionException("&cPlease select an &6entity&c!");
+		} else if (!(commandMap.get(player) instanceof Entity)) {
+			throw new CommandExecutionException("&cPlease select an &6entity&c!");
 		}
 		
-		Entity entity = commandMap.get(player.getName());
+		Entity entity = (Entity) commandMap.get(player);
 		
-		if (entity.isGlowing())
-			entity.setGlowing(false);
-		else
-			entity.setGlowing(true);
-                return null;
+		entity.setGlowing((boolean) baseParameters.get(0));
+		
+		return new CommandResponse("&aEntity glow changed to &6" + Boolean.toString((boolean) baseParameters.get(0)));
 	}
 }

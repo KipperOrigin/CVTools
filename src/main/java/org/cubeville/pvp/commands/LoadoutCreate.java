@@ -26,13 +26,14 @@ public class LoadoutCreate extends Command {
             if (!CVTools.getInstance().getLoadoutManager().createLoadout(player, (String) baseParameters.get(0))) {
                 throw new CommandExecutionException("&cLoadout already exists!");
             } else {
-            	//setBaseSuccessMessage("&aLoadout &6" + baseParameters.get(0).toString().toLowerCase() + "&a created!");
+            	return new CommandResponse("&aLoadout &6" + baseParameters.get(0).toString().toLowerCase() + "&a created!");
             }
-        } else if (CVTools.getInstance().getLoadoutManager().getLoadout((String) baseParameters.get(0)) != null) {
-            CVTools.getInstance().getLoadoutManager().getLoadout((String) baseParameters.get(0)).createInventory(player, (String) parameters.get("team"));
-            //setBaseSuccessMessage("&aSub Loadout &6" + (String) parameters.get("team") + "&a for loadout &6" + (String) baseParameters.get(0) + "&a created!");
+        } else if (CVTools.getInstance().getLoadoutManager().getLoadoutByName((String) baseParameters.get(0)) != null) {
+            CVTools.getInstance().getLoadoutManager().getLoadoutByName((String) baseParameters.get(0)).createInventory(player, (String) parameters.get("team"));
+            return new CommandResponse("&aSub Loadout &6" + (String) parameters.get("team") + "&a for loadout &6" + (String) baseParameters.get(0) + "&a created!");
+        } else {
+        	throw new CommandExecutionException("&cLoadout &6" + baseParameters.get(0) + " &cdoes not exist! Could not create sub-loadout &6" + parameters.get("team"));
         }
-        return null;
     }
     
 }

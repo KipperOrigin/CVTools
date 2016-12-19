@@ -1,5 +1,9 @@
 package org.cubeville.cvtools.nbt;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -26,6 +30,25 @@ public class PotionItem {
 	    	multiplier = 8;
 	}
 	
+	public PotionEffectType getPotionEffectType(int i) {
+		return potionMeta.getCustomEffects().get(i).getType();
+	}
+	
+	public PotionEffect getPotionEffect(int i) {
+		return potionMeta.getCustomEffects().get(i);
+	}
+	
+	public PotionMeta getRawMeta() {
+		return potionMeta;
+	}
+	
+	public boolean isLength(int i) {
+		if (potionMeta.getCustomEffects().size() < i-1 || i < 0)
+			return false;
+		else
+			return true;
+	}
+	
 	public void setBasePotion(PotionType type) {
 		PotionData data = new PotionData(type);
 		potionMeta.setBasePotionData(data);
@@ -40,8 +63,20 @@ public class PotionItem {
 		potionMeta.addCustomEffect(effect, true);
 	}
 	
-	public void removeEffect(PotionEffectType type) {
-		potionMeta.removeCustomEffect(type);
+	public void removeEffect(int i) {
+		List<PotionEffect> effects = potionMeta.getCustomEffects();
+		List<PotionEffect> newEffects = new ArrayList<>();
+		clearEffects();
+		
+		for(PotionEffect effect: effects) {
+			if (!(newEffects.size() == i)) {
+				newEffects.add(effect);
+			}
+		}
+		
+		for(PotionEffect effect: newEffects) {
+			potionMeta.addCustomEffect(effect, true);
+		}
 	}
 	
 	public void clearEffects() {

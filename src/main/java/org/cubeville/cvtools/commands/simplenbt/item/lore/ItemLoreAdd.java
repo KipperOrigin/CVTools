@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
@@ -25,26 +26,29 @@ public class ItemLoreAdd extends Command {
 	@Override
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
-		NBTItem item;
-		
-		try {
-			item = new NBTItem(player.getInventory().getItemInMainHand());
-		} catch (NullPointerException e) {
-			return null;
+		if (player.getInventory().getItemInMainHand() == null || player.getInventory().getItemInMainHand().getType() == Material.AIR) {
+			throw new CommandExecutionException("&cMust be holding an item!");
 		}
 		
+		NBTItem item = new NBTItem(player.getInventory().getItemInMainHand());
 		String line = Colorize.addColor("&r" + (String) baseParameters.get(0));
+		CommandResponse cr = new CommandResponse();
 		
-		if (!parameters.containsKey("insert") && !parameters.containsKey("set"))
+		if (!parameters.containsKey("insert") && !parameters.containsKey("set")) {
 			item.addLore(line);
-		else if (parameters.containsKey("insert") && !parameters.containsKey("set"))
+			cr.addMessage("&aLore added to item!");
+		} else if (parameters.containsKey("insert") && !parameters.containsKey("set")) {
 			item.insertLore((int) parameters.get("insert") - 1, line);
-		else if (!parameters.containsKey("insert") && parameters.containsKey("set"))
+			cr.addMessage("&aLore inserted at line &6" + parameters.get("insert"));
+		} else if (!parameters.containsKey("insert") && parameters.containsKey("set")) {
 			item.replaceLore((int) parameters.get("set") - 1, line);
+			cr.addMessage("&aLore set to line &6" + (int) parameters.get("set"));
+		} else {
+			throw new CommandExecutionException("&cCannot insert and set lore at the same time!");
+		}
 		
 		player.getInventory().setItemInMainHand(item.asItemStack());
-
-                return null;
+		return cr;
 	}
 
 }

@@ -25,16 +25,15 @@ public class FireworkPower extends Command {
 			throws CommandExecutionException {
 		ItemStack item = player.getInventory().getItemInMainHand();
 		
-		if (item.getType() != Material.FIREWORK)
-			return null;
+		if (item.getType() != Material.FIREWORK) {
+			throw new CommandExecutionException("&cMust be holding a &6firework&c!");
+		}
 		
 		FireworkMeta fireworkMeta = (FireworkMeta) item.getItemMeta();
 		fireworkMeta.setPower((int) baseParameters.get(0));
 		item.setItemMeta(fireworkMeta);
-		
-		player.getInventory().setItemInMainHand(item);
 
-                return null;
+		return new CommandResponse("&aFirework power set to &6" + baseParameters.get(0));
 	}
 }
 

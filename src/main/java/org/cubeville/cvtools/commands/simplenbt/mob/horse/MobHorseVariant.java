@@ -5,14 +5,13 @@ import java.util.Map;
 import java.util.Set;
 
 import org.bukkit.entity.Horse;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.entity.Horse.Variant;
+import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterEnum;
 import org.cubeville.commons.commands.CommandResponse;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.cvtools.commands.CommandMap;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class MobHorseVariant extends Command {
@@ -26,19 +25,17 @@ public class MobHorseVariant extends Command {
 	@Override
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
-		Map<String, LivingEntity> commandMap = CommandMapManager.getLivingEntityCommandMap();
-		if (!commandMap.containsKey(player.getName())) {
-			player.sendMessage(Colorize.addColor("&cPlease select a &6horse&c!"));
-			return null;
-		} else if (commandMap.get(player.getName()) == null || !(commandMap.get(player.getName()) instanceof Horse)) {
-			player.sendMessage(Colorize.addColor("&cPlease select a &6horse&c!"));
-			return null;
+		CommandMap commandMap = CommandMapManager.primaryMap;
+		if (!commandMap.contains(player)) {
+			throw new CommandExecutionException("&cPlease select a &6horse&c!");
+		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Horse)) {
+			throw new CommandExecutionException("&cPlease select a &6horse&c!");
 		}
 		
-		Horse horse = (Horse) commandMap.get(player.getName());
+		Horse horse = (Horse) commandMap.get(player);
 		
 		horse.setVariant((Variant) baseParameters.get(0));
-                return null;
+		return new CommandResponse("&cHorse variant changed to &6" + ((Variant) baseParameters.get(0)).name());
 	}
 
 }

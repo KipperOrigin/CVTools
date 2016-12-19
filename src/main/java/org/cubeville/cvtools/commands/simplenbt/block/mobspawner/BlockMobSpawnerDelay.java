@@ -6,14 +6,14 @@ import java.util.Set;
 
 import org.bukkit.block.Block;
 import org.bukkit.block.CreatureSpawner;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
-import org.cubeville.commons.commands.CommandParameterEnum;
+import org.cubeville.commons.commands.CommandParameterInteger;
 import org.cubeville.commons.commands.CommandResponse;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.commons.utils.ObjectUtils;
 import org.cubeville.cvtools.CVTools;
+import org.cubeville.cvtools.commands.CommandMap;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class BlockMobSpawnerDelay extends Command {
@@ -22,26 +22,30 @@ public class BlockMobSpawnerDelay extends Command {
 	
 	public BlockMobSpawnerDelay() {
 		super("block spawner delay");
-		addBaseParameter(new CommandParameterEnum(EntityType.class));
+		addBaseParameter(new CommandParameterInteger());
 	}
 
 	@Override
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
-		Map<String, Block> commandMap = CommandMapManager.getBlockCommandMap();
+		CommandMap commandMap = CommandMapManager.primaryMap;
+		Block block;
 		
-		if (!commandMap.containsKey(player.getName())) {
-			player.sendMessage(Colorize.addColor("&cPlease select a &6sign&c!"));
-			return null;
-		} else if (commandMap.get(player.getName()) == null || !(commandMap.get(player.getName()).getState() instanceof CreatureSpawner)) {
- 			player.sendMessage(Colorize.addColor("&cPlease select a &6sign&c!"));
-			return null;
+		try {
+			block = ObjectUtils.getObjectAsBlock(commandMap.get(player));
+		} catch (RuntimeException e) {
+			throw new CommandExecutionException("&cPlease select a &6mob spawner&a!");
 		}
 		
-		CreatureSpawner spawner = (CreatureSpawner) commandMap.get(player.getName()).getState();
+		if (!(block.getState() instanceof CreatureSpawner)) {
+			throw new CommandExecutionException("&cPlease select a &6mob spawner&a!");
+		}
+		
+		CreatureSpawner spawner = (CreatureSpawner) block.getState();
 
-		spawner.setSpawnedType((EntityType) baseParameters.get(0));
+		spawner.setDelay((int) baseParameters.get(0));
 		spawner.update();
-                return null;
+		
+        return new CommandResponse("&aMob spawner delay changed to &6" + baseParameters.get(0));
 	}
 }

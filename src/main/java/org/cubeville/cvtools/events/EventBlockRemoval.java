@@ -11,8 +11,8 @@ import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.block.BlockFadeEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
-import org.cubeville.cvtools.commands.commandmap.CommandMap;
-import org.cubeville.cvtools.commands.commandmap.CommandMapManager;
+import org.cubeville.cvtools.commands.CommandMap;
+import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class EventBlockRemoval implements Listener {
 

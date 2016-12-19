@@ -24,11 +24,11 @@ public class BannerPatternClear extends Command {
 		try {
 			banner = new BannerItem(player.getInventory().getItemInMainHand());
 		} catch (IllegalArgumentException e) {
-			return null;
+			throw new CommandExecutionException("&cMust be holding a &6banner&c!");
 		}
 		
 		banner.clearPatterns();
 		player.getInventory().setItemInMainHand(banner.asItemStack());
-                return null;
+		return new CommandResponse("&aBanner patterns cleared!");
 	}
 }

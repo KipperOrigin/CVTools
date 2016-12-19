@@ -13,6 +13,8 @@ import org.cubeville.commons.commands.CommandParameterInteger;
 import org.cubeville.commons.commands.CommandParameterString;
 import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.commons.utils.Colorize;
+import org.cubeville.commons.utils.ObjectUtils;
+import org.cubeville.cvtools.commands.CommandMap;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class BlockSignSet extends Command {
@@ -26,28 +28,26 @@ public class BlockSignSet extends Command {
 	@Override
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
-		Map<String, Block> commandMap = CommandMapManager.getBlockCommandMap();
+		CommandMap commandMap = CommandMapManager.primaryMap;
+		Block block;
 		
-		if (!commandMap.containsKey(player.getName())) {
-			player.sendMessage(Colorize.addColor("&cPlease select a &6sign&c!"));
-			return null;
-		} else if (commandMap.get(player.getName()) == null) {
- 			player.sendMessage(Colorize.addColor("&cPlease select a &6sign&c!"));
-			return null;
-		} else if (!(commandMap.get(player.getName()).getState() instanceof Sign)) {
- 			player.sendMessage(Colorize.addColor("&cPlease select a &6sign&c!"));
-			return null;
+		try {
+			block = ObjectUtils.getObjectAsBlock(commandMap.get(player));
+		} catch (RuntimeException e) {
+			throw new CommandExecutionException("&cPlease select a sign!");
+		}
+		
+		if (!(block.getState() instanceof Sign)) {
+			throw new CommandExecutionException("&cPlease select a sign!");
 		}
 		
 		if ((int) baseParameters.get(0) > 4 || (int) baseParameters.get(0) < 1) {
- 			player.sendMessage(Colorize.addColor("&cInvalid sign line!"));
-			return null;
+			throw new CommandExecutionException("&cInvalid sign line!");
 		}
 		
-		Block block = commandMap.get(player.getName());
 		Sign sign = (Sign) block.getState();
 		sign.setLine((int) baseParameters.get(0) - 1, Colorize.addColor((String) "&0" + baseParameters.get(1)));
 		sign.update();
-                return null;
+		return new CommandResponse("&aLine &6" + baseParameters.get(0) + " &a set to &6" + baseParameters.get(1) + " &aon sign!");
 	}
 }

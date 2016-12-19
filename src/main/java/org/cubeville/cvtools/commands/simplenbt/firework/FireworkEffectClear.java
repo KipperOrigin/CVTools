@@ -23,15 +23,17 @@ public class FireworkEffectClear extends Command {
 			throws CommandExecutionException {
 		ItemStack item = player.getInventory().getItemInMainHand();
 		
-		if (item.getType() != Material.FIREWORK)
-			return null;
+		if (item.getType() != Material.FIREWORK) {
+			throw new CommandExecutionException("&cMust be holding a &6firework&c!");
+		}
 		
 		FireworkMeta fireworkMeta = (FireworkMeta) item.getItemMeta();
 		fireworkMeta.clearEffects();
 		item.setItemMeta(fireworkMeta);
 		
 		player.getInventory().setItemInMainHand(item);
-                return null;
+		
+		return new CommandResponse("&aEffect successfully cleared from &6firework&6!");
 	}
 
 }

@@ -10,7 +10,8 @@ import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandResponse;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.commons.utils.ObjectUtils;
+import org.cubeville.cvtools.commands.CommandMap;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class BlockSignClear extends Command {
@@ -22,17 +23,20 @@ public class BlockSignClear extends Command {
 	@Override
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
-		Map<String, Block> commandMap = CommandMapManager.getBlockCommandMap();
+		CommandMap commandMap = CommandMapManager.primaryMap;
+		Block block;
 		
-		if (!commandMap.containsKey(player.getName())) {
-			player.sendMessage(Colorize.addColor("&cPlease select a &6sign&c!"));
-			return null;
-		} else if (commandMap.get(player.getName()) == null || !(commandMap.get(player.getName()) instanceof Sign)) {
- 			player.sendMessage(Colorize.addColor("&cPlease select a &6sign&c!"));
-			return null;
+		try {
+			block = ObjectUtils.getObjectAsBlock(commandMap.get(player));
+		} catch (RuntimeException e) {
+			throw new CommandExecutionException("&cPlease select a sign!");
 		}
 		
-		Sign sign = (Sign) commandMap.get(player.getName());
+		if (!(block.getState() instanceof Sign)) {
+			throw new CommandExecutionException("&cPlease select a sign!");
+		}
+		
+		Sign sign = (Sign) block.getState();
 		sign.setLine(0, "");
 		sign.setLine(1, "");
 		sign.setLine(2, "");

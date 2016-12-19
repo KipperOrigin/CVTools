@@ -5,7 +5,11 @@ import org.cubeville.commons.utils.Colorize;
 public class CommandParameterColor implements CommandParameterType
 {
 	public boolean isValid(String value) {
-        return Colorize.getColorFromString(value.toUpperCase()) != null;
+		if (Colorize.getColorFromString(value.toUpperCase()) != null) {
+			return true;
+		} else {
+			return Colorize.getColorFromRGB(value) != null;
+		}
     }
 
     public String getInvalidMessage(String value) {
@@ -13,6 +17,10 @@ public class CommandParameterColor implements CommandParameterType
     }
 
     public Object getValue(String value) {
-        return Colorize.getColorFromString(value.toUpperCase());
+		if (Colorize.getColorFromString(value.toUpperCase()) != null) {
+			return Colorize.getColorFromString(value.toUpperCase());
+		} else {
+			return Colorize.getColorFromRGB(value);
+		}
     }
 }

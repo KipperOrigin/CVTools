@@ -46,17 +46,19 @@ public class ChatColor extends Command {
 				,"F - &fWhite              &r7 - &7Gray"
 				,"8 - &8Dark_Gray       &r0 - &0Black"};
 		
-		
-		player.sendMessage(Colorize.addColor("&c================================"));
-		if (flags.contains("rainbow"))
-			for (String rainbow: rainbows)
-				player.sendMessage(Colorize.addColor(rainbow));
-		else {
-			for (String color: colors)
-				player.sendMessage(Colorize.addColor(color));
+		CommandResponse cr = new CommandResponse();
+		cr.setBaseMessage("&c================================");
+		if (flags.contains("rainbow")) {
+			for (String rainbow: rainbows) {
+				cr.addMessage(rainbow);
+			}
+		} else {
+			for (String color: colors) {
+				cr.addMessage(color);
+			}
 		}
-		player.sendMessage(Colorize.addColor("&c================================"));
-                return null;
+		cr.addMessage("&c================================");
+		return cr;
 	}
 
 }

@@ -1,6 +1,5 @@
 package org.cubeville.cvtools.commands.simplenbt.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -14,63 +13,57 @@ import org.bukkit.entity.Tameable;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandResponse;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.cvtools.commands.CommandMap;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class EntityInfo extends Command {
 
 	public EntityInfo() {
 		super("entity info");
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
 			throws CommandExecutionException {
-		Map<String, Entity> commandMap = CommandMapManager.getEntityCommandMap();
-		if (!commandMap.containsKey(player.getName())) {
-			player.sendMessage(Colorize.addColor("&cPlease select an &6mob&c!"));
-			return null;
-		} else if (commandMap.get(player.getName()) == null) {
-			player.sendMessage(Colorize.addColor("&cPlease select an &6mob&c!"));
-			return null;
+		CommandMap commandMap = CommandMapManager.primaryMap;
+		if (!commandMap.contains(player)) {
+			throw new CommandExecutionException("&cPlease select an &6entity&c!");
+		} else if (!(commandMap.get(player) instanceof Entity)) {
+			throw new CommandExecutionException("&cPlease select an &6entity&c!");
 		}
 		
-		Entity entity = commandMap.get(player.getName());
-		List<String> info = new ArrayList<>();
+		Entity entity = (Entity) commandMap.get(player);
 		
-		info.add("&aType&r: " + entity.getType().toString());
-		info.add("&aCustom Name&r: " + entity.getCustomName());
-		info.add("&aSilent&r: " + String.valueOf(entity.isSilent()));
+		CommandResponse cr = new CommandResponse();
+		
+		cr.setBaseMessage("&aType&r: " + entity.getType().toString());
+		cr.addMessage("&aCustom Name&r: " + entity.getCustomName());
+		cr.addMessage("&aSilent&r: " + String.valueOf(entity.isSilent()));
 		
 		if (entity instanceof LivingEntity) {
 			LivingEntity livingEntity = (LivingEntity) entity;
-			info.add("&aAI&r: " + livingEntity.hasAI());
-			info.add("&aInvulnerable&r: " + livingEntity.isInvulnerable());
-			info.add("&aHealth&r: " + livingEntity.getHealth() + "&a/&r" + livingEntity.getMaxHealth());
+			cr.addMessage("&aAI&r: " + livingEntity.hasAI());
+			cr.addMessage("&aInvulnerable&r: " + livingEntity.isInvulnerable());
+			cr.addMessage("&aHealth&r: " + livingEntity.getHealth() + "&a/&r" + livingEntity.getMaxHealth());
 			
 			if (Ageable.class.isAssignableFrom(livingEntity.getClass())) {
 				Ageable ageableEntity = (Ageable) livingEntity;
-				info.add("&aAge&r: " + ageableEntity.getAge());
-				info.add("&aAge Lock&r: " + ageableEntity.getAgeLock());
+				cr.addMessage("&aAge&r: " + ageableEntity.getAge());
+				cr.addMessage("&aAge Lock&r: " + ageableEntity.getAgeLock());
 			}
 			
 			if (Tameable.class.isAssignableFrom(livingEntity.getClass())) {
 				Tameable tameableEntity = (Tameable) livingEntity;
-				info.add("&aTamed&r: " + tameableEntity.isTamed());
+				cr.addMessage("&aTamed&r: " + tameableEntity.isTamed());
 				if (tameableEntity.isTamed());
 					if (tameableEntity.getOwner() != null)
-						info.add("&aOwner&r: " + tameableEntity.getOwner().getName());
+						cr.addMessage("&aOwner&r: " + tameableEntity.getOwner().getName());
 			}
 			
 			if (livingEntity instanceof Slime)
-				info.add("&aHealth&r: " + ((Slime) livingEntity).getSize());
+				cr.addMessage("&aHealth&r: " + ((Slime) livingEntity).getSize());
 		}
-		
-		for (String message: info) {
-			player.sendMessage(Colorize.addColor(message));
-		}
-
-                return null;
+         
+		return cr;
 	}
 }

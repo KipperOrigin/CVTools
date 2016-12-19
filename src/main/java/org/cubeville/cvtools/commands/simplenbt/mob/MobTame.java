@@ -4,16 +4,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Tameable;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterBoolean;
-import org.cubeville.commons.commands.CommandParameterString;
+import org.cubeville.commons.commands.CommandParameterOnlinePlayer;
 import org.cubeville.commons.commands.CommandResponse;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.cvtools.commands.CommandMap;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class MobTame extends Command {
@@ -21,30 +20,26 @@ public class MobTame extends Command {
 	public MobTame() {
 		super("mob tame");
 		addBaseParameter(new CommandParameterBoolean());
-		addParameter("player", true, new CommandParameterString());
+		addParameter("player", true, new CommandParameterOnlinePlayer());
 	}
 
 	@Override
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
-		Map<String, LivingEntity> commandMap = CommandMapManager.getLivingEntityCommandMap();
-		if (!commandMap.containsKey(player.getName())) {
-			player.sendMessage(Colorize.addColor("&cPlease select a &6tameable mob&c!"));
-			return null;
-		} else if (commandMap.get(player.getName()) == null || !Tameable.class.isAssignableFrom(commandMap.get(player.getName()).getClass())) {
-			player.sendMessage(Colorize.addColor("&cPlease select a &6tameable mob&c!"));
-			return null;
+		CommandMap commandMap = CommandMapManager.primaryMap;
+		if (!commandMap.contains(player)) {
+			throw new CommandExecutionException("&cPlease select a &6tameable mob&c!");
+		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Tameable)) {
+			throw new CommandExecutionException("&cPlease select a &6tameable mob&c!");
 		}
 		
-		Tameable entity = (Tameable) commandMap.get(player.getName());
+		Tameable entity = (Tameable) commandMap.get(player);
 		Player playerT = player;
 		Boolean tame = (Boolean) baseParameters.get(0);
 
-		if (parameters.containsKey("player"))
-			if (Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer((String) parameters.get("player"))))
-				playerT = Bukkit.getPlayer((String) parameters.get("player"));
-			else
-				return null;
+		if (parameters.containsKey("player")) {
+			playerT = (Player) parameters.get("player");
+		}
 		
 		if (tame) {
 			entity.setOwner(playerT);
@@ -53,7 +48,7 @@ public class MobTame extends Command {
 		}
 		
 		entity.setTamed(tame);
-                return null;
+        return new CommandResponse("&aMob &6" + ((Entity) entity).getCustomName() + " &atamed to &6" + playerT.getName());
 	}
 
 }

@@ -11,6 +11,7 @@ import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterInteger;
 import org.cubeville.commons.commands.CommandParameterString;
 import org.cubeville.commons.commands.CommandResponse;
+import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.CVTools;
 
 public class DelayedTask extends Command {
@@ -30,24 +31,33 @@ public class DelayedTask extends Command {
 			throws CommandExecutionException {
 		int delay = (int) baseParameters.get(0);
 		
-		if (!flags.contains("ticks"))
+		if (!flags.contains("ticks")) {
 			delay *= 20;
+		}
+		
+		if ((parameters.containsKey("cmd") && parameters.containsKey("chat")) || (!parameters.containsKey("cmd") && !parameters.containsKey("chat"))) {
+			throw new CommandExecutionException("cMust delay a command OR chat!");
+		}
 		
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 
 			@Override
 			public void run() {
 				runDelayedTask(player, parameters);
+				player.sendMessage(Colorize.addColor("&aAction successfully played!"));
 			}
 			
 		}, delay);
-                return null;
+		return new CommandResponse("&aAction successfully delayed!");
 	}
 	
 	public void runDelayedTask(Player player, Map<String, Object> parameters) {
-		if (parameters.containsKey("cmd"))
+		if (parameters.containsKey("cmd")) {
 			player.performCommand((String) parameters.get("cmd"));
-		else if (parameters.containsKey("chat"))
+		} else if (parameters.containsKey("chat")) {
 			player.chat((String) parameters.get("chat"));
+		} else {
+			throw new IllegalArgumentException();
+		}
 	}
 }

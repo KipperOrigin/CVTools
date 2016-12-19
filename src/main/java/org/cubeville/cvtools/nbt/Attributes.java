@@ -120,8 +120,9 @@ public class Attributes {
     			return AttributeType.GENERIC_MAX_HEALTH;
     		} else if (string.equalsIgnoreCase("movespeed")) {
     			return AttributeType.GENERIC_MOVEMENT_SPEED;
-    		} else
-    			return null;
+    		} else {
+    			throw new IllegalArgumentException(string + " is no valid attribute type!");
+    		}
     	}
     }
 

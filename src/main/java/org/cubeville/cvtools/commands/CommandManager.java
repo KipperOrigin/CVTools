@@ -5,7 +5,6 @@ import org.cubeville.cvtools.CVTools;
 import org.cubeville.cvtools.commands.other.*;
 import org.cubeville.cvtools.commands.simplenbt.armor.*;
 import org.cubeville.cvtools.commands.simplenbt.banner.*;
-import org.cubeville.cvtools.commands.simplenbt.block.*;
 import org.cubeville.cvtools.commands.simplenbt.block.mobspawner.*;
 import org.cubeville.cvtools.commands.simplenbt.block.sign.*;
 import org.cubeville.cvtools.commands.simplenbt.book.*;
@@ -42,8 +41,7 @@ public class CommandManager {
 		snbtCommandParser = new CommandParser();  
 		
 		// ARMOR
-		snbtCommandParser.addCommand(new ArmorColorByName());
-		snbtCommandParser.addCommand(new ArmorColorByRGB());
+		snbtCommandParser.addCommand(new ArmorColor());
 		
 		// BANNER
 		snbtCommandParser.addCommand(new BannerPatternAdd());
@@ -51,12 +49,7 @@ public class CommandManager {
 		snbtCommandParser.addCommand(new BannerPatternRemove());
 		snbtCommandParser.addCommand(new BannerColor());
 		
-		// BLOCK
-		snbtCommandParser.addCommand(new BlockDeselect());
-		snbtCommandParser.addCommand(new BlockSelect());
-		
 		// BLOCK -- mobspawner
-		snbtCommandParser.addCommand(new BlockMobSpawner());
 		snbtCommandParser.addCommand(new BlockMobSpawnerDelay());
 		snbtCommandParser.addCommand(new BlockMobSpawnerEntity());
 		
@@ -68,18 +61,15 @@ public class CommandManager {
 		
 		// BOOK
 		snbtCommandParser.addCommand(new BookAuthor());
-		snbtCommandParser.addCommand(new BookColorize());    
-		snbtCommandParser.addCommand(new BookMain());
+		snbtCommandParser.addCommand(new BookColorize());
 		snbtCommandParser.addCommand(new BookTitle());
 		snbtCommandParser.addCommand(new BookUnsign());
 		
 		// ENTITY
-		snbtCommandParser.addCommand(new EntityDeselect());
 		snbtCommandParser.addCommand(new EntityGlow());
 		snbtCommandParser.addCommand(new EntityInfo());
 		snbtCommandParser.addCommand(new EntityName());
 		snbtCommandParser.addCommand(new EntityRide());
-		snbtCommandParser.addCommand(new EntitySelect());
 		snbtCommandParser.addCommand(new EntitySilent());
 		
 		// FIREWORK
@@ -90,14 +80,12 @@ public class CommandManager {
 		
 		// ITEM	
 		snbtCommandParser.addCommand(new ItemDurability());
-		snbtCommandParser.addCommand(new ItemGlow());
 		snbtCommandParser.addCommand(new ItemName());
 		snbtCommandParser.addCommand(new ItemType());
 		
 		// ITEM --flags
 		snbtCommandParser.addCommand(new ItemFlags());
 		snbtCommandParser.addCommand(new ItemFlagsAdd());
-		snbtCommandParser.addCommand(new ItemFlagsAddAll());
 		snbtCommandParser.addCommand(new ItemFlagsClear());
 		snbtCommandParser.addCommand(new ItemFlagsRemove());
 		
@@ -119,9 +107,7 @@ public class CommandManager {
 		// MOB
 		snbtCommandParser.addCommand(new MobAge());
 		snbtCommandParser.addCommand(new MobAI());
-		snbtCommandParser.addCommand(new MobDeselect());
 		snbtCommandParser.addCommand(new MobEquipment());
-		snbtCommandParser.addCommand(new MobSelect());
 		snbtCommandParser.addCommand(new MobTame());
 
 		// MOB --armor stand
@@ -178,8 +164,12 @@ public class CommandManager {
 		pvpCommandParser.addCommand(new LoadoutApply());
 		pvpCommandParser.addCommand(new LoadoutCreate());
 		pvpCommandParser.addCommand(new LoadoutEdit());	
+		pvpCommandParser.addCommand(new LoadoutInfo());
 		pvpCommandParser.addCommand(new LoadoutList());
 		pvpCommandParser.addCommand(new LoadoutRemove());
+		pvpCommandParser.addCommand(new LoadoutTagAdd());
+		pvpCommandParser.addCommand(new LoadoutTagClear());
+		pvpCommandParser.addCommand(new LoadoutTagRemove());
 	}
 	
 	public static void nullifyCommandParsers() {

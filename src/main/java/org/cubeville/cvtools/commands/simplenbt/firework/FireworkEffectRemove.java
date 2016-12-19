@@ -25,15 +25,22 @@ public class FireworkEffectRemove extends Command {
 			throws CommandExecutionException {
 		ItemStack item = player.getInventory().getItemInMainHand();
 		
-		if (item.getType() != Material.FIREWORK)
-			return null;
+		if (item.getType() != Material.FIREWORK) {
+			throw new CommandExecutionException("&cMust be holding a &6firework&c!");
+		}
 		
 		FireworkMeta fireworkMeta = (FireworkMeta) item.getItemMeta();
-		fireworkMeta.removeEffect((int) baseParameters.get(0));
+		int i = (int) baseParameters.get(0);
+		
+		if (i <= fireworkMeta.getEffectsSize() && !(i < 0)) {
+			fireworkMeta.removeEffect((int) baseParameters.get(0));
+		} else {
+			throw new CommandExecutionException("&cLine &6" + baseParameters.get(i) + " &adoes not exist for this firework!");
+		}
+		
 		item.setItemMeta(fireworkMeta);
 		
-		player.getInventory().setItemInMainHand(item);
-                return null;
+		return new CommandResponse("&aFirework effect removed from line &6" + baseParameters.get(0));
 	}
 
 }

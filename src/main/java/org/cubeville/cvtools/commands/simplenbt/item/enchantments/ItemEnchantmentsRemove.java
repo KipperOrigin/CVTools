@@ -25,12 +25,13 @@ public class ItemEnchantmentsRemove extends Command {
 			throws CommandExecutionException {
 		ItemStack item = player.getInventory().getItemInMainHand();
 		
-		if (item == null || item.getType() == Material.AIR)
-			return null;
-		
+		if (item == null || item.getType() == Material.AIR) {
+			throw new CommandExecutionException("&cMust be holding an item!");
+		}
+			
 		item.removeEnchantment((Enchantment) baseParameters.get(0));
 
-                return null;
+		return new CommandResponse("&aEnchantment &6" + ((Enchantment) baseParameters.get(0)).getName() + "&aremoved from item!");
 	}
 
 }

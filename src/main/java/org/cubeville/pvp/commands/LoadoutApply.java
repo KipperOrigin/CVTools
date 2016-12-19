@@ -28,7 +28,7 @@ public class LoadoutApply extends Command {
 			throws CommandExecutionException {
 		String team = "main";
 		Player playerInv = player;
-		LoadoutContainer loadout = CVTools.getInstance().getLoadoutManager().getLoadout((String) baseParameters.get(0));
+		LoadoutContainer loadout = CVTools.getInstance().getLoadoutManager().getLoadoutByName((String) baseParameters.get(0));
 		
 		if (loadout == null)
 			throw new CommandExecutionException("&cLoadout &6" + baseParameters.get(0) + "&c does not exist!");

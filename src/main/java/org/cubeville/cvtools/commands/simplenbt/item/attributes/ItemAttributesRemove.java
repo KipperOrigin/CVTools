@@ -22,8 +22,9 @@ public class ItemAttributesRemove extends Command {
 	@Override
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
 			throws CommandExecutionException {
-		if (player.getInventory().getItemInMainHand().getType() == Material.AIR || player.getInventory().getItemInMainHand().getType() == null)
-			return null;
+		if (player.getInventory().getItemInMainHand().getType() == Material.AIR || player.getInventory().getItemInMainHand().getType() == null) {
+			throw new CommandExecutionException("&cMust be holding an item!");
+		}
 		
 		int i = (int) baseParameters.get(0);
 		NBTItem nbtItem = new NBTItem(player.getInventory().getItemInMainHand());
@@ -31,6 +32,6 @@ public class ItemAttributesRemove extends Command {
 		nbtItem.removeAttribute(i);
 		
 		player.getInventory().setItemInMainHand(nbtItem.asItemStack());
-                return null;
+        return new CommandResponse("&aAttribute removed!");
 	}
 }

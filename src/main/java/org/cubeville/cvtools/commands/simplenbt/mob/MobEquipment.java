@@ -13,9 +13,9 @@ import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterEnum;
 import org.cubeville.commons.commands.CommandParameterFloat;
 import org.cubeville.commons.commands.CommandResponse;
-import org.cubeville.cvtools.commands.CommandMapManager;
 import org.cubeville.commons.utils.AdvancedSlots;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.cvtools.commands.CommandMap;
+import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class MobEquipment extends Command {
 	
@@ -28,13 +28,11 @@ public class MobEquipment extends Command {
 	@Override
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
-		Map<String, LivingEntity> commandMap = CommandMapManager.getLivingEntityCommandMap();
-		if (!commandMap.containsKey(player.getName())) {
-			player.sendMessage(Colorize.addColor("&cPlease select a &6mob&c!"));
-			return null;
-		} else if (commandMap.get(player.getName()) == null) {
-			player.sendMessage(Colorize.addColor("&cPlease select a &6mob&c!"));
-			return null;
+		CommandMap commandMap = CommandMapManager.primaryMap;
+		if (!commandMap.contains(player)) {
+			throw new CommandExecutionException("&cPlease select a &6mob&c!");
+		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof LivingEntity)) {
+			throw new CommandExecutionException("&cPlease select a &6mob&c!");
 		}
 		
 		boolean chance = parameters.containsKey("chance");
@@ -42,14 +40,13 @@ public class MobEquipment extends Command {
 		EquipmentSlot slot = (EquipmentSlot) (baseParameters.get(0));
 		ItemStack item = player.getInventory().getItemInMainHand();
 		
-		if (chance)
+		if (chance) {
 			c = (float) parameters.get("chance");
-		
-		item = AdvancedSlots.setEquipmentByName(commandMap.get(player.getName()), slot, item, chance, c);
-		
-		if (!chance)
+			return new CommandResponse("&aDrop chance for &6" + slot.name() + " &afor &6" + ((LivingEntity) commandMap.get(player)).getCustomName() + " &aset to " + c);
+		} else {
+			item = AdvancedSlots.setEquipmentByName((LivingEntity) commandMap.get(player), slot, item, chance, c);
 			player.getInventory().setItemInMainHand(item);
-
-                return null;
+			return new CommandResponse("&aItem for &6" + slot.name() + " &afor &6" + ((LivingEntity) commandMap.get(player)).getCustomName() + " &aset to " + player.getInventory().getItemInMainHand().getType() );
+		}
 	}
 }

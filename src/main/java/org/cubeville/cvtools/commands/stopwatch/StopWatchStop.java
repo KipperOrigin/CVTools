@@ -9,32 +9,32 @@ import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterString;
 import org.cubeville.commons.commands.CommandResponse;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.cvtools.commands.CommandMap;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class StopWatchStop extends Command {
 
 	public StopWatchStop() {
-		super("stopwatch end");
+		super("stopwatch stop");
 		addParameter("name", true, new CommandParameterString());
 	}
 
 	@Override
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
-		Map<String, Long> commandMap = CommandMapManager.getStopWatchCommandMap();
+		CommandMap commandMap = CommandMapManager.primaryMap;
 		String name = "";
 		
-		if (!commandMap.containsKey(player.getName()))
-			return null;
+		if (!commandMap.contains(player) || !(commandMap.get(player) instanceof Long))
+			throw new CommandExecutionException("&cYou have not started a stopwatch!");
+		
 		if (parameters.containsKey(player.getName()))
 			name += " for &6" + (String) parameters.get("name") + " ";
 		
-		double time = (System.currentTimeMillis() - commandMap.get(player.getName()))/ 1000.0;
+		double time = (System.currentTimeMillis() - (Long) commandMap.get(player)) / 1000.0;
 		
-		player.sendMessage(Colorize.addColor("&aFinal Time" + name + "&f: " + time));
-		commandMap.remove(player.getName());
-
-                return null;
+		commandMap.removePlayer(player);
+		
+		return new CommandResponse("&aFinal Time" + name + "&f: " + time);
 	}
 }

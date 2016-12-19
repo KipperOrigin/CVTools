@@ -13,9 +13,10 @@ import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.commons.utils.Colorize;
 import org.cubeville.commons.utils.ObjectUtils;
-import org.cubeville.cvtools.commands.commandmap.CommandMap;
-import org.cubeville.cvtools.commands.commandmap.CommandMapManager;
-import org.cubeville.cvtools.commands.commandmap.CommandMapValueException;
+import org.cubeville.cvtools.commands.CommandMap;
+import org.cubeville.cvtools.commands.CommandMapManager;
+import org.cubeville.cvtools.commands.CommandMapValueException;
+
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
@@ -34,21 +35,21 @@ public class BlockSignEdit extends Command {
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 		CommandMap commandMap = CommandMapManager.primaryMap;
-		Block sign;
+		Block block;
 		
 		try {
-			sign = ObjectUtils.getObjectAsBlock(commandMap.get(player));
+			block = ObjectUtils.getObjectAsBlock(commandMap.get(player));
 		} catch (RuntimeException e) {
-			player.sendMessage(e.toString());
-			return null;
+			throw new CommandExecutionException("&cPlease select a sign!");
 		}
 		
-		if (!(sign.getState() instanceof Sign))
-			return null;
+		if (!(block.getState() instanceof Sign)) {
+			throw new CommandExecutionException("&cPlease select a sign!");
+		}
 		
 		PacketContainer editSignPacket = protocolManager.createPacket(PacketType.Play.Server.OPEN_SIGN_EDITOR);
 		
-		BlockPosition position = new BlockPosition(sign.getX(), sign.getY(), sign.getZ());
+		BlockPosition position = new BlockPosition(block.getX(), block.getY(), block.getZ());
 		
 		editSignPacket.getBlockPositionModifier().write(0, position);
 		

@@ -27,16 +27,16 @@ public class SkullType extends Command {
 		short data = (short) baseParameters.get(0);
 		
 		if (item.getType() != Material.SKULL_ITEM)
-			return null;
+			throw new CommandExecutionException("&cHeld item must be a &6Skull&c!");
 
 		if (data < 0 || data > 5)
-			return null;
+			throw new CommandExecutionException("&cThe value &6" + baseParameters.get(0) + "&c is invalid. Please use a value from 0-5.");
 		
 		item.setDurability(data);
 		
 		player.getInventory().setItemInMainHand(item);
 
-                return null;
+		return new CommandResponse("&aSkull type changed.");
 	}
 
 }

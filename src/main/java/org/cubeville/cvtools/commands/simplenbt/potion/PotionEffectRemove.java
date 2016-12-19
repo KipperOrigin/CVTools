@@ -6,10 +6,9 @@ import java.util.Set;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffectType;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
-import org.cubeville.commons.commands.CommandParameterPotionEffectType;
+import org.cubeville.commons.commands.CommandParameterInteger;
 import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.cvtools.nbt.PotionItem;
 
@@ -17,7 +16,7 @@ public class PotionEffectRemove extends Command {
 
 	public PotionEffectRemove() {
 		super("potion remove");
-		addBaseParameter(new CommandParameterPotionEffectType());
+		addBaseParameter(new CommandParameterInteger());
 		// TODO Auto-generated constructor stub
 	}
 
@@ -28,16 +27,21 @@ public class PotionEffectRemove extends Command {
 		if (player.getInventory().getItemInMainHand().getType() != Material.POTION 
 				&& player.getInventory().getItemInMainHand().getType() != Material.LINGERING_POTION 
 				&& player.getInventory().getItemInMainHand().getType() != Material.SPLASH_POTION 
-				&& player.getInventory().getItemInMainHand().getType() != Material.TIPPED_ARROW)
-			return null;
+				&& player.getInventory().getItemInMainHand().getType() != Material.TIPPED_ARROW) {
+            throw new CommandExecutionException("&cHeld item must be a &6Potion&c!");
+		}
 		
 		PotionItem potionItem = new PotionItem(player.getInventory().getItemInMainHand());
 		
-		potionItem.removeEffect(PotionEffectType.getByName((String) baseParameters.get(0)));
+		if (!(potionItem.getRawMeta().getCustomEffects().size() >= (int) baseParameters.get(0)) || (int) baseParameters.get(0) <= 0) {
+			throw new CommandExecutionException("&cThe line &6" + baseParameters.get(0) + " &cdoes not exist for this potion.");
+		}
 		
+		String type = potionItem.getPotionEffectType((int) baseParameters.get(0) - 1).getName().toLowerCase();
+		
+		potionItem.removeEffect((int) baseParameters.get(0) - 1);
 		player.getInventory().setItemInMainHand(potionItem.asItemStack());
 
-                return null;
+        return new CommandResponse("&aPotion Effect Type &6" + type + " &afrom line &6" + baseParameters.get(0) + " &aremoved from potion.");
 	}
-
 }

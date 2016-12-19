@@ -17,6 +17,14 @@ public class CommandResponse {
         messages.add(message);
         baseMessageSet = true;
     }
+    
+    public CommandResponse(String... messages) {
+    	this.messages = new ArrayList<>();
+    	for(String message: messages) {
+    		this.messages.add(message);
+    	}
+    	baseMessageSet = true;
+    }
 
     public void addMessage(String message) {
         messages.add(message);

@@ -5,13 +5,14 @@ import java.util.Map;
 import java.util.Set;
 
 import org.bukkit.entity.Ageable;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Tameable;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
+import org.cubeville.commons.commands.CommandParameterBoolean;
 import org.cubeville.commons.commands.CommandParameterInteger;
 import org.cubeville.commons.commands.CommandResponse;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.cvtools.commands.CommandMap;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class MobAge extends Command {
@@ -19,6 +20,7 @@ public class MobAge extends Command {
 	public MobAge() {
 		super("mob age");
 		addParameter("set", true, new CommandParameterInteger());
+		addParameter("lock", true, new CommandParameterBoolean());
 		addFlag("baby");
 		addFlag("adult");
 		// TODO Auto-generated constructor stub
@@ -27,16 +29,14 @@ public class MobAge extends Command {
 	@Override
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
-		Map<String, LivingEntity> commandMap = CommandMapManager.getLivingEntityCommandMap();
-		if (!commandMap.containsKey(player.getName())) {
-			player.sendMessage(Colorize.addColor("&cPlease select a &6adeable mob&c!"));
-			return null;
-		} else if (commandMap.get(player.getName()) == null || !Ageable.class.isAssignableFrom(commandMap.get(player.getName()).getClass())) {
-			player.sendMessage(Colorize.addColor("&cPlease select a &6ageable mob&c!"));
-			return null;
+		CommandMap commandMap = CommandMapManager.primaryMap;
+		if (!commandMap.contains(player)) {
+			throw new CommandExecutionException("&cPlease select a &6tameable mob&c!");
+		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Tameable)) {
+			throw new CommandExecutionException("&cPlease select a &6tameable mob&c!");
 		}
 		
-		Ageable entity = (Ageable) commandMap.get(player.getName());
+		Ageable entity = (Ageable) commandMap.get(player);
 		
 		if (parameters.containsKey("set") && !flags.contains("baby") && !flags.contains("adult"))
 			if ((int) parameters.get("set") >= 0)
@@ -48,11 +48,9 @@ public class MobAge extends Command {
 		else if (!parameters.containsKey("set") && !flags.contains("baby") && flags.contains("adult"))
 			entity.setAdult();
 		
-		if (flags.contains("lock"))
-			if (entity.getAgeLock())
-				entity.setAgeLock(false);
-			else
-				entity.setAgeLock(true);
-                return null;
+		if (parameters.containsKey("lock")) {
+			entity.setAgeLock((boolean) parameters.get("lock"));
+		}
+		return new CommandResponse("&aAge for mob &6" + entity.getCustomName() + " &aset!");
 	}
 }

@@ -22,11 +22,12 @@ public class BookTitle extends Command {
 	@Override
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
-		if (player.getInventory().getItemInMainHand().getType() != Material.WRITTEN_BOOK)
-			return null;
+		if (player.getInventory().getItemInMainHand().getType() != Material.WRITTEN_BOOK) {
+			throw new CommandExecutionException("&cMust be holding a &6written book&c!");
+		}
 		BookItem book = new BookItem(player.getInventory().getItemInMainHand());
 		book.setTitle((String) baseParameters.get(0));
 		player.getInventory().setItemInMainHand(book.asItemStack());
-                return null;
+       	return new CommandResponse("&aBook title successfully set to &6" + baseParameters.get(0));
 	} 
 }

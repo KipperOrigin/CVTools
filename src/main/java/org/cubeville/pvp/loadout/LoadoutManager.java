@@ -24,7 +24,8 @@ public class LoadoutManager implements ConfigurationSerializable {
         loadouts = new HashMap<>();
     }
 
-    public LoadoutManager(Map<String, Object> config) {
+    @SuppressWarnings("unchecked")
+	public LoadoutManager(Map<String, Object> config) {
         System.out.println(config.get("loadouts").getClass().getName());
         loadouts = (Map<String, LoadoutContainer>) config.get("loadouts");
     }
@@ -68,9 +69,9 @@ public class LoadoutManager implements ConfigurationSerializable {
             return false;
     }
 	
-    public LoadoutContainer getLoadout(String title) {
-        if (loadouts.containsKey(title))
-            return loadouts.get(title);
+    public LoadoutContainer getLoadoutByName(String title) {
+        if (loadouts.containsKey(title.toLowerCase()))
+            return loadouts.get(title.toLowerCase());
         else
             return null;
     }
@@ -80,5 +81,16 @@ public class LoadoutManager implements ConfigurationSerializable {
         Collections.sort(loadoutList);
         return loadoutList;
     }
-
+    
+    public List<String> getLoadoutNamesByTags(List<String> tags) {
+    	List<String> loadoutList = new ArrayList<>();
+    	
+    	for(LoadoutContainer loadout: loadouts.values()) {
+    		if (loadout.containsAllTags(tags))
+    			loadoutList.add(loadout.getName());
+    	}
+    	
+        Collections.sort(loadoutList);
+    	return loadoutList;
+    }
 }

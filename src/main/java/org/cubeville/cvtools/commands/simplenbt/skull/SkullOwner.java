@@ -27,7 +27,7 @@ public class SkullOwner extends Command {
 		SkullMeta meta;
 
 		if (item.getType() != Material.SKULL_ITEM)
-			return null;
+			throw new CommandExecutionException("&cHeld item must be a &6Skull&c!");
 
 		meta = (SkullMeta) player.getInventory().getItemInMainHand().getItemMeta();
 		meta.setOwner((String) baseParameters.get(0));
@@ -35,7 +35,8 @@ public class SkullOwner extends Command {
 		item.setDurability((short) 3);
 		item.setItemMeta(meta);
 		player.getInventory().setItemInMainHand(item);
-                return null;
+		
+		return new CommandResponse("&aSkull owner changed to &6" + baseParameters.get(0));
 	}
 }
 

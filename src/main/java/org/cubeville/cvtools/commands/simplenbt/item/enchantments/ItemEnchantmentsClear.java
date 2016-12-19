@@ -23,11 +23,12 @@ public class ItemEnchantmentsClear extends Command {
 			throws CommandExecutionException {
 		ItemStack item = player.getInventory().getItemInMainHand();
 		
-		if (item == null || item.getType() == Material.AIR)
-			return null;
-		
+		if (item == null || item.getType() == Material.AIR) {
+			throw new CommandExecutionException("&cMust be holding an item!");
+		}
+			
 		clearEnchantments(item);
-                return null;
+		return new CommandResponse("&aEnchantments cleared!");
 	}
 	
 	public void clearEnchantments(ItemStack item) {

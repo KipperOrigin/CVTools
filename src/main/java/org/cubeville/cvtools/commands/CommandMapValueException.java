@@ -1,4 +1,4 @@
-package org.cubeville.cvtools.commands.commandmap;
+package org.cubeville.cvtools.commands;
 
 public class CommandMapValueException extends RuntimeException {
 	/**

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.cubeville.commons.commands.Command;
@@ -34,15 +35,21 @@ public class ItemFlags  extends Command {
 	@Override
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
+		if (player.getInventory().getItemInMainHand() == null || player.getInventory().getItemInMainHand().getType() == Material.AIR) {
+			throw new CommandExecutionException("&cItem must be held!");
+		}
+		
 		NBTItem item = new NBTItem(player.getInventory().getItemInMainHand());
 		Set<String> removeArgs = (Set<String>) parameters.get("remove");
 		Set<String> addArgs = (Set<String>) parameters.get("add");
 		
-		if (flags.contains("clearall"))
+		if (flags.contains("clearall")) {
 			item.clearFlags();
+		}
 		
-		if (flags.contains("hideall"))
+		if (flags.contains("hideall")) {
 			item.addAllFlags();
+		}
 		
 		if (parameters.get("add") != null) {
 			if (addArgs != null)
@@ -65,6 +72,7 @@ public class ItemFlags  extends Command {
 		}
 		
 		player.getInventory().setItemInMainHand(item.asItemStack());
-                return null;
+		
+		return new CommandResponse("&aItem flags successfully edited");
 	}
 }

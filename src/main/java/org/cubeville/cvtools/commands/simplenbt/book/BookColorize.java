@@ -20,11 +20,12 @@ public class BookColorize extends Command {
 	@Override
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
-		if (player.getInventory().getItemInMainHand().getType() != Material.WRITTEN_BOOK)
-			return null;
+		if (player.getInventory().getItemInMainHand().getType() != Material.WRITTEN_BOOK) {
+			throw new CommandExecutionException("&cMust be holding a &6written book&c!");
+		}
 		BookItem bookItem = new BookItem(player.getInventory().getItemInMainHand());
 		bookItem.colorizeBook();
 		player.getInventory().setItemInMainHand(bookItem.asItemStack());
-                return null;
+       	return new CommandResponse("&aBook successfully colorized!");
 	} 
 }

@@ -32,8 +32,9 @@ public class PotionEffectAdd extends Command {
 		if (player.getInventory().getItemInMainHand().getType() != Material.POTION 
 				&& player.getInventory().getItemInMainHand().getType() != Material.LINGERING_POTION 
 				&& player.getInventory().getItemInMainHand().getType() != Material.SPLASH_POTION 
-				&& player.getInventory().getItemInMainHand().getType() != Material.TIPPED_ARROW)
-			return null;
+				&& player.getInventory().getItemInMainHand().getType() != Material.TIPPED_ARROW) {
+            throw new CommandExecutionException("&cHeld item must be a &6Potion&c!");
+		}
 		
 		PotionItem potionItem = new PotionItem(player.getInventory().getItemInMainHand());
 		PotionEffectType type = (PotionEffectType) baseParameters.get(0);
@@ -55,10 +56,9 @@ public class PotionEffectAdd extends Command {
 		
 		potionEffect.creatPotionEffect(type, dur, level);
 		potionItem.addEffect(potionEffect.getPotionEffect());
-		
 		player.getInventory().setItemInMainHand(potionItem.asItemStack());
 
-                return null;
+		return new CommandResponse("&aPotion Effect Type &6" + type.getName().toLowerCase() + " &awith level:&6" + parameters.get("level") + "&aand&6 duration:&6" + parameters.get("duration") + " &aadded to potion.");
 	}
 
 }

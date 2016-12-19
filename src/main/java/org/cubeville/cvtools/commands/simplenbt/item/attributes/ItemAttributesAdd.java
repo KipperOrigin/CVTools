@@ -28,18 +28,28 @@ public class ItemAttributesAdd extends Command {
 	@Override
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
-		if (player.getInventory().getItemInMainHand().getType() == Material.AIR || player.getInventory().getItemInMainHand().getType() == null)
-			return null;
+		if (player.getInventory().getItemInMainHand().getType() == Material.AIR || player.getInventory().getItemInMainHand().getType() == null) {
+			throw new CommandExecutionException("&cMust be holding an item!");
+		}
 		
 		String typeName = (String) baseParameters.get(0);
 		double d = (double) baseParameters.get(1);
-		AttributeType type = AttributeType.getAttributeTypeByName(typeName);
+		AttributeType type;
 		NBTItem nbtItem = new NBTItem(player.getInventory().getItemInMainHand());
 		List<String> slots = new ArrayList<String>(Arrays.asList("mainhand","offhand","head","chest","legs","feet"));
 		String slot = "mainhand";
 		
-		if (slots.contains((String) parameters.get("slot")))
+		try {
+			type = AttributeType.getAttributeTypeByName(typeName);
+		} catch (IllegalArgumentException e) {
+			throw new CommandExecutionException("&c" + e.getMessage());
+		}
+		
+		if (slots.contains((String) parameters.get("slot"))) {
 				slot = (String) parameters.get("slot");
+		} else {
+			throw new CommandExecutionException("&6" + parameters.get("slot") + " &cis an invalid slot!");
+		}
 		
 		if (type == null)
 			return null;
@@ -51,6 +61,6 @@ public class ItemAttributesAdd extends Command {
 		nbtItem.addAttribute(typeName, type, d, slot);
 		
 		player.getInventory().setItemInMainHand(nbtItem.asItemStack());
-                return null;
+        return new CommandResponse("&aAttribute removed!");
 	}
 }

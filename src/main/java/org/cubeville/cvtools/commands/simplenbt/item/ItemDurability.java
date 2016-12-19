@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
+import org.cubeville.commons.commands.CommandParameterBoolean;
 import org.cubeville.commons.commands.CommandParameterShort;
 import org.cubeville.commons.commands.CommandResponse;
 
@@ -18,7 +19,7 @@ public class ItemDurability extends Command {
 	public ItemDurability() {
 		super("item durability");
 		addParameter("set", true, new CommandParameterShort());
-		addFlag("unbreakable");
+		addParameter("unbreakable", true, new CommandParameterBoolean());
 		addFlag("max");
 		// TODO Auto-generated constructor stub
 	}
@@ -28,22 +29,23 @@ public class ItemDurability extends Command {
 			throws CommandExecutionException {
 		ItemStack item = player.getInventory().getItemInMainHand();
 		
-		if (item == null || item.getType() == Material.AIR)
-			return null;
+		if (item == null || item.getType() == Material.AIR) {
+			throw new CommandExecutionException("&cMust be holding an item!");
+		}
 		
-		if (parameters.containsKey("set") && !flags.contains("unbreakable") && !flags.contains("max"))
+		if (parameters.containsKey("set") && !flags.contains("max")) {
 			item.setDurability((short) (item.getType().getMaxDurability() - ((short) parameters.get("set"))));
-		else if (!parameters.containsKey("set") && flags.contains("unbreakable") && !flags.contains("max")) {
+		} else if (!parameters.containsKey("set") && flags.contains("max")) {
+			item.setDurability((short) 0);
+		}
+		
+
+		if (parameters.containsKey("unbreakable")) {
 			ItemMeta meta = item.getItemMeta();
-			if (meta.spigot().isUnbreakable())
-				meta.spigot().setUnbreakable(false);
-			else
-				meta.spigot().setUnbreakable(true);
+			meta.spigot().setUnbreakable((boolean) parameters.get("unbreakable"));
 			item.setItemMeta(meta);
 		}
-		else if (!parameters.containsKey("set") && !flags.contains("unbreakable") && flags.contains("max"))
-			item.setDurability((short) 0);
-                return null;
+		return new CommandResponse("&aItem durability successfully changed!");
 		
 	}
 

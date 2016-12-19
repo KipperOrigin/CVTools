@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandResponse;
-import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.cvtools.nbt.PotionItem;
 
 public class PotionEffectClear extends Command {
@@ -26,16 +25,16 @@ public class PotionEffectClear extends Command {
 		if (player.getInventory().getItemInMainHand().getType() != Material.POTION 
 				&& player.getInventory().getItemInMainHand().getType() != Material.LINGERING_POTION 
 				&& player.getInventory().getItemInMainHand().getType() != Material.SPLASH_POTION 
-				&& player.getInventory().getItemInMainHand().getType() != Material.TIPPED_ARROW)
-			return null;
+				&& player.getInventory().getItemInMainHand().getType() != Material.TIPPED_ARROW) {
+            throw new CommandExecutionException("&cHeld item must be a &6Potion&c!");
+		}
 		
 		PotionItem potionItem = new PotionItem(player.getInventory().getItemInMainHand());
 		
 		potionItem.clearEffects();
-		
 		player.getInventory().setItemInMainHand(potionItem.asItemStack());
 
-                return null;
+		return new CommandResponse("&aPotion effects cleared from potion.");
 	}
 
 }

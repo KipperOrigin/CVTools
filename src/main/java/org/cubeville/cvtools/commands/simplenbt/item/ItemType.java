@@ -27,14 +27,15 @@ public class ItemType extends Command {
 		ItemStack item = player.getInventory().getItemInMainHand();
 		
 		if (item == null || item.getType() == Material.AIR)
-			return null;
+			throw new CommandExecutionException("&cMust be holding an item!");
 		
 		item.setType((Material) baseParameters.get(0));
 		
-		if (parameters.containsKey("data"))
+		if (parameters.containsKey("data")) {
 			item.setDurability((short) parameters.get("data"));
+		}
 
-                return null;
+		return new CommandResponse("&aItem type successfully changed to &6" + ((Material) baseParameters.get(0)).name());
 	}
 
 }

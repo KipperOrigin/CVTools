@@ -4,21 +4,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
+import org.cubeville.commons.commands.CommandParameterOnlinePlayer;
 import org.cubeville.commons.commands.CommandParameterString;
 import org.cubeville.commons.commands.CommandResponse;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
 
 public class PlayerEquipItem extends Command {
 
 	public PlayerEquipItem() {
 		super("player equip");
 		addBaseParameter(new CommandParameterString());
-		addParameter("player", true, new CommandParameterString());
+		addParameter("player", true, new CommandParameterOnlinePlayer());
 	}
 
 	@Override
@@ -27,16 +27,15 @@ public class PlayerEquipItem extends Command {
 		String slot = (String) baseParameters.get(0);
 		Player playerI = player;
 		
-		if (parameters.containsKey("player"))
-			if (Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer((String) parameters.get("player"))))
-				playerI = Bukkit.getPlayer((String) parameters.get("player"));
-			else
-				return null;
+		if (parameters.containsKey("player")) {
+			playerI = (Player) parameters.get("player");
+		}
 		
 		ItemStack inhand = player.getInventory().getItemInMainHand();
 		
-		if (inhand == null || inhand.getType() == Material.AIR)
-			return null;
+		if (inhand == null || inhand.getType() == Material.AIR) {
+			throw new CommandExecutionException("&cYou must be holding an item!");
+		}
 		
 		ItemStack equipped = new ItemStack(Material.AIR);
 		
@@ -56,13 +55,16 @@ public class PlayerEquipItem extends Command {
 			if (playerI.getInventory().getBoots() != null)
 				equipped = playerI.getInventory().getBoots();
 			playerI.getInventory().setBoots(inhand);
+		} else {
+			throw new CommandExecutionException("&cSlot must be &fhead&c,&fchest&c,&flegs&c,&fboots");
 		}
 		
-		if (playerI.getInventory().getItemInMainHand() == null || playerI.getInventory().getItemInMainHand().getType() == Material.AIR)
+		if (playerI.getInventory().getItemInMainHand() == null || playerI.getInventory().getItemInMainHand().getType() == Material.AIR) {
 			playerI.getInventory().setItemInMainHand(equipped);
-		else
+		} else {
 			playerI.getInventory().setItem(playerI.getInventory().firstEmpty(), equipped);
-                return null;
+		}
+       	return new CommandResponse("&6" + inhand.getItemMeta().getDisplayName() + " &aapplied to player &6" + playerI.getName());
 	}
 
 }

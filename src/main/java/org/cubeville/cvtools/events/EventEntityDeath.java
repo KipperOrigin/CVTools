@@ -9,8 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.SlimeSplitEvent;
-import org.cubeville.cvtools.commands.commandmap.CommandMap;
-import org.cubeville.cvtools.commands.commandmap.CommandMapManager;
+import org.cubeville.cvtools.commands.CommandMap;
+import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class EventEntityDeath implements Listener {
 
