@@ -9,7 +9,11 @@ import org.bukkit.Color;
 public class Colorize {
 
     public static String addColor(String message) {
-    	message = "&f" + message;
+        message = "&f" + message;
+        return ChatColor.translateAlternateColorCodes('&', message);
+    }
+    
+    public static String addColorWithoutHeader(String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
     }
     
