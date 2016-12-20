@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.cubeville.cvtools.CVTools;
 
 @SerializableAs("LoadoutManager")
@@ -63,10 +64,20 @@ public class LoadoutManager implements ConfigurationSerializable {
     }
 	
     public boolean contains(String title) {
-        if (loadouts.containsKey(title.toLowerCase()))
-            return true;
-        else
+        return (loadouts.containsKey(title.toLowerCase()));
+    }
+    
+    public boolean containsInventory(Inventory inventory) {
+        String[] split = inventory.getName().split(":");
+        if (contains(split[0])) {
+            return getLoadoutByName(split[0]).contains(inventory);
+        } else {
             return false;
+        }
+    }
+    
+    public Inventory getInventory() {
+        return null;
     }
 	
     public LoadoutContainer getLoadoutByName(String title) {
