@@ -9,15 +9,11 @@ import org.bukkit.Color;
 public class Colorize {
 
     public static String addColor(String message) {
-<<<<<<< HEAD
     	message = "&r" + message;
-=======
-        message = "&f" + message;
         return ChatColor.translateAlternateColorCodes('&', message);
     }
     
     public static String addColorWithoutHeader(String message) {
->>>>>>> origin/wip
         return ChatColor.translateAlternateColorCodes('&', message);
     }
     
@@ -25,11 +21,7 @@ public class Colorize {
     	List<String> finalStrings = new ArrayList<String>();
     	
     	for (String string: strings) {
-<<<<<<< HEAD
     		finalStrings.add(addColor(string));
-=======
-            finalStrings.add(ChatColor.translateAlternateColorCodes('&', string));
->>>>>>> origin/wip
     	}
     	
         return finalStrings;
