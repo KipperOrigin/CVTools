@@ -18,7 +18,7 @@ import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterInteger;
 import org.cubeville.commons.commands.CommandParameterString;
 import org.cubeville.commons.commands.CommandResponse;
-import org.cubeville.commons.utils.BlockGetter;
+import org.cubeville.commons.utils.BlockUtils;
 import org.cubeville.commons.utils.Colorize;
 
 public class CheckSign extends Command {
@@ -49,14 +49,14 @@ public class CheckSign extends Command {
 
         List<Block> signs;
         if(flags.contains("we")) {
-            signs = BlockGetter.getBlocksInWESelectionByType(player, Material.SIGN_POST, Material.WALL_SIGN);
+            signs = BlockUtils.getBlocksInWESelectionByType(player, Material.SIGN_POST, Material.WALL_SIGN);
         }
         else if(parameters.containsKey("wg")) {
-            signs = BlockGetter.getBlocksInWGRegionByType(player, (String) parameters.get("wg"), Material.SIGN_POST, Material.WALL_SIGN);
+            signs = BlockUtils.getBlocksInWGRegionByType(player, (String) parameters.get("wg"), Material.SIGN_POST, Material.WALL_SIGN);
         }
         else if(baseParameters.size() == 2) {
             if((int) baseParameters.get(1) > 25) throw new CommandExecutionException("Maximum radius is 25.");
-            signs = BlockGetter.getBlocksInRadiusByType(player.getLocation(), (int) baseParameters.get(1), Material.SIGN_POST, Material.WALL_SIGN);
+            signs = BlockUtils.getBlocksInRadiusByType(player.getLocation(), (int) baseParameters.get(1), Material.SIGN_POST, Material.WALL_SIGN);
         }
         else {
             throw new CommandExecutionException("No radius / we / wg.");
@@ -81,7 +81,7 @@ public class CheckSign extends Command {
                     foundfirst = true;
                     if(flags.contains("sel")) {
                         Vector sl = new Vector(sign.getLocation().getBlockX(), sign.getLocation().getBlockY(), sign.getLocation().getBlockZ());
-                        BlockGetter.setWESelection(player, player.getLocation().getWorld(), sl, sl);
+                        BlockUtils.setWESelection(player, player.getLocation().getWorld(), sl, sl);
                     }
                     if(flags.contains("tp")) { // Go one down if space is available, also one block "back" (on sign's front)
                         Location loc = sign.getLocation();

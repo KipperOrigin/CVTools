@@ -6,23 +6,18 @@ import java.util.Set;
 
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
-import org.bukkit.util.EulerAngle;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
-import org.cubeville.commons.commands.CommandParameterEulerAngle;
-import org.cubeville.commons.commands.CommandParameterString;
+import org.cubeville.commons.commands.CommandParameterBoolean;
 import org.cubeville.commons.commands.CommandResponse;
-import org.cubeville.commons.utils.AdvancedSlots;
-import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.commands.CommandMap;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
-public class MobArmorStandPoses extends Command {
+public class MobArmorStandVisible extends Command {
 	
-	public MobArmorStandPoses() {
-		super("armorstand pose");
-		addBaseParameter(new CommandParameterString());
-		addBaseParameter(new CommandParameterEulerAngle());
+	public MobArmorStandVisible() {
+		super("armorstand visible");
+		addBaseParameter(new CommandParameterBoolean());
 	}
 	
 	@Override
@@ -37,13 +32,8 @@ public class MobArmorStandPoses extends Command {
 		
 		ArmorStand stand = (ArmorStand) commandMap.get(player);
 		
-		boolean set = AdvancedSlots.setAngleByName(stand, (String) baseParameters.get(0), (EulerAngle) baseParameters.get(1));
-		
-		if (set) {
-			return new CommandResponse("&aAngle Set to &6" + (String) baseParameters.get(0) + "&c!");
-		} else {
-			player.sendMessage(Colorize.addColor("&6" + (String) baseParameters.get(0) + " &cis not a valid armor pose part!"));
-			throw new CommandExecutionException("&cValid armor pose parts are: &fhead&c,&fbody&c,&fleft_arm&c,&fright_arm&c,&fleft_leg&c,&fright_leg");
-		}
+		stand.setVisible((boolean) baseParameters.get(0));
+        return new CommandResponse("&aArmor stand visible set to &6" + Boolean.toString((boolean) baseParameters.get(0)));
 	}
 }
+

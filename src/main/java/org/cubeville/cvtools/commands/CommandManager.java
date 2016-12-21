@@ -19,6 +19,7 @@ import org.cubeville.cvtools.commands.simplenbt.mob.*;
 import org.cubeville.cvtools.commands.simplenbt.mob.armorstand.*;
 import org.cubeville.cvtools.commands.simplenbt.mob.horse.*;
 import org.cubeville.cvtools.commands.simplenbt.mob.other.*;
+import org.cubeville.cvtools.commands.simplenbt.object.*;
 import org.cubeville.cvtools.commands.simplenbt.player.*;
 import org.cubeville.cvtools.commands.simplenbt.potion.*;
 import org.cubeville.cvtools.commands.simplenbt.skull.*;
@@ -114,6 +115,7 @@ public class CommandManager {
 		snbtCommandParser.addCommand(new MobArmorStandMarker());
 		snbtCommandParser.addCommand(new MobArmorStandPoses());
 		snbtCommandParser.addCommand(new MobArmorStandSmall());
+		snbtCommandParser.addCommand(new MobArmorStandVisible());
 		
 		// MOB --horse
 		snbtCommandParser.addCommand(new MobHorseColor());
@@ -129,6 +131,11 @@ public class CommandManager {
 		snbtCommandParser.addCommand(new MobSnowmanDerp());
 		snbtCommandParser.addCommand(new MobVillagerProfession());
 
+		// OBJECT
+		snbtCommandParser.addCommand(new ObjectDeselect());
+		snbtCommandParser.addCommand(new ObjectSelect());
+		snbtCommandParser.addCommand(new ObjectSelectNearest());
+		
 		// PLAYER
 		snbtCommandParser.addCommand(new PlayerEquipItem());
 		

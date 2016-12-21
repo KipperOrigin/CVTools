@@ -19,7 +19,7 @@ import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
-public class BlockGetter {
+public class BlockUtils {
 	
     public static List<Block> getBlocksInRadius(Location loc, int radius) {
         Location loc1 = new Location(loc.getWorld(), loc.getBlockX() - radius, loc.getBlockY() - radius, loc.getBlockZ() - radius);
@@ -135,6 +135,26 @@ public class BlockGetter {
         }
         
         return newBlocks;
+    }
+    
+    public static Block getNearestBlock(List<Block> blocks, Location loc) {
+    	Block nearestBlock = null;
+    	double distance = 10000;
+    	
+    	for(Block block: blocks) {
+    		if (nearestBlock == null) {
+    			nearestBlock = block;
+    		}
+    		if (distance == 10000) {
+    			distance = block.getLocation().distance(loc);
+    		}
+    		if (block.getLocation().distance(loc) < distance) {
+    			nearestBlock = block;
+    		}
+    	}
+    	
+		return nearestBlock;
+    	
     }
 
 }
