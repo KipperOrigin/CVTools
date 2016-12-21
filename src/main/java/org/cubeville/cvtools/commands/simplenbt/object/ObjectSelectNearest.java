@@ -18,6 +18,7 @@ import org.cubeville.commons.commands.CommandParameterEnum;
 import org.cubeville.commons.commands.CommandParameterInteger;
 import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.commons.utils.BlockUtils;
+import org.cubeville.commons.utils.EntityUtils;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class ObjectSelectNearest extends Command {
@@ -45,7 +46,7 @@ public class ObjectSelectNearest extends Command {
 		CommandResponse cr = new CommandResponse();
 		
 		if (parameters.containsKey("entity") && !parameters.containsKey("block")) {
-			Entity entity = getNearestEntity(player.getLocation(), getEntitiesByType(player.getWorld().getNearbyEntities(player.getLocation(), radius, radius, radius), (EntityType) parameters.get("entity")));
+			Entity entity = EntityUtils.getNearestEntity(player.getLocation(), EntityUtils.getEntitiesByType(player.getWorld().getNearbyEntities(player.getLocation(), radius, radius, radius), (EntityType) parameters.get("entity")));
 			if (entity != null) {
 				CommandMapManager.primaryMap.put(player, entity);
 				if (entity.getCustomName() != null) {
@@ -73,49 +74,5 @@ public class ObjectSelectNearest extends Command {
 		
 		return cr;
 	}
-	
-	private List<Entity> getEntitiesByType(Collection<Entity> entityCollection, EntityType... types) {
-		List<Entity> entities = new ArrayList<>();
-		
-		if (entityCollection == null) {
-			return null;
-		}
-		
-		for(Entity entity: entityCollection) {
-			for(EntityType type: types) {
-				if(entity.getType() == type) {
-					entities.add(entity);
-					break;
-				}
-			}
-		}
-		return entities;
-		
-	}
-	
-	
-	private Entity getNearestEntity(Location loc, List<Entity> entities) {
-    	Entity nearestEntity = null;
-    	double distance = 10000;
-    	
-    	if (entities == null) {
-    		return null;
-    	}
-    	
-    	for(Entity entity: entities) {
-    		if (nearestEntity == null) {
-    			nearestEntity = entity;
-    		}
-    		if (distance == 10000) {
-    			distance = entity.getLocation().distance(loc);
-    		}
-    		if (entity.getLocation().distance(loc) < distance) {
-    			nearestEntity = entity;
-    		}
-    	}
-    	
-		return nearestEntity;
-    	
-    }
 
 }

@@ -141,15 +141,12 @@ public class BlockUtils {
     	Block nearestBlock = null;
     	double distance = 10000;
     	
+        if(blocks == null) return null;
+    	
     	for(Block block: blocks) {
-    		if (nearestBlock == null) {
-    			nearestBlock = block;
-    		}
-    		if (distance == 10000) {
-    			distance = block.getLocation().distance(loc);
-    		}
     		if (block.getLocation().distance(loc) < distance) {
     			nearestBlock = block;
+    			distance = block.getLocation().distance(loc);
     		}
     	}
     	
