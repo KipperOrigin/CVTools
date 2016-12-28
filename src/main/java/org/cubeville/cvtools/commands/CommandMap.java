@@ -1,6 +1,8 @@
 package org.cubeville.cvtools.commands;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.bukkit.entity.Player;
@@ -19,6 +21,12 @@ public class CommandMap {
 	
 	public void removePlayer(Player player) {
 		commandMap.remove(player.getName());
+	}
+	
+	public void replaceValues(Object oldObj, Object newObj) {
+		for (Map.Entry<String, Object> entry : commandMap.entrySet()) {
+			if (entry.getValue() == oldObj) commandMap.put(entry.getKey(), newObj);
+		}
 	}
 
 	public boolean contains(Player player) {
@@ -48,5 +56,13 @@ public class CommandMap {
 				return (commandMap.get(player.getName()));
 		else
 			throw new CommandMapValueException("Command map does not contain " + player.getName() + "!");
+	}
+	
+	public List<String> getPlayersWithObject(Object obj) {
+		List<String> players = new ArrayList<>();
+		for (Map.Entry<String, Object> entry : commandMap.entrySet()) {
+			if (entry.getValue() == obj) players.add(entry.getKey());
+		}
+		return players;
 	}
 }

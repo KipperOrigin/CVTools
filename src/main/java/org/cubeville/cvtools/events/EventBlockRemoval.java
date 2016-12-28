@@ -3,7 +3,9 @@ package org.cubeville.cvtools.events;
 import java.util.Collections;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -11,6 +13,7 @@ import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.block.BlockFadeEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
+import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.commands.CommandMap;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
@@ -44,7 +47,14 @@ public class EventBlockRemoval implements Listener {
 	public void removeBlock(Block block) {
 		CommandMap commandMap = CommandMapManager.primaryMap;
 		if (commandMap.contains(block)) {
-			commandMap.getRawMap().values().removeAll(Collections.singleton(block));
+			for (String name: commandMap.getPlayersWithObject(block)) {
+				for (Player player: Bukkit.getOnlinePlayers()) {
+					if (player.getName() == name) {
+						player.sendMessage(Colorize.addColor("&cSelected block has been removed! Entity deselected."));
+					}
+				}
+			}
+			commandMap.replaceValues(block, null);
 		}
 	}
 	

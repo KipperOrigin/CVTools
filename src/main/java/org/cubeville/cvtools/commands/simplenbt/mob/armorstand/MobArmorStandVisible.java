@@ -33,7 +33,7 @@ public class MobArmorStandVisible extends Command {
 		ArmorStand stand = (ArmorStand) commandMap.get(player);
 		
 		stand.setVisible((boolean) baseParameters.get(0));
-        return new CommandResponse("&aArmor stand visible set to &6" + Boolean.toString((boolean) baseParameters.get(0)));
+        return new CommandResponse("&aArmor Stand visible set to &6" + Boolean.toString((boolean) baseParameters.get(0)));
 	}
 }
 

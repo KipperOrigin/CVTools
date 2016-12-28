@@ -8,6 +8,8 @@ import java.util.concurrent.ConcurrentMap;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.bukkit.craftbukkit.v1_9_R2.entity.CraftEntity;
+import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 import com.comphenix.protocol.utility.MinecraftReflection;
 import com.comphenix.protocol.wrappers.nbt.NbtBase;
@@ -20,6 +22,8 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Maps;
+
+import net.minecraft.server.v1_9_R2.NBTTagCompound;
 
 public class Attributes {
     public enum Operation {
@@ -260,6 +264,12 @@ public class Attributes {
         this.attributes.setElementType(NbtType.TAG_COMPOUND);
     }
     
+    public Attributes(org.bukkit.entity.Entity e) {
+    	net.minecraft.server.v1_9_R2.Entity entity = (net.minecraft.server.v1_9_R2.Entity) ((CraftEntity) e).getHandle();
+    	NBTTagCompound nbt = new NBTTagCompound();
+    	entity.f(nbt);
+    }
+    
     /**
      * Retrieve the modified item stack.
      * @return The modified item stack.
@@ -333,4 +343,24 @@ public class Attributes {
             }
         };
     }
+    
+	public static enum EquipmentSlot {
+		MAIN_HAND("mainhand"),
+		OFF_HAND("offhand"),
+		HEAD("head"),
+		CHEST("chest"),
+		LEGS("legs"),
+		FEET("feat");
+		
+		private String slot;
+		
+		private EquipmentSlot(final String slot) {
+			this.slot = slot;
+		}
+		
+		@Override
+		public String toString() {
+			return slot;
+		}
+	}
 }

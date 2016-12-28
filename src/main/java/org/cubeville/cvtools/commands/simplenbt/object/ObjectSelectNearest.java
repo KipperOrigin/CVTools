@@ -47,7 +47,7 @@ public class ObjectSelectNearest extends Command {
 		
 		if (parameters.containsKey("entity") && !parameters.containsKey("block")) {
 			Entity entity = EntityUtils.getNearestEntity(player.getLocation(), EntityUtils.getEntitiesByType(player.getWorld().getNearbyEntities(player.getLocation(), radius, radius, radius), (EntityType) parameters.get("entity")));
-			if (entity != null) {
+			if (entity != null && !(entity instanceof Player)) {
 				CommandMapManager.primaryMap.put(player, entity);
 				if (entity.getCustomName() != null) {
 					cr.setBaseMessage("&aEntity &6" + entity.getCustomName() + " &aselected at location " + entity.getLocation().getBlockX() + "," + entity.getLocation().getBlockY() + "," + entity.getLocation().getBlockZ());

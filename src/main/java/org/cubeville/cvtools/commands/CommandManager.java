@@ -5,7 +5,6 @@ import org.cubeville.cvtools.CVTools;
 import org.cubeville.cvtools.commands.other.*;
 import org.cubeville.cvtools.commands.simplenbt.armor.*;
 import org.cubeville.cvtools.commands.simplenbt.banner.*;
-import org.cubeville.cvtools.commands.simplenbt.block.mobspawner.*;
 import org.cubeville.cvtools.commands.simplenbt.block.sign.*;
 import org.cubeville.cvtools.commands.simplenbt.book.*;
 import org.cubeville.cvtools.commands.simplenbt.entity.*;
@@ -50,10 +49,6 @@ public class CommandManager {
 		snbtCommandParser.addCommand(new BannerPatternRemove());
 		snbtCommandParser.addCommand(new BannerColor());
 		
-		// BLOCK -- mobspawner
-		snbtCommandParser.addCommand(new BlockMobSpawnerDelay());
-		snbtCommandParser.addCommand(new BlockMobSpawnerEntity());
-		
 		// BLOCK -- sign
 		snbtCommandParser.addCommand(new BlockSignClear());
 		snbtCommandParser.addCommand(new BlockSignEdit());
@@ -82,6 +77,7 @@ public class CommandManager {
 		// ITEM	
 		snbtCommandParser.addCommand(new ItemDurability());
 		snbtCommandParser.addCommand(new ItemName());
+		snbtCommandParser.addCommand(new ItemPrintName());
 		snbtCommandParser.addCommand(new ItemType());
 		
 		// ITEM --flags
@@ -108,8 +104,11 @@ public class CommandManager {
 		// MOB
 		snbtCommandParser.addCommand(new MobAge());
 		snbtCommandParser.addCommand(new MobAI());
+		snbtCommandParser.addCommand(new MobAttributes());
 		snbtCommandParser.addCommand(new MobEquipment());
+		snbtCommandParser.addCommand(new MobItemPickup());
 		snbtCommandParser.addCommand(new MobTame());
+		snbtCommandParser.addCommand(new MobUntame());
 
 		// MOB --armor stand
 		snbtCommandParser.addCommand(new MobArmorStandMarker());
@@ -120,6 +119,7 @@ public class CommandManager {
 		// MOB --horse
 		snbtCommandParser.addCommand(new MobHorseColor());
 		snbtCommandParser.addCommand(new MobHorseStyle());
+		snbtCommandParser.addCommand(new MobHorseUntame());
 		snbtCommandParser.addCommand(new MobHorseVariant());
 		
 		// MOB --other (this includes all specific mobs that only have 1 class)

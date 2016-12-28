@@ -45,10 +45,12 @@ public class ItemAttributesAdd extends Command {
 			throw new CommandExecutionException("&c" + e.getMessage());
 		}
 		
-		if (slots.contains((String) parameters.get("slot"))) {
-				slot = (String) parameters.get("slot");
-		} else {
-			throw new CommandExecutionException("&6" + parameters.get("slot") + " &cis an invalid slot!");
+		if (parameters.containsKey("slot")) {
+			if (slots.contains((String) parameters.get("slot"))) {
+					slot = (String) parameters.get("slot");
+			} else {
+				throw new CommandExecutionException("&6" + parameters.get("slot") + " &cis an invalid slot!");
+			}
 		}
 		
 		if (type == null)
@@ -61,6 +63,6 @@ public class ItemAttributesAdd extends Command {
 		nbtItem.addAttribute(typeName, type, d, slot);
 		
 		player.getInventory().setItemInMainHand(nbtItem.asItemStack());
-        return new CommandResponse("&aAttribute removed!");
+        return new CommandResponse("&aAttribute added!");
 	}
 }

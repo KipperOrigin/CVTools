@@ -1,7 +1,6 @@
 package org.cubeville.cvtools.events;
 
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,11 +14,11 @@ public class EventPlayerInteractEntity implements Listener {
     
 	@EventHandler
 	public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
-		if (event.isCancelled())
-			return;
+		if (event.isCancelled()) return;
 
-		if (event.getHand() != EquipmentSlot.HAND)
-			return;
+		if (event.getHand() != EquipmentSlot.HAND) return;
+		
+		if (event.getRightClicked() instanceof Player) return;
 		
 		Entity entity = event.getRightClicked();
 		Player player = event.getPlayer();
@@ -28,8 +27,7 @@ public class EventPlayerInteractEntity implements Listener {
 		if (commandMap.contains(player)) {
 			event.setCancelled(true);
 			
-			if (commandMap.get(player) == entity)
-				return;
+			if (commandMap.get(player) == entity) return;
 				
 			commandMap.put(player, entity);
 				

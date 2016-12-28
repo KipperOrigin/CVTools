@@ -32,8 +32,7 @@ public class MobAI extends Command {
 		
 		((LivingEntity) commandMap.get(player)).setAI((Boolean) baseParameters.get(0));
 		
-		player.sendMessage(baseParameters.get(0).toString());
-		return null;
+		return new CommandResponse("&aMob AI set to &6" + Boolean.toString((boolean) baseParameters.get(0)));
 	}
 
 }
