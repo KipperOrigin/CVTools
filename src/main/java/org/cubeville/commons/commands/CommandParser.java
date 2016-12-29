@@ -19,15 +19,15 @@ public class CommandParser
     }
 
     public boolean execute(Player player, String[] argsIn) {
-        try {            
+        try {
             String full = "";
             for (String arg: argsIn) {
                 if(full.length() > 0) full = full + " ";
                 full += arg;
             }
-            
+
             String[] args = smartSplit(full).toArray(new String[0]);
-            
+
             String parameterError = null;
             for(Command command: commands) {
                 if(command.checkCommand(args)) {
@@ -45,11 +45,11 @@ public class CommandParser
                     }
                 }
             }
-            
+
             if(parameterError != null) {
                 player.sendMessage(parameterError);
             }
-            
+
             else {
                 player.sendMessage("Unknown command!");
             }
@@ -83,7 +83,7 @@ public class CommandParser
             int size = current.length();
             char c = full.charAt(i);
             char last = (size > 0 ? current.charAt(size - 1) : ' ');
-            
+
             if(c == '"' && (size == 0 || last == ' ' || last == ':') && inQuotes == false) {
                 inQuotes = true;
             }

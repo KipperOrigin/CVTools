@@ -37,11 +37,7 @@ public class CheckSign extends Command {
     public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
         throws CommandExecutionException {
 
-        int regionPars = 0;
-        if(flags.contains("we")) regionPars++;
-        if(parameters.containsKey("wg")) regionPars++;
-        if(baseParameters.size() == 2) regionPars++;
-        if(regionPars > 1) {
+        if(checkMoreThanOne(flags.contains("we"), parameters.containsKey("wg"), baseParameters.size() == 2)) {
             throw new CommandExecutionException("Only one of radius / we / wg parameters can be applied.");
         }
 

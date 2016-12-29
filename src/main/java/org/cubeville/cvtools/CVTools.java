@@ -62,12 +62,12 @@ public class CVTools extends JavaPlugin {
         CommandMapManager.unregisterMaps();
     }
 	
-    @Override                                                                                                                                                                                  
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args)                                                                                              
-    {                                                                                                                                                                                          
-        if(!(sender instanceof Player)) return false;                                                                                                                                          
-        Player player = (Player)sender;                                                                                                                                                        
-                                                                                                                                                                                               
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
+    {
+        if(!(sender instanceof Player)) return false;
+        Player player = (Player)sender;
+
         if(command.getName().equals("snbt")) {   
             if (!player.hasPermission("snbt.admin")) {
                 player.sendMessage("Need permissions to use!");
@@ -89,8 +89,8 @@ public class CVTools extends JavaPlugin {
             } else
                 return CommandManager.pvpCommandParser.execute(player, args);
         } else {
-            return false;                                                                                                                                                                      
-        }                                                                                                                                                                                      
-    }          
-  
+            return false;
+        }
+    }
+    
 }
