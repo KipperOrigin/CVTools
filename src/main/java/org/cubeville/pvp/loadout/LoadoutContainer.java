@@ -149,6 +149,10 @@ public class LoadoutContainer implements ConfigurationSerializable {
         return (inventories.containsKey(name.toLowerCase()));
     }
     
+    public boolean contains(Inventory inventory) {
+        return (inventories.containsValue(inventory));
+    }
+    
     public boolean containsTag(String tag) {
     	return tags.contains(tag.toLowerCase());
     }

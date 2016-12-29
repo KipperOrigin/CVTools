@@ -33,6 +33,6 @@ public class MobArmorStandMarker extends Command {
 		ArmorStand stand = (ArmorStand) commandMap.get(player);
 		
 		stand.setMarker((boolean) baseParameters.get(0));
-		return new CommandResponse("&aArmor pose marker set to " + Boolean.toString((boolean) baseParameters.get(0)));
+		return new CommandResponse("&aArmor Stand marker &aset to &6" + Boolean.toString((boolean) baseParameters.get(0)));
 	}
 }

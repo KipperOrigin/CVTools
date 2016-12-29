@@ -20,6 +20,12 @@ public class CommandMapManager {
 	public static void removePlayerFromAllMaps(Player player) {
 		primaryMap.removePlayer(player);
 		secondaryMap.removePlayer(player);
+		if (primaryMap.contains(player)) {
+			primaryMap.replaceValues(player, null);
+		}
+		if (secondaryMap.contains(player)) {
+			primaryMap.replaceValues(player, null);
+		}
 	}
 	
 }

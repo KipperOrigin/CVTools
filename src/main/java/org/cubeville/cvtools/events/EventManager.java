@@ -18,9 +18,10 @@ public class EventManager {
     public void registerEvents() {
         pm = plugin.getServer().getPluginManager();
         pm.registerEvents(new EventBlockRemoval(), plugin);
-        pm.registerEvents(new EventPlayerInteract(), plugin);
-        pm.registerEvents(new EventPlayerInteractEntity(), plugin);
-        pm.registerEvents(new EventPlayerQuit(), plugin);
         pm.registerEvents(new EventEntityDeath(), plugin);
+    	pm.registerEvents(new EventInventoryClose(), plugin);
+    	pm.registerEvents(new EventPlayerInteract(), plugin);
+    	pm.registerEvents(new EventPlayerInteractEntity(), plugin);
+    	pm.registerEvents(new EventPlayerQuit(), plugin);
     }
 }

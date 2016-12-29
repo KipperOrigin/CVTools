@@ -20,18 +20,24 @@ public class EventPlayerInteract implements Listener {
 		Player player = event.getPlayer();
 		
 		if (CommandMapManager.primaryMap.contains(player)) {
-			if (event.getClickedBlock() == null)
+			event.setCancelled(true);
+			
+			if (event.getClickedBlock() == null) {
 				return;
-			if (CommandMapManager.primaryMap.get(player) == event.getClickedBlock())
+			}
+			if (CommandMapManager.primaryMap.get(player) == event.getClickedBlock()) {
+				player.sendMessage(Colorize.addColor("&cBlock already selected!"));
 				return;
-			if (event.getAction() != Action.RIGHT_CLICK_BLOCK)
+			}
+			if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
 				return;	
-			if (event.getHand() != EquipmentSlot.HAND)
+			}
+			if (event.getHand() != EquipmentSlot.HAND) {
 				return;
+			}
 			
 			CommandMapManager.primaryMap.put(player, event.getClickedBlock());
 			player.sendMessage(Colorize.addColor("&aBlock &6" + event.getClickedBlock().getType().name() + "&a selected!"));
-			event.setCancelled(true);
 		}
 	}
 	

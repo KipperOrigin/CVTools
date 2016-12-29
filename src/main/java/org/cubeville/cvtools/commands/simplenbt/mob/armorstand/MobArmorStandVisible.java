@@ -13,10 +13,10 @@ import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.cvtools.commands.CommandMap;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
-public class MobArmorStandSmall extends Command {
+public class MobArmorStandVisible extends Command {
 	
-	public MobArmorStandSmall() {
-		super("armorstand small");
+	public MobArmorStandVisible() {
+		super("armorstand visible");
 		addBaseParameter(new CommandParameterBoolean());
 	}
 	
@@ -32,7 +32,8 @@ public class MobArmorStandSmall extends Command {
 		
 		ArmorStand stand = (ArmorStand) commandMap.get(player);
 		
-		stand.setSmall((boolean) baseParameters.get(0));
-        return new CommandResponse("&aArmor Stand small set to &6" + Boolean.toString((boolean) baseParameters.get(0)));
+		stand.setVisible((boolean) baseParameters.get(0));
+        return new CommandResponse("&aArmor Stand visible set to &6" + Boolean.toString((boolean) baseParameters.get(0)));
 	}
 }
+

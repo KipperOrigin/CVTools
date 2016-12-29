@@ -15,8 +15,8 @@ public class LoadoutCreate extends Command {
     
     public LoadoutCreate() {
         super("loadout create");
-        addBaseParameter(new CommandParameterString());
-        addParameter("team", true, new CommandParameterString());
+        addBaseParameter(new CommandParameterString(CommandParameterString.NO_SPECIAL_CHARACTERS));
+        addParameter("team", true, new CommandParameterString(CommandParameterString.NO_SPECIAL_CHARACTERS));
     }
     
     @Override

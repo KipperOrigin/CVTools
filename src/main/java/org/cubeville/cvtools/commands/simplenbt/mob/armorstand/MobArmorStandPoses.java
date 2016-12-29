@@ -42,7 +42,7 @@ public class MobArmorStandPoses extends Command {
 		if (set) {
 			return new CommandResponse("&aAngle Set to &6" + (String) baseParameters.get(0) + "&c!");
 		} else {
-			player.sendMessage(Colorize.addColor("&6" + (String) baseParameters.get(0) + "&cis not a valid armor pose part!"));
+			player.sendMessage(Colorize.addColor("&6" + (String) baseParameters.get(0) + " &cis not a valid armor pose part!"));
 			throw new CommandExecutionException("&cValid armor pose parts are: &fhead&c,&fbody&c,&fleft_arm&c,&fright_arm&c,&fleft_leg&c,&fright_leg");
 		}
 	}
