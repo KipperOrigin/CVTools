@@ -59,7 +59,7 @@ public class CheckMobs extends Command {
                 ret.addMessage("&aPlayer &9" + player.getName() + "&a has &9" + cnt + "&a animals nearby.");
             }
         }
-        if(ret.getMessages() == null) ret.setBaseMessage("&cNo players with too many mobs found.");
+        if(ret.getMessages() == null) ret.setBaseMessage("&cNo players near too many animals found.");
         return ret;
     }
 
