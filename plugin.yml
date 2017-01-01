@@ -8,10 +8,13 @@ softdepend: [ProtocolLib,WorldEdit,WorldGuard]
 commands:
   snbt:
     description: SNBT Base Command
+    permission: snbt.admin
   cvtools:
     description: CVTools Base Command
+    permission: cvtools.admin
   pvp:
     description: PvP Base Command
+    permission: cvpvp.admin
        
 permissions:
   snbt.admin:

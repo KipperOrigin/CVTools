@@ -69,25 +69,12 @@ public class CVTools extends JavaPlugin {
         Player player = (Player)sender;
 
         if(command.getName().equals("snbt")) {   
-            if (!player.hasPermission("snbt.admin")) {
-                player.sendMessage("Need permissions to use!");
-                return false;
-            } else 
-                return CommandManager.snbtCommandParser.execute(player, args);
-
+            return CommandManager.snbtCommandParser.execute(player, args);
         } else if (command.getName().equals("cvtools")) {
-            if (!player.hasPermission("cvtools.admin")) {
-                player.sendMessage("Need permissions to use!");
-                return false;
-            } else
-                return CommandManager.toolsCommandParser.execute(player, args);
+            return CommandManager.toolsCommandParser.execute(player, args);
         	
         } else if (command.getName().equals("pvp")) {
-            if (!player.hasPermission("cvpvp.admin")) {
-                player.sendMessage("Need permissions to use!");
-                return false;
-            } else
-                return CommandManager.pvpCommandParser.execute(player, args);
+            return CommandManager.pvpCommandParser.execute(player, args);
         } else {
             return false;
         }

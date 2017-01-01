@@ -70,16 +70,20 @@ public class CheckSign extends Command {
                 if(lineCon.length() > 0) lineCon += " ";
                 lineCon += Colorize.removeColor(line);
             }
+
             if (lineCon.toUpperCase().contains(cs)) {
                 amount += 1;
-                ret.addMessage(sign.getLocation().getBlockX() + "/" + sign.getLocation().getBlockY() + "/" + sign.getLocation().getBlockZ() + "&a: " + lineCon);
+                if(amount == 10) ret.addMessage("&c...");
+                if(amount < 10)
+                    ret.addMessage(sign.getLocation().getBlockX() + "/" + sign.getLocation().getBlockY() + "/" + sign.getLocation().getBlockZ() + "&a: " + lineCon);
+                
                 if(!foundfirst) {
                     foundfirst = true;
                     if(flags.contains("sel")) {
                         Vector sl = new Vector(sign.getLocation().getBlockX(), sign.getLocation().getBlockY(), sign.getLocation().getBlockZ());
                         BlockUtils.setWESelection(player, player.getLocation().getWorld(), sl, sl);
                     }
-                    if(flags.contains("tp")) { // Go one down if space is available, also one block "back" (on sign's front)
+                    if(flags.contains("tp")) { // TODO: Go one down if space is available, also one block "back" (on sign's front)
                         Location loc = sign.getLocation();
                         loc.setX(loc.getX() + .5);
                         loc.setZ(loc.getZ() + .5);

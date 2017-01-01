@@ -156,7 +156,7 @@ public class CommandManager {
 		// OTHER
 		toolsCommandParser.addCommand(new ChatColor());
 		toolsCommandParser.addCommand(new CheckSign());
-		toolsCommandParser.addCommand(new CheckMobs());
+		toolsCommandParser.addCommand(new CheckEntities());
 		toolsCommandParser.addCommand(new DelayedTask(plugin));
 		
 		// STOPWATCH
