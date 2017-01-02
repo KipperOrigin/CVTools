@@ -15,27 +15,27 @@ import org.cubeville.commons.commands.CommandResponse;
 
 public class ItemType extends Command {
 
-	public ItemType() {
-		super("item type");
-		addBaseParameter(new CommandParameterEnum(Material.class));
-		addParameter("data", true, new CommandParameterShort());
-	}
+    public ItemType() {
+        super("item type");
+        addBaseParameter(new CommandParameterEnum(Material.class));
+        addParameter("data", true, new CommandParameterShort());
+    }
 
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
-		ItemStack item = player.getInventory().getItemInMainHand();
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
+        ItemStack item = player.getInventory().getItemInMainHand();
 		
-		if (item == null || item.getType() == Material.AIR)
-			throw new CommandExecutionException("&cMust be holding an item!");
+        if (item == null || item.getType() == Material.AIR)
+            throw new CommandExecutionException("&cMust be holding an item!");
 		
-		item.setType((Material) baseParameters.get(0));
+        item.setType((Material) baseParameters.get(0));
 		
-		if (parameters.containsKey("data")) {
-			item.setDurability((short) parameters.get("data"));
-		}
+        if (parameters.containsKey("data")) {
+            item.setDurability((short) parameters.get("data"));
+        }
 
-		return new CommandResponse("&aItem type successfully changed to &6" + ((Material) baseParameters.get(0)).name());
-	}
+        return new CommandResponse("&aItem type successfully changed to &6" + ((Material) baseParameters.get(0)).name());
+    }
 
 }

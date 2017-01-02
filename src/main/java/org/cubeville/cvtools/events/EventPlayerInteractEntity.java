@@ -12,30 +12,30 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class EventPlayerInteractEntity implements Listener {
     
-	@EventHandler
-	public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
-		if (event.isCancelled()) return;
+    @EventHandler
+    public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
+        if (event.isCancelled()) return;
 
-		if (event.getHand() != EquipmentSlot.HAND) return;
+        if (event.getHand() != EquipmentSlot.HAND) return;
 		
-		if (event.getRightClicked() instanceof Player) return;
+        if (event.getRightClicked() instanceof Player) return;
 		
-		Entity entity = event.getRightClicked();
-		Player player = event.getPlayer();
-		CommandMap commandMap = CommandMapManager.primaryMap;
+        Entity entity = event.getRightClicked();
+        Player player = event.getPlayer();
+        CommandMap commandMap = CommandMapManager.primaryMap;
 		
-		if (commandMap.contains(player)) {
-			event.setCancelled(true);
+        if (commandMap.contains(player)) {
+            event.setCancelled(true);
 			
-			if (commandMap.get(player) == entity) return;
+            if (commandMap.get(player) == entity) return;
 				
-			commandMap.put(player, entity);
+            commandMap.put(player, entity);
 				
-			if (entity.getCustomName() != null) {
-				event.getPlayer().sendMessage(Colorize.addColor("&aMob &6" + entity.getCustomName() + "&a selected!"));
-			} else {
-				event.getPlayer().sendMessage(Colorize.addColor("&aMob &6" + entity.getName() + "&a selected!"));
-			}
-		}	
-	}
+            if (entity.getCustomName() != null) {
+                event.getPlayer().sendMessage(Colorize.addColor("&aMob &6" + entity.getCustomName() + "&a selected!"));
+            } else {
+                event.getPlayer().sendMessage(Colorize.addColor("&aMob &6" + entity.getName() + "&a selected!"));
+            }
+        }	
+    }
 }

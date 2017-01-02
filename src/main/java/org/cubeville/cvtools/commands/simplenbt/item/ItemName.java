@@ -16,25 +16,25 @@ import org.cubeville.commons.utils.Colorize;
 
 public class ItemName extends Command {
 
-	public ItemName() {
-		super("item name");
-		addBaseParameter(new CommandParameterString());
-	}
+    public ItemName() {
+        super("item name");
+        addBaseParameter(new CommandParameterString());
+    }
 
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
-		ItemStack item = player.getInventory().getItemInMainHand();
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
+        ItemStack item = player.getInventory().getItemInMainHand();
 		
-		if (item == null || item.getType() == Material.AIR) {
-			throw new CommandExecutionException("&cMust be holding an item!");
-		}
+        if (item == null || item.getType() == Material.AIR) {
+            throw new CommandExecutionException("&cMust be holding an item!");
+        }
 		
-		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(Colorize.addColor((String) baseParameters.get(0)));
-		item.setItemMeta(meta);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(Colorize.addColor((String) baseParameters.get(0)));
+        item.setItemMeta(meta);
 		
         return new CommandResponse("&aItem name set to &r" + baseParameters.get(0));
-	}
+    }
 
 }

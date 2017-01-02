@@ -17,40 +17,39 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class MobAge extends Command {
 
-	public MobAge() {
-		super("mob age");
-		addParameter("set", true, new CommandParameterInteger());
-		addParameter("lock", true, new CommandParameterBoolean());
-		addFlag("baby");
-		addFlag("adult");
-		// TODO Auto-generated constructor stub
-	}
+    public MobAge() {
+        super("mob age");
+        addParameter("set", true, new CommandParameterInteger());
+        addParameter("lock", true, new CommandParameterBoolean());
+        addFlag("baby");
+        addFlag("adult");
+    }
 
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
-		CommandMap commandMap = CommandMapManager.primaryMap;
-		if (!commandMap.contains(player)) {
-			throw new CommandExecutionException("&cPlease select a &6tameable mob&c!");
-		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Tameable)) {
-			throw new CommandExecutionException("&cPlease select a &6tameable mob&c!");
-		}
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
+        CommandMap commandMap = CommandMapManager.primaryMap;
+        if (!commandMap.contains(player)) {
+            throw new CommandExecutionException("&cPlease select a &6tameable mob&c!");
+        } else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Tameable)) {
+            throw new CommandExecutionException("&cPlease select a &6tameable mob&c!");
+        }
 		
-		Ageable entity = (Ageable) commandMap.get(player);
+        Ageable entity = (Ageable) commandMap.get(player);
 		
-		if (parameters.containsKey("set") && !flags.contains("baby") && !flags.contains("adult"))
-			if ((int) parameters.get("set") >= 0)
-				entity.setAge((int) parameters.get("set"));
-			else 
-				entity.setAge(0);
-		else if (!parameters.containsKey("set") && flags.contains("baby") && !flags.contains("adult"))
-			entity.setBaby();
-		else if (!parameters.containsKey("set") && !flags.contains("baby") && flags.contains("adult"))
-			entity.setAdult();
+        if (parameters.containsKey("set") && !flags.contains("baby") && !flags.contains("adult"))
+            if ((int) parameters.get("set") >= 0)
+                entity.setAge((int) parameters.get("set"));
+            else 
+                entity.setAge(0);
+        else if (!parameters.containsKey("set") && flags.contains("baby") && !flags.contains("adult"))
+            entity.setBaby();
+        else if (!parameters.containsKey("set") && !flags.contains("baby") && flags.contains("adult"))
+            entity.setAdult();
 		
-		if (parameters.containsKey("lock")) {
-			entity.setAgeLock((boolean) parameters.get("lock"));
-		}
-		return new CommandResponse("&aAge for mob &6" + entity.getCustomName() + " &aset!");
-	}
+        if (parameters.containsKey("lock")) {
+            entity.setAgeLock((boolean) parameters.get("lock"));
+        }
+        return new CommandResponse("&aAge for mob &6" + entity.getCustomName() + " &aset!");
+    }
 }

@@ -1,6 +1,6 @@
 package org.cubeville.cvtools.commands.other;
 
-// TODO: Add configuration options for search radius,
+// TODO: Add configuration options or parameter for search radius,
 //       add search options for groups of entities
 
 import java.util.ArrayList;
@@ -52,15 +52,13 @@ public class CheckEntities extends Command {
         if(baseParameters.size() == 0) {
             List<Player> players = world.getPlayers();
             for(Player cplayer: players) {
-                Collection<Entity> entities = world.getNearbyEntities(cplayer.getLocation(), 32, 256, 32);
+                Collection<Entity> entities = world.getNearbyEntities(cplayer.getLocation(), radius, 256, radius);
                 int cnt = 0;
                 for(Entity entity: entities) {
-                    if(isOfEntityClass(entity)) {
-                        cnt++;
-                    }
+                    if(isOfEntityClass(entity)) cnt++;
                 }
-                if(cnt >= 100) {
-                    ret.addMessage("&aPlayer &9" + player.getName() + "&a has &9" + cnt + "&a entities nearby.");
+                if(cnt >= minCount) {
+                    ret.addMessage("&aPlayer &9" + cplayer.getName() + "&a: &9" + cnt + "&a entities at &9" + cplayer.getLocation().getBlockX() + "/" + cplayer.getLocation().getBlockZ() + "&a.");
                 }
             }
             if(ret.getMessages() == null) {
@@ -76,14 +74,16 @@ public class CheckEntities extends Command {
             Player cplayer = Bukkit.getPlayer(playerName);
             if(cplayer == null) throw new CommandExecutionException("Player " + playerName + " not found!");
             if(!cplayer.isOnline()) throw new CommandExecutionException("Player " + playerName + " is not online!");
-            Collection<Entity> entities = cplayer.getWorld().getNearbyEntities(cplayer.getLocation(), 32, 256, 32);
+            Collection<Entity> entities = cplayer.getWorld().getNearbyEntities(cplayer.getLocation(), radius, 256, radius);
             Map<String, Integer> count = new HashMap<>();
+            int cnt = 0;
             for(Entity entity: entities) {
                 if(isOfEntityClass(entity)) {
                     String entityName = entity.getClass().getSimpleName();
                     if(entityName.startsWith("Craft")) entityName = entityName.substring(5);
                     if(!count.containsKey(entityName)) count.put(entityName, 0);
                     count.put(entityName, count.get(entityName) + 1);
+                    cnt++;
                 }
             }
             if(count.size() > 0) {
@@ -93,6 +93,7 @@ public class CheckEntities extends Command {
                 for(String entity: sortedEntities) {
                     ret.addMessage("&aNumber of &9" + entity + "&a entities: &9" + count.get(entity));
                 }
+                ret.addMessage("&aTotal: &9" + cnt);
             }
             else {
                 ret.setBaseMessage("&cNo entites found near specified player.");

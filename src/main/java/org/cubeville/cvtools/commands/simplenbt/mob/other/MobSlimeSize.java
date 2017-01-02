@@ -15,28 +15,27 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class MobSlimeSize extends Command {
 
-	public MobSlimeSize() {
-		super("mob slime size");
-		addBaseParameter(new CommandParameterInteger());
-		// TODO Auto-generated constructor stub
-	}
+    public MobSlimeSize() {
+        super("mob slime size");
+        addBaseParameter(new CommandParameterInteger());
+    }
 	
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
-		CommandMap commandMap = CommandMapManager.primaryMap;
-		if (!commandMap.contains(player)) {
-			throw new CommandExecutionException("&cPlease select a &6slime &cor&6 magma cube&c!");
-		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Slime)) {
-			throw new CommandExecutionException("&cPlease select a &6slime &cor&6 magma cube&c!");
-		}
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
+        CommandMap commandMap = CommandMapManager.primaryMap;
+        if (!commandMap.contains(player)) {
+            throw new CommandExecutionException("&cPlease select a &6slime &cor&6 magma cube&c!");
+        } else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Slime)) {
+            throw new CommandExecutionException("&cPlease select a &6slime &cor&6 magma cube&c!");
+        }
 		
-		if ((int) baseParameters.get(0) > 32) {
-			throw new CommandExecutionException("&cPlease use a size smaller than &632&c!");
-		} else {
-			((Slime) commandMap.get(player)).setSize((int) baseParameters.get(0));
-			return new CommandResponse("&aSlime size changed to &6" + baseParameters.get(0));
-		}
-	}
+        if ((int) baseParameters.get(0) > 32) {
+            throw new CommandExecutionException("&cPlease use a size smaller than &632&c!");
+        } else {
+            ((Slime) commandMap.get(player)).setSize((int) baseParameters.get(0));
+            return new CommandResponse("&aSlime size changed to &6" + baseParameters.get(0));
+        }
+    }
 }
 

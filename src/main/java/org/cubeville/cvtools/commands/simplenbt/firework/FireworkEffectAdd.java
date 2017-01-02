@@ -27,42 +27,42 @@ public class FireworkEffectAdd extends Command {
         addFlag("trail");
     }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
-		ItemStack item = player.getInventory().getItemInMainHand();
+    @SuppressWarnings("unchecked")
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
+        ItemStack item = player.getInventory().getItemInMainHand();
 		
-		if (item.getType() != Material.FIREWORK) {
-			throw new CommandExecutionException("&cMust be holding a &6firework&c!");
-		}
+        if (item.getType() != Material.FIREWORK) {
+            throw new CommandExecutionException("&cMust be holding a &6firework&c!");
+        }
 		
-		FireworkMeta fireworkMeta = (FireworkMeta) item.getItemMeta();
-		FireworkEffect.Builder builder = FireworkEffect.builder();		
-		List<Color> colors = (List<Color>) baseParameters.get(1);
+        FireworkMeta fireworkMeta = (FireworkMeta) item.getItemMeta();
+        FireworkEffect.Builder builder = FireworkEffect.builder();		
+        List<Color> colors = (List<Color>) baseParameters.get(1);
 
 				
-		if (flags.contains("flicker")) {
-			builder.withFlicker();
-			builder.flicker(true);
-		}
+        if (flags.contains("flicker")) {
+            builder.withFlicker();
+            builder.flicker(true);
+        }
 		
-		if (flags.contains("trail")) {
-			builder.withTrail();
-			builder.trail(true);
-		}
+        if (flags.contains("trail")) {
+            builder.withTrail();
+            builder.trail(true);
+        }
 		
-		if (parameters.containsKey("fades")) {
-			List<Color> fades = (List<Color>) parameters.get("fades");
-			builder.withFade(fades);
-		}
+        if (parameters.containsKey("fades")) {
+            List<Color> fades = (List<Color>) parameters.get("fades");
+            builder.withFade(fades);
+        }
 		
-		builder.with((FireworkEffect.Type) baseParameters.get(0));
-		builder.withColor(colors);
-		fireworkMeta.addEffect(builder.build());
-		item.setItemMeta(fireworkMeta);
+        builder.with((FireworkEffect.Type) baseParameters.get(0));
+        builder.withColor(colors);
+        fireworkMeta.addEffect(builder.build());
+        item.setItemMeta(fireworkMeta);
 		
-		return new CommandResponse("&aEffect successfully added to &6firework&6!");
-	}
+        return new CommandResponse("&aEffect successfully added to &6firework&6!");
+    }
 
 }

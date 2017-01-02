@@ -14,29 +14,29 @@ import org.cubeville.commons.commands.CommandResponse;
 
 public class SkullType extends Command {
 
-	public SkullType() {
-		super("skull type");
-		addBaseParameter(new CommandParameterShort());
-	}
+    public SkullType() {
+        super("skull type");
+        addBaseParameter(new CommandParameterShort());
+    }
 
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
 
-		ItemStack item = player.getInventory().getItemInMainHand();
-		short data = (short) baseParameters.get(0);
+        ItemStack item = player.getInventory().getItemInMainHand();
+        short data = (short) baseParameters.get(0);
 		
-		if (item.getType() != Material.SKULL_ITEM)
-			throw new CommandExecutionException("&cHeld item must be a &6Skull&c!");
+        if (item.getType() != Material.SKULL_ITEM)
+            throw new CommandExecutionException("&cHeld item must be a &6Skull&c!");
 
-		if (data < 0 || data > 5)
-			throw new CommandExecutionException("&cThe value &6" + baseParameters.get(0) + "&c is invalid. Please use a value from 0-5.");
+        if (data < 0 || data > 5)
+            throw new CommandExecutionException("&cThe value &6" + baseParameters.get(0) + "&c is invalid. Please use a value from 0-5.");
 		
-		item.setDurability(data);
+        item.setDurability(data);
 		
-		player.getInventory().setItemInMainHand(item);
+        player.getInventory().setItemInMainHand(item);
 
-		return new CommandResponse("&aSkull type changed.");
-	}
+        return new CommandResponse("&aSkull type changed.");
+    }
 
 }

@@ -16,23 +16,22 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class MobRabbitType extends Command {
 
-	public MobRabbitType() {
-		super("mob rabbit type");
-		addBaseParameter(new CommandParameterEnum(Type.class));
-		// TODO Auto-generated constructor stub
-	}
+    public MobRabbitType() {
+        super("mob rabbit type");
+        addBaseParameter(new CommandParameterEnum(Type.class));
+    }
 	
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
-		CommandMap commandMap = CommandMapManager.primaryMap;
-		if (!commandMap.contains(player)) {
-			throw new CommandExecutionException("&cPlease select a &6rabbit&c!");
-		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Rabbit)) {
-			throw new CommandExecutionException("&cPlease select a &6rabbit&c!");
-		}
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
+        CommandMap commandMap = CommandMapManager.primaryMap;
+        if (!commandMap.contains(player)) {
+            throw new CommandExecutionException("&cPlease select a &6rabbit&c!");
+        } else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Rabbit)) {
+            throw new CommandExecutionException("&cPlease select a &6rabbit&c!");
+        }
 		
-		((Rabbit) commandMap.get(player)).setRabbitType((Type) baseParameters.get(0));
+        ((Rabbit) commandMap.get(player)).setRabbitType((Type) baseParameters.get(0));
         return new CommandResponse("&aRabbit type changed to &6" + ((Type) baseParameters.get(0)).name());
-	}
+    }
 }

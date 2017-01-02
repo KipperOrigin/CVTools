@@ -16,25 +16,24 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class MobSheepColor extends Command {
 
-	public MobSheepColor() {
-		super("mob sheep color");
-		addBaseParameter(new CommandParameterEnum(DyeColor.class));
-		// TODO Auto-generated constructor stub
-	}
+    public MobSheepColor() {
+        super("mob sheep color");
+        addBaseParameter(new CommandParameterEnum(DyeColor.class));
+    }
 	
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
-			throws CommandExecutionException {
-		CommandMap commandMap = CommandMapManager.primaryMap;
-		if (!commandMap.contains(player)) {
-			throw new CommandExecutionException("&cPlease select a &6sheep&c!");
-		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Sheep)) {
-			throw new CommandExecutionException("&cPlease select a &6sheep&c!");
-		}
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
+        throws CommandExecutionException {
+        CommandMap commandMap = CommandMapManager.primaryMap;
+        if (!commandMap.contains(player)) {
+            throw new CommandExecutionException("&cPlease select a &6sheep&c!");
+        } else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Sheep)) {
+            throw new CommandExecutionException("&cPlease select a &6sheep&c!");
+        }
 		
-		Sheep sheep = (Sheep) commandMap.get(player);
-		sheep.setColor((DyeColor) baseParameters.get(0));
+        Sheep sheep = (Sheep) commandMap.get(player);
+        sheep.setColor((DyeColor) baseParameters.get(0));
 
-		return new CommandResponse("&aSheep color changed to " + ((DyeColor) baseParameters.get(0)).name());
-	}
+        return new CommandResponse("&aSheep color changed to " + ((DyeColor) baseParameters.get(0)).name());
+    }
 }

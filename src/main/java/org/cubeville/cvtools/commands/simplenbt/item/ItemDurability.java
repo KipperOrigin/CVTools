@@ -16,37 +16,36 @@ import org.cubeville.commons.commands.CommandResponse;
 
 public class ItemDurability extends Command {
 
-	public ItemDurability() {
-		super("item durability");
-		addParameter("set", true, new CommandParameterShort());
-		addParameter("unbreakable", true, new CommandParameterBoolean());
-		addFlag("max");
-		// TODO Auto-generated constructor stub
-	}
+    public ItemDurability() {
+        super("item durability");
+        addParameter("set", true, new CommandParameterShort());
+        addParameter("unbreakable", true, new CommandParameterBoolean());
+        addFlag("max");
+    }
 
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
-		ItemStack item = player.getInventory().getItemInMainHand();
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
+        ItemStack item = player.getInventory().getItemInMainHand();
 		
-		if (item == null || item.getType() == Material.AIR) {
-			throw new CommandExecutionException("&cMust be holding an item!");
-		}
+        if (item == null || item.getType() == Material.AIR) {
+            throw new CommandExecutionException("&cMust be holding an item!");
+        }
 		
-		if (parameters.containsKey("set") && !flags.contains("max")) {
-			item.setDurability((short) (item.getType().getMaxDurability() - ((short) parameters.get("set"))));
-		} else if (!parameters.containsKey("set") && flags.contains("max")) {
-			item.setDurability((short) 0);
-		}
+        if (parameters.containsKey("set") && !flags.contains("max")) {
+            item.setDurability((short) (item.getType().getMaxDurability() - ((short) parameters.get("set"))));
+        } else if (!parameters.containsKey("set") && flags.contains("max")) {
+            item.setDurability((short) 0);
+        }
 		
 
-		if (parameters.containsKey("unbreakable")) {
-			ItemMeta meta = item.getItemMeta();
-			meta.spigot().setUnbreakable((boolean) parameters.get("unbreakable"));
-			item.setItemMeta(meta);
-		}
-		return new CommandResponse("&aItem durability successfully changed!");
+        if (parameters.containsKey("unbreakable")) {
+            ItemMeta meta = item.getItemMeta();
+            meta.spigot().setUnbreakable((boolean) parameters.get("unbreakable"));
+            item.setItemMeta(meta);
+        }
+        return new CommandResponse("&aItem durability successfully changed!");
 		
-	}
+    }
 
 }

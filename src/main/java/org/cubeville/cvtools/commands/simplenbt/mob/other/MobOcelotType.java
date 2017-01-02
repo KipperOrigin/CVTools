@@ -15,24 +15,23 @@ import org.cubeville.cvtools.commands.CommandMap;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class MobOcelotType extends Command {
-
-	public MobOcelotType() {
-		super("mob ocelot type");
-		addBaseParameter(new CommandParameterEnum(Type.class));
-		// TODO Auto-generated constructor stub
-	}
+    
+    public MobOcelotType() {
+        super("mob ocelot type");
+        addBaseParameter(new CommandParameterEnum(Type.class));
+    }
+    
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
+        CommandMap commandMap = CommandMapManager.primaryMap;
+        if (!commandMap.contains(player)) {
+            throw new CommandExecutionException("&cPlease select a &6ocelot&c!");
+        } else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Ocelot)) {
+            throw new CommandExecutionException("&cPlease select a &6ocelot&c!");
+        }
 	
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
-		CommandMap commandMap = CommandMapManager.primaryMap;
-		if (!commandMap.contains(player)) {
-			throw new CommandExecutionException("&cPlease select a &6ocelot&c!");
-		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Ocelot)) {
-			throw new CommandExecutionException("&cPlease select a &6ocelot&c!");
-		}
-		
-		((Ocelot) commandMap.get(player)).setCatType((Type) baseParameters.get(0));
+        ((Ocelot) commandMap.get(player)).setCatType((Type) baseParameters.get(0));
         return new CommandResponse("&aOcelot type changed to &6" + (Type) baseParameters.get(0));
-	}
+    }
 }

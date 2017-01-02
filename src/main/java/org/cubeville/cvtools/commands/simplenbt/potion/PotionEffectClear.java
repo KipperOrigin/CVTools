@@ -13,28 +13,27 @@ import org.cubeville.cvtools.nbt.PotionItem;
 
 public class PotionEffectClear extends Command {
 
-	public PotionEffectClear() {
-		super("potion clear");
-		// TODO Auto-generated constructor stub
-	}
+    public PotionEffectClear() {
+        super("potion clear");
+    }
 
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
 
-		if (player.getInventory().getItemInMainHand().getType() != Material.POTION 
-				&& player.getInventory().getItemInMainHand().getType() != Material.LINGERING_POTION 
-				&& player.getInventory().getItemInMainHand().getType() != Material.SPLASH_POTION 
-				&& player.getInventory().getItemInMainHand().getType() != Material.TIPPED_ARROW) {
+        if (player.getInventory().getItemInMainHand().getType() != Material.POTION 
+            && player.getInventory().getItemInMainHand().getType() != Material.LINGERING_POTION 
+            && player.getInventory().getItemInMainHand().getType() != Material.SPLASH_POTION 
+            && player.getInventory().getItemInMainHand().getType() != Material.TIPPED_ARROW) {
             throw new CommandExecutionException("&cHeld item must be a &6Potion&c!");
-		}
+        }
 		
-		PotionItem potionItem = new PotionItem(player.getInventory().getItemInMainHand());
+        PotionItem potionItem = new PotionItem(player.getInventory().getItemInMainHand());
 		
-		potionItem.clearEffects();
-		player.getInventory().setItemInMainHand(potionItem.asItemStack());
+        potionItem.clearEffects();
+        player.getInventory().setItemInMainHand(potionItem.asItemStack());
 
-		return new CommandResponse("&aPotion effects cleared from potion.");
-	}
+        return new CommandResponse("&aPotion effects cleared from potion.");
+    }
 
 }

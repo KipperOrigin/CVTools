@@ -18,9 +18,9 @@ import org.cubeville.cvtools.nbt.NBTItem;
 
 public class ItemFlags  extends Command {
 
-	List<ItemFlag> addItemFlags = new ArrayList<>();
-	List<ItemFlag> removeItemFlags = new ArrayList<>();
-	ItemFlag itemFlag = null;
+    List<ItemFlag> addItemFlags = new ArrayList<>();
+    List<ItemFlag> removeItemFlags = new ArrayList<>();
+    ItemFlag itemFlag = null;
 	
     public ItemFlags() {                                                                     
         super("item flags");
@@ -31,48 +31,48 @@ public class ItemFlags  extends Command {
         addParameter("remove", true, new CommandParameterEnumeratedStringList(flags));
     }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
-		if (player.getInventory().getItemInMainHand() == null || player.getInventory().getItemInMainHand().getType() == Material.AIR) {
-			throw new CommandExecutionException("&cItem must be held!");
-		}
+    @SuppressWarnings("unchecked")
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
+        if (player.getInventory().getItemInMainHand() == null || player.getInventory().getItemInMainHand().getType() == Material.AIR) {
+            throw new CommandExecutionException("&cItem must be held!");
+        }
 		
-		NBTItem item = new NBTItem(player.getInventory().getItemInMainHand());
-		Set<String> removeArgs = (Set<String>) parameters.get("remove");
-		Set<String> addArgs = (Set<String>) parameters.get("add");
+        NBTItem item = new NBTItem(player.getInventory().getItemInMainHand());
+        Set<String> removeArgs = (Set<String>) parameters.get("remove");
+        Set<String> addArgs = (Set<String>) parameters.get("add");
 		
-		if (flags.contains("clearall")) {
-			item.clearFlags();
-		}
+        if (flags.contains("clearall")) {
+            item.clearFlags();
+        }
 		
-		if (flags.contains("hideall")) {
-			item.addAllFlags();
-		}
+        if (flags.contains("hideall")) {
+            item.addAllFlags();
+        }
 		
-		if (parameters.get("add") != null) {
-			if (addArgs != null)
-				for (String string: addArgs) { 
-					addItemFlags.add(ItemFlag.valueOf(string.toUpperCase()));
-				}
+        if (parameters.get("add") != null) {
+            if (addArgs != null)
+                for (String string: addArgs) { 
+                    addItemFlags.add(ItemFlag.valueOf(string.toUpperCase()));
+                }
 			
-				ItemFlag[] finalFlags = addItemFlags.toArray(new ItemFlag[0]);
-				item.addFlags(finalFlags);
-		}
+            ItemFlag[] finalFlags = addItemFlags.toArray(new ItemFlag[0]);
+            item.addFlags(finalFlags);
+        }
 		
-		if (parameters.get("remove") != null) {
-			if (removeArgs != null)
-				for (String string: removeArgs) {
-					removeItemFlags.add(ItemFlag.valueOf(string.toUpperCase()));
-				}
+        if (parameters.get("remove") != null) {
+            if (removeArgs != null)
+                for (String string: removeArgs) {
+                    removeItemFlags.add(ItemFlag.valueOf(string.toUpperCase()));
+                }
 			
-				ItemFlag[] finalFlags = (ItemFlag[]) removeItemFlags.toArray();
-				item.removeFlags(finalFlags);
-		}
+            ItemFlag[] finalFlags = (ItemFlag[]) removeItemFlags.toArray();
+            item.removeFlags(finalFlags);
+        }
 		
-		player.getInventory().setItemInMainHand(item.asItemStack());
+        player.getInventory().setItemInMainHand(item.asItemStack());
 		
-		return new CommandResponse("&aItem flags successfully edited");
-	}
+        return new CommandResponse("&aItem flags successfully edited");
+    }
 }

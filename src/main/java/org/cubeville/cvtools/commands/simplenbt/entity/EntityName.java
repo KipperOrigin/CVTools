@@ -16,31 +16,31 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class EntityName extends Command {
 
-	public EntityName() {
-		super("entity name");
-		addParameter("name", true, new CommandParameterString());
-		addFlag("remove");
-	}
+    public EntityName() {
+        super("entity name");
+        addParameter("name", true, new CommandParameterString());
+        addFlag("remove");
+    }
 
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
-		CommandMap commandMap = CommandMapManager.primaryMap;
-		if (!commandMap.contains(player)) {
-			throw new CommandExecutionException("&cPlease select an &6entity&c!");
-		} else if (!(commandMap.get(player) instanceof Entity)) {
-			throw new CommandExecutionException("&cPlease select an &6entity&c!");
-		}
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
+        CommandMap commandMap = CommandMapManager.primaryMap;
+        if (!commandMap.contains(player)) {
+            throw new CommandExecutionException("&cPlease select an &6entity&c!");
+        } else if (!(commandMap.get(player) instanceof Entity)) {
+            throw new CommandExecutionException("&cPlease select an &6entity&c!");
+        }
 		
-		Entity entity = (Entity) commandMap.get(player);
+        Entity entity = (Entity) commandMap.get(player);
 		
-		if (parameters.containsKey("name") && !flags.contains("remove")) {
-			entity.setCustomName(Colorize.addColor((String) parameters.get("name")));
-			entity.setCustomNameVisible(true);
-		} else if (!parameters.containsKey("name") && flags.contains("remove")) {
-			entity.setCustomName("");
-			entity.setCustomNameVisible(false);
-		}
-                return null;
-	}
+        if (parameters.containsKey("name") && !flags.contains("remove")) {
+            entity.setCustomName(Colorize.addColor((String) parameters.get("name")));
+            entity.setCustomNameVisible(true);
+        } else if (!parameters.containsKey("name") && flags.contains("remove")) {
+            entity.setCustomName("");
+            entity.setCustomNameVisible(false);
+        }
+        return null;
+    }
 }

@@ -17,29 +17,28 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class MobHorseStyle extends Command {
 
-	public MobHorseStyle() {
-		super("mob horse style");
-		addBaseParameter(new CommandParameterEnum(Style.class));
-		// TODO Auto-generated constructor stub
-	}
+    public MobHorseStyle() {
+        super("mob horse style");
+        addBaseParameter(new CommandParameterEnum(Style.class));
+    }
 	
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
-		CommandMap commandMap = CommandMapManager.primaryMap;
-		if (!commandMap.contains(player)) {
-			throw new CommandExecutionException("&cPlease select a &6normal horse&c!");
-		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Horse)) {
-			throw new CommandExecutionException("&cPlease select a &6normal horse&c!");
-		}
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
+        CommandMap commandMap = CommandMapManager.primaryMap;
+        if (!commandMap.contains(player)) {
+            throw new CommandExecutionException("&cPlease select a &6normal horse&c!");
+        } else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Horse)) {
+            throw new CommandExecutionException("&cPlease select a &6normal horse&c!");
+        }
 		
-		Horse horse = (Horse) commandMap.get(player);
+        Horse horse = (Horse) commandMap.get(player);
 		
-		if (horse.getVariant() != Variant.HORSE) {
-			throw new CommandExecutionException("&cPlease select a &6normal horse&c!");
-		}
+        if (horse.getVariant() != Variant.HORSE) {
+            throw new CommandExecutionException("&cPlease select a &6normal horse&c!");
+        }
 		
-		horse.setStyle((Style) baseParameters.get(0));
+        horse.setStyle((Style) baseParameters.get(0));
       	return new CommandResponse("&aHorse style changed to &6" + ((Style) baseParameters.get(0)).name());
-	}
+    }
 }

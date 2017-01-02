@@ -15,26 +15,27 @@ import org.cubeville.commons.commands.CommandParameterColor;
 import org.cubeville.commons.commands.CommandResponse;
 
 public class ArmorColor extends Command {
+    
+    public ArmorColor() {
+        super("armor color");
+        addBaseParameter(new CommandParameterColor());
+    }
+    
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
+        ItemStack item = player.getInventory().getItemInMainHand();
 
-	public ArmorColor() {
-		super("armor color");
-		addBaseParameter(new CommandParameterColor());
-	}
+        if (item == null || item.getType() == Material.AIR) {
+            throw new CommandExecutionException("&cMust be holding &6leather armor&c!");
+        } else if (!(item.getItemMeta() instanceof LeatherArmorMeta)) {
+            throw new CommandExecutionException("&cMust be holding &6leather armor&c!");
+        }
 
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
-		ItemStack item = player.getInventory().getItemInMainHand();
-		
-		if (item == null || item.getType() == Material.AIR) {
-			throw new CommandExecutionException("&cMust be holding &6leather armor&c!");
-		} else if (!(item.getItemMeta() instanceof LeatherArmorMeta)) {
-			throw new CommandExecutionException("&cMust be holding &6leather armor&c!");
-		}
-		
-		LeatherArmorMeta meta = (LeatherArmorMeta) item.getItemMeta();
-		meta.setColor((Color) baseParameters.get(0));
+        LeatherArmorMeta meta = (LeatherArmorMeta) item.getItemMeta();
+        meta.setColor((Color) baseParameters.get(0));
+        item.setItemMeta(meta);
         return new CommandResponse("&aArmor color changed to &6" + ((Color) baseParameters.get(0)).toString());
-	}
+    }
 
 }

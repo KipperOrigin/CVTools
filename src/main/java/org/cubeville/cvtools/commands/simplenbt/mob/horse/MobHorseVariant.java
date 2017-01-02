@@ -16,26 +16,25 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class MobHorseVariant extends Command {
 
-	public MobHorseVariant() {
-		super("mob horse variant");
-		addBaseParameter(new CommandParameterEnum(Variant.class));
-		// TODO Auto-generated constructor stub
-	}
+    public MobHorseVariant() {
+        super("mob horse variant");
+        addBaseParameter(new CommandParameterEnum(Variant.class));
+    }
 	
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
-		CommandMap commandMap = CommandMapManager.primaryMap;
-		if (!commandMap.contains(player)) {
-			throw new CommandExecutionException("&cPlease select a &6horse&c!");
-		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Horse)) {
-			throw new CommandExecutionException("&cPlease select a &6horse&c!");
-		}
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
+        CommandMap commandMap = CommandMapManager.primaryMap;
+        if (!commandMap.contains(player)) {
+            throw new CommandExecutionException("&cPlease select a &6horse&c!");
+        } else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Horse)) {
+            throw new CommandExecutionException("&cPlease select a &6horse&c!");
+        }
 		
-		Horse horse = (Horse) commandMap.get(player);
+        Horse horse = (Horse) commandMap.get(player);
 		
-		horse.setVariant((Variant) baseParameters.get(0));
-		return new CommandResponse("&cHorse variant changed to &6" + ((Variant) baseParameters.get(0)).name());
-	}
+        horse.setVariant((Variant) baseParameters.get(0));
+        return new CommandResponse("&cHorse variant changed to &6" + ((Variant) baseParameters.get(0)).name());
+    }
 
 }

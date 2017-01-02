@@ -21,7 +21,7 @@ public class Colorize {
     	List<String> finalStrings = new ArrayList<String>();
     	
     	for (String string: strings) {
-    		finalStrings.add(addColor(string));
+            finalStrings.add(addColor(string));
     	}
     	
         return finalStrings;
@@ -36,67 +36,67 @@ public class Colorize {
     	List<Integer> i = new ArrayList<Integer>();
     	
     	if (colors.length > 3) {
-    		return null;
+            return null;
     	}
     	
     	for(String color: colors) {
-    		try {
-    			i.add(Integer.parseInt(color));
-    		} catch (NumberFormatException e) {
-    			return null;
-    		}
-    		if (Integer.parseInt(color) < 0 || Integer.parseInt(color) > 255) {
-    			return null;
-    		}
+            try {
+                i.add(Integer.parseInt(color));
+            } catch (NumberFormatException e) {
+                return null;
+            }
+            if (Integer.parseInt(color) < 0 || Integer.parseInt(color) > 255) {
+                return null;
+            }
     	}
     	
     	return Color.fromRGB(i.get(1), i.get(2), i.get(2));
     }
     public static Color getColorFromString(String string) {
     	if (string.equalsIgnoreCase("aqua"))
-    		return Color.AQUA;
+            return Color.AQUA;
     	else if (string.equalsIgnoreCase("black"))
-    		return Color.BLACK;
+            return Color.BLACK;
     	else if (string.equalsIgnoreCase("blue"))
-    		return Color.BLUE;
+            return Color.BLUE;
     	else if (string.equalsIgnoreCase("fuschia"))
-    		return Color.FUCHSIA;
+            return Color.FUCHSIA;
     	else if (string.equalsIgnoreCase("gray") || string.equalsIgnoreCase("grey"))
-    		return Color.GRAY;
+            return Color.GRAY;
     	else if (string.equalsIgnoreCase("green"))
-    		return Color.GREEN;
+            return Color.GREEN;
     	else if (string.equalsIgnoreCase("lime"))
-    		return Color.LIME;
+            return Color.LIME;
     	else if (string.equalsIgnoreCase("maroon"))
-    		return Color.MAROON;
+            return Color.MAROON;
     	else if (string.equalsIgnoreCase("navy"))
-    		return Color.NAVY;
+            return Color.NAVY;
     	else if (string.equalsIgnoreCase("olive"))
-    		return Color.OLIVE;
+            return Color.OLIVE;
     	else if (string.equalsIgnoreCase("orange"))
-    		return Color.ORANGE;
+            return Color.ORANGE;
     	else if (string.equalsIgnoreCase("purple"))
-    		return Color.PURPLE;
+            return Color.PURPLE;
     	else if (string.equalsIgnoreCase("red"))
-    		return Color.RED;
+            return Color.RED;
     	else if (string.equalsIgnoreCase("silver"))
-    		return Color.SILVER;
+            return Color.SILVER;
     	else if (string.equalsIgnoreCase("teal"))
-    		return Color.TEAL;
+            return Color.TEAL;
     	else if (string.equalsIgnoreCase("white"))
-    		return Color.WHITE;
+            return Color.WHITE;
     	else if (string.equalsIgnoreCase("yellow"))
-    		return Color.YELLOW;   	
+            return Color.YELLOW;   	
     	else {
-    		throw new IllegalArgumentException(string + "is not a valid color!");
+            throw new IllegalArgumentException(string + "is not a valid color!");
     	}
     }
     
     public static ChatColor getChatColorFromString(String string) {
     	try {
-    		return ChatColor.valueOf(string);
+            return ChatColor.valueOf(string);
     	} catch (IllegalArgumentException e) {
-    		return null;
+            return null;
     	}
     }
     
@@ -113,9 +113,9 @@ public class Colorize {
     	List<String> finalStrings = new ArrayList<String>();
     	
     	for (String string: strings) {
-    		finalStrings.add(stripColor(string));
+            finalStrings.add(stripColor(string));
     	}
     	
-		return finalStrings;
+        return finalStrings;
     }
 }

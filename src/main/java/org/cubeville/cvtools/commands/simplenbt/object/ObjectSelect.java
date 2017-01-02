@@ -13,29 +13,29 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class ObjectSelect extends Command {
 
-	public ObjectSelect() {
-		super("select");
-		addParameter("player", true, new CommandParameterOnlinePlayer());
-		addFlag("self");
-	}
-
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters,
-	        List<Object> baseParameters) throws CommandExecutionException {
-		if (flags.contains("self") && !parameters.containsKey("player")) {
-			CommandMapManager.primaryMap.put(player, player);
-			return new CommandResponse("&aSelected &6Self&a!");
-		} else if (!flags.contains("self") && parameters.containsKey("player")) {
-			CommandMapManager.primaryMap.put(player, (Player) parameters.get("player"));
-			return new CommandResponse("&aSelected &6" + ((Player) parameters.get("player")).getName());
-		}
-		
-		if (!CommandMapManager.primaryMap.contains(player)) {
-			CommandMapManager.primaryMap.put(player, null);
-			return new CommandResponse("&aYou may now select an &6Object&a!");
-		} else {
-			throw new CommandExecutionException("&cYou are already selecting an &6Object&c!");
-		}
-	}
-
+    public ObjectSelect() {
+        super("select");
+        addParameter("player", true, new CommandParameterOnlinePlayer());
+        addFlag("self");
+    }
+    
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters,
+                                   List<Object> baseParameters) throws CommandExecutionException {
+        if (flags.contains("self") && !parameters.containsKey("player")) {
+            CommandMapManager.primaryMap.put(player, player);
+            return new CommandResponse("&aSelected &6Self&a!");
+        } else if (!flags.contains("self") && parameters.containsKey("player")) {
+            CommandMapManager.primaryMap.put(player, (Player) parameters.get("player"));
+            return new CommandResponse("&aSelected &6" + ((Player) parameters.get("player")).getName());
+        }
+	
+        if (!CommandMapManager.primaryMap.contains(player)) {
+            CommandMapManager.primaryMap.put(player, null);
+            return new CommandResponse("&aYou may now select an &6Object&a!");
+        } else {
+            throw new CommandExecutionException("&cYou are already selecting an &6Object&c!");
+        }
+    }
+    
 }

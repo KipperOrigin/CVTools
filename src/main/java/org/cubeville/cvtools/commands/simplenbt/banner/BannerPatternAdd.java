@@ -24,33 +24,33 @@ public class BannerPatternAdd extends Command {
         addParameter("insert", true, new CommandParameterInteger());
     }
 
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
-		BannerItem banner = null;
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
+        BannerItem banner = null;
 		
-		try {
-			banner = new BannerItem(player.getInventory().getItemInMainHand());
-		} catch (IllegalArgumentException e) {
-			throw new CommandExecutionException("&cMust be holding a &6banner&c!");
-		}
+        try {
+            banner = new BannerItem(player.getInventory().getItemInMainHand());
+        } catch (IllegalArgumentException e) {
+            throw new CommandExecutionException("&cMust be holding a &6banner&c!");
+        }
 		
-		CommandResponse cr = new CommandResponse();
+        CommandResponse cr = new CommandResponse();
 		
-		if (parameters.containsKey("set") && !parameters.containsKey("insert")) {
-			banner.setPattern((int) parameters.get("set") - 1, (DyeColor) baseParameters.get(1), (PatternType) baseParameters.get(0));
-			cr.addMessage("&aPattern set to layer &6" + parameters.get("set") + " &aon banner!");
-		} else if (!parameters.containsKey("set") && parameters.containsKey("insert")) {
-			banner.insertPattern((int) parameters.get("insert") - 1, (DyeColor) baseParameters.get(1), (PatternType) baseParameters.get(0));
-			cr.addMessage("&aPattern inserted at layer &6" + parameters.get("insert") + " &aon banner!");
-		} else if (!parameters.containsKey("set") && !parameters.containsKey("insert")) {
-			banner.addPattern((DyeColor) baseParameters.get(1), (PatternType) baseParameters.get(0));
-			cr.addMessage("&aPattern added to banner!");
-		} else {
-			throw new CommandExecutionException("&aCannot insert and set at the same time!");
-		}
+        if (parameters.containsKey("set") && !parameters.containsKey("insert")) {
+            banner.setPattern((int) parameters.get("set") - 1, (DyeColor) baseParameters.get(1), (PatternType) baseParameters.get(0));
+            cr.addMessage("&aPattern set to layer &6" + parameters.get("set") + " &aon banner!");
+        } else if (!parameters.containsKey("set") && parameters.containsKey("insert")) {
+            banner.insertPattern((int) parameters.get("insert") - 1, (DyeColor) baseParameters.get(1), (PatternType) baseParameters.get(0));
+            cr.addMessage("&aPattern inserted at layer &6" + parameters.get("insert") + " &aon banner!");
+        } else if (!parameters.containsKey("set") && !parameters.containsKey("insert")) {
+            banner.addPattern((DyeColor) baseParameters.get(1), (PatternType) baseParameters.get(0));
+            cr.addMessage("&aPattern added to banner!");
+        } else {
+            throw new CommandExecutionException("&aCannot insert and set at the same time!");
+        }
 		
-		player.getInventory().setItemInMainHand(banner.asItemStack());
-		return cr;
-	}
+        player.getInventory().setItemInMainHand(banner.asItemStack());
+        return cr;
+    }
 }

@@ -23,17 +23,17 @@ public class ItemEnchantmentsAdd extends Command {
         addBaseParameter(new CommandParameterInteger());
     }
 
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
-		ItemStack item = player.getInventory().getItemInMainHand();
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
+        ItemStack item = player.getInventory().getItemInMainHand();
 		
-		if (item == null || item.getType() == Material.AIR) {
-			throw new CommandExecutionException("&cMust be holding an item!");
-		}
+        if (item == null || item.getType() == Material.AIR) {
+            throw new CommandExecutionException("&cMust be holding an item!");
+        }
 		
-		item.addUnsafeEnchantment((Enchantment) baseParameters.get(0), (int) baseParameters.get(1));
-		return new CommandResponse("&aEnchantment &6" + ((Enchantment) baseParameters.get(0)).getName() + "&aadded to item!");
-	}
+        item.addUnsafeEnchantment((Enchantment) baseParameters.get(0), (int) baseParameters.get(1));
+        return new CommandResponse("&aEnchantment &6" + ((Enchantment) baseParameters.get(0)).getName() + "&aadded to item!");
+    }
 
 }

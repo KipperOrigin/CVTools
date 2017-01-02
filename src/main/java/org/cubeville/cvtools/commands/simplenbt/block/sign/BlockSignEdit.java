@@ -25,43 +25,44 @@ import com.comphenix.protocol.wrappers.BlockPosition;
 
 public class BlockSignEdit extends Command {
 
-	public BlockSignEdit() {
-		super("block sign edit");
-	}
+    public BlockSignEdit() {
+        super("block_dontusethis sign edit"); // TODO: Not working, disabled until fixed
+    }
 
     private ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
 	
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
-		CommandMap commandMap = CommandMapManager.primaryMap;
-		Block block;
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
+            
+        CommandMap commandMap = CommandMapManager.primaryMap;
+        Block block;
+                
+        try {
+            block = ObjectUtils.getObjectAsBlock(commandMap.get(player));
+        } catch (RuntimeException e) {
+            throw new CommandExecutionException("&cPlease select a sign!");
+        }
 		
-		try {
-			block = ObjectUtils.getObjectAsBlock(commandMap.get(player));
-		} catch (RuntimeException e) {
-			throw new CommandExecutionException("&cPlease select a sign!");
-		}
+        if (!(block.getState() instanceof Sign)) {
+            throw new CommandExecutionException("&cPlease select a sign!");
+        }
 		
-		if (!(block.getState() instanceof Sign)) {
-			throw new CommandExecutionException("&cPlease select a sign!");
-		}
+        PacketContainer editSignPacket = protocolManager.createPacket(PacketType.Play.Server.OPEN_SIGN_EDITOR);
 		
-		PacketContainer editSignPacket = protocolManager.createPacket(PacketType.Play.Server.OPEN_SIGN_EDITOR);
+        BlockPosition position = new BlockPosition(block.getX(), block.getY(), block.getZ());
 		
-		BlockPosition position = new BlockPosition(block.getX(), block.getY(), block.getZ());
+        editSignPacket.getBlockPositionModifier().write(0, position);
 		
-		editSignPacket.getBlockPositionModifier().write(0, position);
+        try {
+            ProtocolLibrary.getProtocolManager().sendServerPacket(player, editSignPacket);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException("Cannot send packet.", e);
+        }
 		
-		try {
-			ProtocolLibrary.getProtocolManager().sendServerPacket(player, editSignPacket);
-		} catch (InvocationTargetException e) {
-			throw new RuntimeException("Cannot send packet.", e);
-		}
-		
-		//Figure out what is called for the sign update event 'Player KipperOrigin just tried to change non-editable sign'
-                return null;
-	}
+        //Figure out what is called for the sign update event 'Player KipperOrigin just tried to change non-editable sign'
+        return null;
+    }
 
 }
 

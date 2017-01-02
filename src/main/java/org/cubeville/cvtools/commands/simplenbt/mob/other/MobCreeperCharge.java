@@ -15,25 +15,24 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class MobCreeperCharge extends Command {
 
-	public MobCreeperCharge() {
-		super("mob creeper charge");
-		addBaseParameter(new CommandParameterBoolean());
-	}
+    public MobCreeperCharge() {
+        super("mob creeper charge");
+        addBaseParameter(new CommandParameterBoolean());
+    }
 	
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
-		CommandMap commandMap = CommandMapManager.primaryMap;
-		if (!commandMap.contains(player)) {
-			throw new CommandExecutionException("&cPlease select a &6creeper&c!");
-		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Creeper)) {
-			throw new CommandExecutionException("&cPlease select a &6creeper&c!");
-		}
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
+        CommandMap commandMap = CommandMapManager.primaryMap;
+        if (!commandMap.contains(player)) {
+            throw new CommandExecutionException("&cPlease select a &6creeper&c!");
+        } else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Creeper)) {
+            throw new CommandExecutionException("&cPlease select a &6creeper&c!");
+        }
 		
-		Creeper creeper = (Creeper) commandMap.get(player);
+        Creeper creeper = (Creeper) commandMap.get(player);
 		
-		creeper.setPowered((boolean) baseParameters.get(0));
-		return new CommandResponse("&aCreeper charge set to &6" + Boolean.toString((boolean) baseParameters.get(0)));
-
-	}
+        creeper.setPowered((boolean) baseParameters.get(0));
+        return new CommandResponse("&aCreeper charge set to &6" + Boolean.toString((boolean) baseParameters.get(0)));
+    }
 }
