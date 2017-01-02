@@ -18,7 +18,6 @@ public class PotionType extends Command {
     public PotionType() {
         super("potion type");
         addBaseParameter(new CommandParameterString());
-        // TODO Auto-generated constructor stub
     }
 
     @Override

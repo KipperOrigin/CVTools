@@ -1,5 +1,7 @@
 package org.cubeville.cvtools.commands.simplenbt.firework;
 
+// TODO: Starts at 0, should start at 1?
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

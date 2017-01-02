@@ -37,11 +37,7 @@ public class CheckSign extends Command {
     public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
         throws CommandExecutionException {
 
-        int regionPars = 0;
-        if(flags.contains("we")) regionPars++;
-        if(parameters.containsKey("wg")) regionPars++;
-        if(baseParameters.size() == 2) regionPars++;
-        if(regionPars > 1) {
+        if(checkMoreThanOne(flags.contains("we"), parameters.containsKey("wg"), baseParameters.size() == 2)) {
             throw new CommandExecutionException("Only one of radius / we / wg parameters can be applied.");
         }
 
@@ -74,16 +70,20 @@ public class CheckSign extends Command {
                 if(lineCon.length() > 0) lineCon += " ";
                 lineCon += Colorize.removeColor(line);
             }
+
             if (lineCon.toUpperCase().contains(cs)) {
                 amount += 1;
-                ret.addMessage(sign.getLocation().getBlockX() + "/" + sign.getLocation().getBlockY() + "/" + sign.getLocation().getBlockZ() + "&a: " + lineCon);
+                if(amount == 10) ret.addMessage("&c...");
+                if(amount < 10)
+                    ret.addMessage(sign.getLocation().getBlockX() + "/" + sign.getLocation().getBlockY() + "/" + sign.getLocation().getBlockZ() + "&a: " + lineCon);
+                
                 if(!foundfirst) {
                     foundfirst = true;
                     if(flags.contains("sel")) {
                         Vector sl = new Vector(sign.getLocation().getBlockX(), sign.getLocation().getBlockY(), sign.getLocation().getBlockZ());
                         BlockUtils.setWESelection(player, player.getLocation().getWorld(), sl, sl);
                     }
-                    if(flags.contains("tp")) { // Go one down if space is available, also one block "back" (on sign's front)
+                    if(flags.contains("tp")) { // TODO: Go one down if space is available, also one block "back" (on sign's front)
                         Location loc = sign.getLocation();
                         loc.setX(loc.getX() + .5);
                         loc.setZ(loc.getZ() + .5);

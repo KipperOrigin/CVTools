@@ -15,25 +15,25 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class EntityGlow extends Command {
 
-	public EntityGlow() {
-		super("entity glow");
-		addBaseParameter(new CommandParameterBoolean());
-	}
+    public EntityGlow() {
+        super("entity glow");
+        addBaseParameter(new CommandParameterBoolean());
+    }
 
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
-		CommandMap commandMap = CommandMapManager.primaryMap;
-		if (!commandMap.contains(player)) {
-			throw new CommandExecutionException("&cPlease select an &6entity&c!");
-		} else if (!(commandMap.get(player) instanceof Entity)) {
-			throw new CommandExecutionException("&cPlease select an &6entity&c!");
-		}
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
+        CommandMap commandMap = CommandMapManager.primaryMap;
+        if (!commandMap.contains(player)) {
+            throw new CommandExecutionException("&cPlease select an &6entity&c!");
+        } else if (!(commandMap.get(player) instanceof Entity)) {
+            throw new CommandExecutionException("&cPlease select an &6entity&c!");
+        }
 		
-		Entity entity = (Entity) commandMap.get(player);
+        Entity entity = (Entity) commandMap.get(player);
 		
-		entity.setGlowing((boolean) baseParameters.get(0));
+        entity.setGlowing((boolean) baseParameters.get(0));
 		
-		return new CommandResponse("&aEntity glow changed to &6" + Boolean.toString((boolean) baseParameters.get(0)));
-	}
+        return new CommandResponse("&aEntity glow changed to &6" + Boolean.toString((boolean) baseParameters.get(0)));
+    }
 }

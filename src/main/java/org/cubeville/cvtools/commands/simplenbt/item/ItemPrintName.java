@@ -21,7 +21,7 @@ public class ItemPrintName extends Command {
 
     @Override
     public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-            throws CommandExecutionException {
+        throws CommandExecutionException {
         ItemStack item = player.getInventory().getItemInMainHand();
         
         if (item == null || item.getType() == Material.AIR) {
@@ -30,9 +30,9 @@ public class ItemPrintName extends Command {
         
         ItemMeta meta = item.getItemMeta();
         if (meta.hasDisplayName()) {
-        	return new CommandResponse(meta.getDisplayName());
+            return new CommandResponse(meta.getDisplayName());
         } else {
-        	throw new CommandExecutionException("&cItem has no custom name!");
+            throw new CommandExecutionException("&cItem has no custom name!");
         }
     }
 }

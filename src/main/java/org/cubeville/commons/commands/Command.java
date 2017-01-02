@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 // TODO: Use quotes to include spaces
 // TODO: Aliases for prefixed parameters and command parts?
 // TODO: Default values for optional parameters
+// TODO: Permissions for commands and for parameters/flags
 
 public abstract class Command
 {
@@ -151,4 +152,16 @@ public abstract class Command
     }
     
     public abstract CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) throws CommandExecutionException;
+
+    public boolean checkMoreThanOne(Boolean... conditions) {
+        int cnt = 0;
+        for(Boolean condition: conditions) {
+            if(condition) {
+                cnt++;
+                if(cnt == 2) return true;
+            }
+        }
+        return false;
+    }
+    
 }

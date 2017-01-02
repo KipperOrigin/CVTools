@@ -15,23 +15,22 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class EntitySilent extends Command {
 
-	public EntitySilent() {
-		super("entity silent");
-		addBaseParameter(new CommandParameterBoolean());
-		// TODO Auto-generated constructor stub
-	}
+    public EntitySilent() {
+        super("entity silent");
+        addBaseParameter(new CommandParameterBoolean());
+    }
 
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
-		CommandMap commandMap = CommandMapManager.primaryMap;
-		if (!commandMap.contains(player)) {
-			throw new CommandExecutionException("&cPlease select an &6entity&c!");
-		} else if (!(commandMap.get(player) instanceof Entity)) {
-			throw new CommandExecutionException("&cPlease select an &6entity&c!");
-		}
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
+        CommandMap commandMap = CommandMapManager.primaryMap;
+        if (!commandMap.contains(player)) {
+            throw new CommandExecutionException("&cPlease select an &6entity&c!");
+        } else if (!(commandMap.get(player) instanceof Entity)) {
+            throw new CommandExecutionException("&cPlease select an &6entity&c!");
+        }
 		
-		((Entity) commandMap.get(player)).setSilent((boolean) baseParameters.get(0));
-		return new CommandResponse("&aEntity silent changed to &6" + Boolean.toString((boolean) baseParameters.get(0)));
-	}
+        ((Entity) commandMap.get(player)).setSilent((boolean) baseParameters.get(0));
+        return new CommandResponse("&aEntity silent changed to &6" + Boolean.toString((boolean) baseParameters.get(0)));
+    }
 }
