@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 // TODO: Use quotes to include spaces
 // TODO: Aliases for prefixed parameters and command parts?
 // TODO: Default values for optional parameters
+// TODO: Permissions for commands and for parameters/flags
 
 public abstract class Command
 {

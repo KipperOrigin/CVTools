@@ -1,4 +1,4 @@
-vpackage org.cubeville.cvtools.commands.simplenbt.object;
+package org.cubeville.cvtools.commands.simplenbt.object;
 
 import java.util.ArrayList;
 import java.util.Collection;
