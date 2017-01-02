@@ -28,7 +28,7 @@ public class MobSheepColor extends Command {
 		CommandMap commandMap = CommandMapManager.primaryMap;
 		if (!commandMap.contains(player)) {
 			throw new CommandExecutionException("&cPlease select a &6sheep&c!");
-		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Sheep)) {
+		} else if (!(commandMap.get(player) instanceof Sheep)) {
 			throw new CommandExecutionException("&cPlease select a &6sheep&c!");
 		}
 		

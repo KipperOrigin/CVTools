@@ -26,7 +26,7 @@ public class MobSnowmanDerp extends Command {
 		CommandMap commandMap = CommandMapManager.primaryMap;
 		if (!commandMap.contains(player)) {
 			throw new CommandExecutionException("&cPlease select a &6snowman&c!");
-		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Snowman)) {
+		} else if (!(commandMap.get(player) instanceof Snowman)) {
 			throw new CommandExecutionException("&cPlease select a &6snowman&c!");
 		}
 		

@@ -64,7 +64,8 @@ public class PlayerEquipItem extends Command {
 		} else {
 			playerI.getInventory().setItem(playerI.getInventory().firstEmpty(), equipped);
 		}
-       	return new CommandResponse("&6" + inhand.getItemMeta().getDisplayName() + " &aapplied to player &6" + playerI.getName());
+		if (inhand.getItemMeta().getDisplayName() != null) return new CommandResponse("&6" + inhand.getItemMeta().getDisplayName() + " &aapplied to player &6" + playerI.getName());
+		else return new CommandResponse("&6" + inhand.getType().name() + " &aapplied to player &6" + playerI.getName());
 	}
 
 }

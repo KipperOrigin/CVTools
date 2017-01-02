@@ -27,7 +27,7 @@ public class EventPlayerInteractEntity implements Listener {
 		if (commandMap.contains(player)) {
 			event.setCancelled(true);
 			
-			if (commandMap.get(player) == entity) return;
+			if (commandMap.get(player) != null) return;
 				
 			commandMap.put(player, entity);
 				

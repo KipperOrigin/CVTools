@@ -30,7 +30,11 @@ public class FireworkPower extends Command {
 		}
 		
 		FireworkMeta fireworkMeta = (FireworkMeta) item.getItemMeta();
-		fireworkMeta.setPower((int) baseParameters.get(0));
+		int power = (int) baseParameters.get(0);
+		
+		if (power < 0 || power > 10) throw new CommandExecutionException("&cThe power of &6" + power + " &cis invalid for fireworks!");
+		
+		fireworkMeta.setPower(power);
 		item.setItemMeta(fireworkMeta);
 
 		return new CommandResponse("&aFirework power set to &6" + baseParameters.get(0));

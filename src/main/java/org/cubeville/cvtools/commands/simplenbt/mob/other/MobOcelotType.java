@@ -28,7 +28,7 @@ public class MobOcelotType extends Command {
 		CommandMap commandMap = CommandMapManager.primaryMap;
 		if (!commandMap.contains(player)) {
 			throw new CommandExecutionException("&cPlease select a &6ocelot&c!");
-		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Ocelot)) {
+		} else if (!(commandMap.get(player) instanceof Ocelot)) {
 			throw new CommandExecutionException("&cPlease select a &6ocelot&c!");
 		}
 		

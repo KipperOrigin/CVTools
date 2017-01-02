@@ -31,7 +31,7 @@ public class MobAttributes extends Command {
 		CommandMap commandMap = CommandMapManager.primaryMap;
 		if (!commandMap.contains(player)) {
 			throw new CommandExecutionException("&cPlease select a &6mob&c!");
-		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof LivingEntity)) {
+		} else if (!(commandMap.get(player) instanceof LivingEntity)) {
 			throw new CommandExecutionException("&cPlease select a &6mob&c!");
 		}
 		

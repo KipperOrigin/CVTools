@@ -20,12 +20,14 @@ public class ObjectDeselect extends Command {
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters,
 	        List<Object> baseParameters) throws CommandExecutionException {
 		if (CommandMapManager.primaryMap.contains(player)) {
-			CommandMapManager.primaryMap.removePlayer(player);
+			CommandResponse cr = new CommandResponse();
 			if (CommandMapManager.primaryMap.get(player) == null) {
-				return new CommandResponse("&aYou are no longer selecting an &6Object&a!");
+				cr.addMessage("&aYou are no longer selecting an &6Object&a!");
 			} else {
-				return new CommandResponse("&6" + CommandMapManager.primaryMap.get(player).toString() + " &adeselected!");
+				cr.addMessage("&6" + CommandMapManager.primaryMap.get(player).toString() + " &adeselected!");
 			}
+			CommandMapManager.primaryMap.removePlayer(player);
+			return cr;
 		} else {
 			throw new CommandExecutionException("&cYou are not selecting an &6Object&c!");
 		}

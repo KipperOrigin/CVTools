@@ -29,7 +29,7 @@ public class BannerPatternRemove extends Command {
 			throw new CommandExecutionException("&cMust be holding a &6banner&c!");
 		}
 		
-		banner.removePattern((int) baseParameters.get(0));
+		banner.removePattern((int) baseParameters.get(0) - 1);
 		player.getInventory().setItemInMainHand(banner.asItemStack());
 		return new CommandResponse("&aLayer &6" + baseParameters.get(0) + " &aremoved from banner!");
 	}

@@ -12,9 +12,4 @@ public class EventPlayerQuit implements Listener {
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		CommandMapManager.removePlayerFromAllMaps(event.getPlayer());
 	}
-	
-	@EventHandler
-	public void onPlayerKick(PlayerKickEvent event) {
-		CommandMapManager.removePlayerFromAllMaps(event.getPlayer());
-	}
 }

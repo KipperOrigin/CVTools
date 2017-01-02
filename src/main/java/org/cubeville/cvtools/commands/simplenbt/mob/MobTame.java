@@ -29,7 +29,7 @@ public class MobTame extends Command {
 		CommandMap commandMap = CommandMapManager.primaryMap;
 		if (!commandMap.contains(player)) {
 			throw new CommandExecutionException("&cPlease select a &6tameable mob&c!");
-		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Tameable)) {
+		} else if (!(commandMap.get(player) instanceof Tameable)) {
 			throw new CommandExecutionException("&cPlease select a &6tameable mob&c!");
 		}
 		

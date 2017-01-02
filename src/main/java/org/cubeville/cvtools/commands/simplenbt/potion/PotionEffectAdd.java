@@ -58,7 +58,7 @@ public class PotionEffectAdd extends Command {
 		potionItem.addEffect(potionEffect.getPotionEffect());
 		player.getInventory().setItemInMainHand(potionItem.asItemStack());
 
-		return new CommandResponse("&aPotion Effect Type &6" + type.getName().toLowerCase() + " &awith level:&6" + parameters.get("level") + "&aand&6 duration:&6" + parameters.get("duration") + " &aadded to potion.");
+		return new CommandResponse("&aPotion Effect Type &6" + type.getName().toLowerCase() + " &awith level:&6" + (level + 1) + "&aand&6 duration:&6" + dur + " &aadded to potion.");
 	}
 
 }

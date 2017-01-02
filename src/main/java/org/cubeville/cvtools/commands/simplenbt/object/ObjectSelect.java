@@ -30,7 +30,7 @@ public class ObjectSelect extends Command {
 			return new CommandResponse("&aSelected &6" + ((Player) parameters.get("player")).getName());
 		}
 		
-		if (!CommandMapManager.primaryMap.contains(player)) {
+		if (!CommandMapManager.primaryMap.contains(player) || CommandMapManager.primaryMap.get(player) != null) {
 			CommandMapManager.primaryMap.put(player, null);
 			return new CommandResponse("&aYou may now select an &6Object&a!");
 		} else {

@@ -29,7 +29,7 @@ public class MobHorseColor extends Command {
 		CommandMap commandMap = CommandMapManager.primaryMap;
 		if (!commandMap.contains(player)) {
 			throw new CommandExecutionException("&cPlease select a &6horse&c!");
-		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Horse)) {
+		} else if (!(commandMap.get(player) instanceof Horse)) {
 			throw new CommandExecutionException("&cPlease select a &6horse&c!");
 		}
 		

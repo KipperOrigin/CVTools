@@ -1,10 +1,10 @@
-package org.cubeville.cvtools.commands.simplenbt.mob;
+package org.cubeville.cvtools.commands.simplenbt.entity;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
@@ -13,10 +13,10 @@ import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.cvtools.commands.CommandMap;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
-public class MobItemPickup extends Command {
+public class EntityInvulnerable extends Command {
 
-	public MobItemPickup() {
-		super("mob pickup");
+	public EntityInvulnerable() {
+		super("entity invulnerable");
 		addBaseParameter(new CommandParameterBoolean());
 	}
 
@@ -25,13 +25,14 @@ public class MobItemPickup extends Command {
 			throws CommandExecutionException {
 		CommandMap commandMap = CommandMapManager.primaryMap;
 		if (!commandMap.contains(player)) {
-			throw new CommandExecutionException("&cPlease select a &6mob&c!");
-		} else if (!(commandMap.get(player) instanceof LivingEntity)) {
-			throw new CommandExecutionException("&cPlease select a &6mob&c!");
+			throw new CommandExecutionException("&cPlease select an &6entity&c!");
+		} else if (!(commandMap.get(player) instanceof Entity)) {
+			throw new CommandExecutionException("&cPlease select an &6entity&c!");
 		}
 		
-		((LivingEntity) commandMap.get(player)).setCanPickupItems((boolean) baseParameters.get(0));
+		Entity entity = (Entity) commandMap.get(player);
+		entity.setInvulnerable((boolean) baseParameters.get(0));
 		
-		return new CommandResponse("&aMob item pickup set to &6" + Boolean.toString((boolean) baseParameters.get(0)));
+		return new CommandResponse("&aInvulnerability for entity set to &6" + Boolean.toString((boolean) baseParameters.get(0)));
 	}
 }

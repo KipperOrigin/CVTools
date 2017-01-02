@@ -28,7 +28,7 @@ public class MobVillagerProfession extends Command {
 		CommandMap commandMap = CommandMapManager.primaryMap;
 		if (!commandMap.contains(player)) {
 			throw new CommandExecutionException("&cPlease select a &6villager &cor&6 zombie villager&c!");
-		} else if (commandMap.get(player) == null || (!(commandMap.get(player) instanceof Zombie) && !(commandMap.get(player) instanceof Villager))) {
+		} else if (!(commandMap.get(player) instanceof Zombie) && !(commandMap.get(player) instanceof Villager)) {
 			throw new CommandExecutionException("&cPlease select a &6villager &cor&6 zombie villager&c!");
 		}
 		

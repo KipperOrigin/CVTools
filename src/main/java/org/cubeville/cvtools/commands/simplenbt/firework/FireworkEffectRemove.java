@@ -33,14 +33,14 @@ public class FireworkEffectRemove extends Command {
 		int i = (int) baseParameters.get(0);
 		
 		if (i <= fireworkMeta.getEffectsSize() && !(i < 0)) {
-			fireworkMeta.removeEffect((int) baseParameters.get(0));
+			fireworkMeta.removeEffect(i - 1);
 		} else {
-			throw new CommandExecutionException("&cLine &6" + baseParameters.get(i) + " &adoes not exist for this firework!");
+			throw new CommandExecutionException("&cLine &6" + i + " &adoes not exist for this firework!");
 		}
 		
 		item.setItemMeta(fireworkMeta);
 		
-		return new CommandResponse("&aFirework effect removed from line &6" + baseParameters.get(0));
+		return new CommandResponse("&aFirework effect removed from line &6" + i);
 	}
 
 }

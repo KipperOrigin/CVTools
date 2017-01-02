@@ -28,7 +28,7 @@ public class MobRabbitType extends Command {
 		CommandMap commandMap = CommandMapManager.primaryMap;
 		if (!commandMap.contains(player)) {
 			throw new CommandExecutionException("&cPlease select a &6rabbit&c!");
-		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Rabbit)) {
+		} else if (!(commandMap.get(player) instanceof Rabbit)) {
 			throw new CommandExecutionException("&cPlease select a &6rabbit&c!");
 		}
 		

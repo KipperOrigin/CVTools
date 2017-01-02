@@ -26,7 +26,7 @@ public class MobCreeperCharge extends Command {
 		CommandMap commandMap = CommandMapManager.primaryMap;
 		if (!commandMap.contains(player)) {
 			throw new CommandExecutionException("&cPlease select a &6creeper&c!");
-		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Creeper)) {
+		} else if (!(commandMap.get(player) instanceof Creeper)) {
 			throw new CommandExecutionException("&cPlease select a &6creeper&c!");
 		}
 		

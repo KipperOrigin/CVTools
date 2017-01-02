@@ -32,7 +32,7 @@ public class ItemLoreRemove extends Command {
 			throw new CommandExecutionException("&cLine &6" + i + " &ais not available for this item!");
 		}
 		
-		item.removeLore(i);
+		item.removeLore(i - 1);
 		
 		player.getInventory().setItemInMainHand(item.asItemStack());
 		return new CommandResponse("&6Lore removed from line &6" + i);

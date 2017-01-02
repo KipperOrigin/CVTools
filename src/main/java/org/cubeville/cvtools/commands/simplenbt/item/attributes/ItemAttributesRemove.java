@@ -29,7 +29,7 @@ public class ItemAttributesRemove extends Command {
 		int i = (int) baseParameters.get(0);
 		NBTItem nbtItem = new NBTItem(player.getInventory().getItemInMainHand());
 		
-		nbtItem.removeAttribute(i);
+		nbtItem.removeAttribute(i - 1);
 		
 		player.getInventory().setItemInMainHand(nbtItem.asItemStack());
         return new CommandResponse("&aAttribute removed!");

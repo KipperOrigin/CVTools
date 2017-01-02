@@ -27,7 +27,7 @@ public class MobSlimeSize extends Command {
 		CommandMap commandMap = CommandMapManager.primaryMap;
 		if (!commandMap.contains(player)) {
 			throw new CommandExecutionException("&cPlease select a &6slime &cor&6 magma cube&c!");
-		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof Slime)) {
+		} else if (!(commandMap.get(player) instanceof Slime)) {
 			throw new CommandExecutionException("&cPlease select a &6slime &cor&6 magma cube&c!");
 		}
 		

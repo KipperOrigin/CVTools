@@ -1,5 +1,9 @@
 package org.cubeville.cvtools.events;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
@@ -8,6 +12,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.commands.CommandMapManager;
@@ -20,6 +25,8 @@ public class EventPlayerInteract implements Listener {
 		Player player = event.getPlayer();
 		
 		if (CommandMapManager.primaryMap.contains(player)) {
+			if (CommandMapManager.primaryMap.get(player) != null) return;
+			
 			event.setCancelled(true);
 			
 			if (event.getClickedBlock() == null) {
@@ -47,11 +54,15 @@ public class EventPlayerInteract implements Listener {
 			return;
 		if (event.getClickedBlock().getType() == Material.WALL_SIGN) {
 			Sign sign = (Sign) event.getClickedBlock().getState();
-			if (sign.getLine(1).equalsIgnoreCase("[load-out]")) {
-				LoadoutHandler.applyLoadoutFromSign(event.getPlayer(), sign);
-				event.setCancelled(true);
-				return;
+			for (String lString: LoadoutAliases) {
+				if (sign.getLine(1).equals(lString)) {
+					LoadoutHandler.applyLoadoutFromSign(event.getPlayer(), sign);
+					event.setCancelled(true);
+					return;
+				}
 			}
 		}
 	}
+	
+	public static List<String> LoadoutAliases = new ArrayList<>(Arrays.asList("[load-out]","[kit]","[class]"));
 }

@@ -64,7 +64,10 @@ public class CommandManager {
 		// ENTITY
 		snbtCommandParser.addCommand(new EntityGlow());
 		snbtCommandParser.addCommand(new EntityInfo());
+		snbtCommandParser.addCommand(new EntityInvulnerable());
 		snbtCommandParser.addCommand(new EntityName());
+		snbtCommandParser.addCommand(new EntityPainting());
+		snbtCommandParser.addCommand(new EntityRemove());
 		snbtCommandParser.addCommand(new EntityRide());
 		snbtCommandParser.addCommand(new EntitySilent());
 		

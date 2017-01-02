@@ -31,7 +31,7 @@ public class MobArmorStandPoses extends Command {
 		CommandMap commandMap = CommandMapManager.primaryMap;
 		if (!commandMap.contains(player)) {
 			throw new CommandExecutionException("&cPlease select an &6armor stand&c!");
-		} else if (commandMap.get(player) == null || !(commandMap.get(player) instanceof ArmorStand)) {
+		} else if (!(commandMap.get(player) instanceof ArmorStand)) {
 			throw new CommandExecutionException("&cPlease select an &6armor stand&c!");
 		}
 		
