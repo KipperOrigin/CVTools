@@ -55,11 +55,11 @@ public class CommandParser
             }
             return false;
         }
-        catch(CommandExecutionException e) {
-            player.sendMessage(Colorize.addColor(e.getMessage()));
-            return true;
-        }
-        catch(IllegalArgumentException e) {
+        //catch(CommandExecutionException e) {
+        //    player.sendMessage(Colorize.addColor(e.getMessage()));
+        //    return true;
+        //}
+        catch(IllegalArgumentException|CommandExecutionException e) {
             String msg = Colorize.addColorWithoutHeader(e.getMessage());
             if(Colorize.removeColor(msg).equals(msg)) {
                     msg = Colorize.addColor("&c" + msg);

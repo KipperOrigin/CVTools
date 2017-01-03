@@ -4,15 +4,15 @@ import java.lang.NumberFormatException;
 
 public class CommandParameterInteger implements CommandParameterType
 {
-	boolean positive = false;
+    boolean positive = false;
 	
-	public CommandParameterInteger() {
+    public CommandParameterInteger() {
 		
-	}
+    }
 	
-	public CommandParameterInteger(boolean b) {
-		positive = b;
-	}
+    public CommandParameterInteger(boolean b) {
+        positive = b;
+    }
 	
     public boolean isValid(String value) {
         try {
