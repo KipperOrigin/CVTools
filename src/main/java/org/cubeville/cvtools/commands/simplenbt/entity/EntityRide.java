@@ -58,13 +58,12 @@ public class EntityRide extends Command {
 	
     public static Entity getHighestEntity(Entity e) {
         boolean higher = true;
-		
-        while (higher)
-            if (!e.isEmpty())
-                e = e.getPassenger();
-            else
-                higher = false;
-		
+ 
+        for(int eb = 0; eb < 1000 && higher; eb++) {
+            if(e.isEmpty()) break;
+            e = e.getPassenger();
+        }
+
         return e;
     }
 	

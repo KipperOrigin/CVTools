@@ -8,8 +8,18 @@ import org.bukkit.util.Vector;
 
 public class CommandParameterListVector implements CommandParameterType
 {
+    Integer size;
+
+    public CommandParameterListVector() {
+    }
+
+    public CommandParameterListVector(int size) {
+        this.size = size;
+    }
+    
     public boolean isValid(String value) {
         String[] parts = value.split(";");
+        if(size != null && parts.length != size) return false;
         for(int i = 0; i < parts.length; i++) {
             if(CommandParameterVector.getVector(parts[i]) == null) {
                 return false;
@@ -19,6 +29,7 @@ public class CommandParameterListVector implements CommandParameterType
     }
 
     public String getInvalidMessage(String value) {
+        if(size != null) return "No valid vector list of length " + size + ".";
         return "No valid vector list.";
     }
 

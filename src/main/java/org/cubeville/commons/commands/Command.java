@@ -19,20 +19,20 @@ import org.bukkit.entity.Player;
 
 public abstract class Command
 {
+    String permission;
     private List<String> commands;
     private Set<String> flags;
     private Map<String, CommandParameterType> optional;
     private Map<String, CommandParameterType> mandatory;
     private List<CommandParameterType> base;
     int mandatoryBase;
-
+    
     public Command(String fullCommand) {
         commands = Arrays.asList(fullCommand.split(" "));
         flags = new HashSet<>();
         optional = new HashMap<>();
         mandatory = new HashMap<>();
         base = new ArrayList<>();
-        mandatoryBase = 0;
     }
 
     public String getFullCommand() {
@@ -43,6 +43,10 @@ public abstract class Command
     
     public String[] getArgs() {
     	return (String[]) commands.toArray();
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
     }
     
     public void addFlag(String flag) {
@@ -125,6 +129,7 @@ public abstract class Command
     }
 
     public CommandResponse execute(Player player, String[] args) throws CommandExecutionException {
+        if(permission != null && !player.hasPermission(permission)) throw new CommandExecutionException("Permission denied.");
         Set<String> flags = new HashSet<>();
         Map<String, Object> parameters = new HashMap<>();
         List<Object> baseParameters = new ArrayList<>();

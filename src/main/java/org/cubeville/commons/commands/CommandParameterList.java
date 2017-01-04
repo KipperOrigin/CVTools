@@ -16,7 +16,7 @@ public class CommandParameterList implements CommandParameterType
 
     public boolean isValid(String value) {
         String[] parts = value.split(";");
-        if(parts.length != parameters.size()) return false;;
+        if(parts.length != parameters.size()) return false;
         for(int i = 0; i < parts.length; i++) {
             if(!parameters.get(i).isValid(parts[i])) return false;
         }

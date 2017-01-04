@@ -19,31 +19,31 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class MobArmorStandPoses extends Command {
 	
-	public MobArmorStandPoses() {
-		super("armorstand pose");
-		addBaseParameter(new CommandParameterString());
-		addBaseParameter(new CommandParameterEulerAngle());
-	}
+    public MobArmorStandPoses() {
+        super("armorstand pose");
+        addBaseParameter(new CommandParameterString());
+        addBaseParameter(new CommandParameterEulerAngle());
+    }
+    
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
+        CommandMap commandMap = CommandMapManager.primaryMap;
+        if (!commandMap.contains(player)) {
+            throw new CommandExecutionException("&cPlease select an &6armor stand&c!");
+        } else if (!(commandMap.get(player) instanceof ArmorStand)) {
+            throw new CommandExecutionException("&cPlease select an &6armor stand&c!");
+        }
 	
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
-		CommandMap commandMap = CommandMapManager.primaryMap;
-		if (!commandMap.contains(player)) {
-			throw new CommandExecutionException("&cPlease select an &6armor stand&c!");
-		} else if (!(commandMap.get(player) instanceof ArmorStand)) {
-			throw new CommandExecutionException("&cPlease select an &6armor stand&c!");
-		}
-		
-		ArmorStand stand = (ArmorStand) commandMap.get(player);
-		
-		boolean set = AdvancedSlots.setAngleByName(stand, (String) baseParameters.get(0), (EulerAngle) baseParameters.get(1));
-		
-		if (set) {
-			return new CommandResponse("&aAngle Set to &6" + (String) baseParameters.get(0) + "&c!");
-		} else {
-			player.sendMessage(Colorize.addColor("&6" + (String) baseParameters.get(0) + " &cis not a valid armor pose part!"));
-			throw new CommandExecutionException("&cValid armor pose parts are: &fhead&c,&fbody&c,&fleft_arm&c,&fright_arm&c,&fleft_leg&c,&fright_leg");
-		}
-	}
+        ArmorStand stand = (ArmorStand) commandMap.get(player);
+	
+        boolean set = AdvancedSlots.setAngleByName(stand, (String) baseParameters.get(0), (EulerAngle) baseParameters.get(1));
+	
+        if (set) {
+            return new CommandResponse("&aAngle Set to &6" + (String) baseParameters.get(0) + "&c!");
+        } else {
+            player.sendMessage(Colorize.addColor("&6" + (String) baseParameters.get(0) + " &cis not a valid armor pose part!"));
+            throw new CommandExecutionException("&cValid armor pose parts are: &fhead&c,&fbody&c,&fleft_arm&c,&fright_arm&c,&fleft_leg&c,&fright_leg");
+        }
+    }
 }
