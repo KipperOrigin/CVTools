@@ -44,6 +44,7 @@ public class CheckEntities extends Command {
         addParameter("min", true, new CommandParameterInteger());
         defaultSize = 50;
         defaultMinCount = 100;
+        setPermission("cvtools.checkentities");
     }
 
     @Override
@@ -54,7 +55,7 @@ public class CheckEntities extends Command {
         int size = defaultSize;
         if(parameters.get("r") != null) {
             size = (int) parameters.get("r") * 2;
-            if(size < 4 || size > 60) throw new CommandExecutionException("Size must be in [2;30].");
+            if(size < 4 || (size > 60 && !player.hasPermission("cvtools.unlimited"))) throw new CommandExecutionException("Size must be in [2;30].");
         }
 
         int minCount = defaultMinCount;

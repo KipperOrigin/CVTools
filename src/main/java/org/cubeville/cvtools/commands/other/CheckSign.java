@@ -31,6 +31,7 @@ public class CheckSign extends Command {
         addFlag("sel");
         addFlag("tp");
         addParameter("wg", true, new CommandParameterString());
+        setPermission("cvtools.checksign");
     }
 
     @Override
@@ -43,12 +44,14 @@ public class CheckSign extends Command {
 
         CommandResponse ret = new CommandResponse();
 
+        int limit = player.hasPermission("cvtools.unlimited") ? 300000 : 25000;
+        
         List<Block> signs;
         if(flags.contains("we")) {
-            signs = BlockUtils.getBlocksInWESelectionByType(player, Material.SIGN_POST, Material.WALL_SIGN);
+            signs = BlockUtils.getBlocksInWESelectionByType(player, limit, Material.SIGN_POST, Material.WALL_SIGN);
         }
         else if(parameters.containsKey("wg")) {
-            signs = BlockUtils.getBlocksInWGRegionByType(player, (String) parameters.get("wg"), Material.SIGN_POST, Material.WALL_SIGN);
+            signs = BlockUtils.getBlocksInWGRegionByType(player, (String) parameters.get("wg"), limit, Material.SIGN_POST, Material.WALL_SIGN);
         }
         else if(baseParameters.size() == 2) {
             if((int) baseParameters.get(1) > 25) throw new CommandExecutionException("Maximum radius is 25.");

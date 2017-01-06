@@ -23,7 +23,7 @@ import com.comphenix.protocol.ProtocolManager;
 
 @SuppressWarnings("unused")
 public class CVTools extends JavaPlugin {
-	
+
     EventManager eventManager;
     ProtocolEventManager pmManager;
     public LoadoutManager loadoutManager;
@@ -36,13 +36,13 @@ public class CVTools extends JavaPlugin {
     public LoadoutManager getLoadoutManager() {
         return loadoutManager;
     }
-    
+
     public void onEnable() {
         instance = this;
-        
+
         ConfigurationSerialization.registerClass(LoadoutContainer.class, "LoadoutContainer");
         ConfigurationSerialization.registerClass(LoadoutManager.class, "LoadoutManager");
-		
+
         CommandManager.registerAllCommands(this);
         CommandMapManager.registerMaps();
         eventManager = new EventManager(this);
@@ -50,29 +50,28 @@ public class CVTools extends JavaPlugin {
 
         loadoutManager = (LoadoutManager) getConfig().get("LoadoutManager");
         if(loadoutManager == null) loadoutManager = new LoadoutManager();
-        
+
         pmManager.registerEvents();
         eventManager.registerEvents();
     }
-	
+
     public void onDisable() {
         getConfig().set("LoadoutManager", loadoutManager);
         saveConfig();
         CommandManager.nullifyCommandParsers();
         CommandMapManager.unregisterMaps();
     }
-	
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
         if(!(sender instanceof Player)) return false;
         Player player = (Player)sender;
 
-        if(command.getName().equals("snbt")) {   
+        if(command.getName().equals("snbt")) {
             return CommandManager.snbtCommandParser.execute(player, args);
         } else if (command.getName().equals("cvtools")) {
             return CommandManager.toolsCommandParser.execute(player, args);
-        	
         } else if (command.getName().equals("pvp")) {
             return CommandManager.pvpCommandParser.execute(player, args);
         } else {

@@ -168,5 +168,15 @@ public abstract class Command
         }
         return false;
     }
-    
+
+    public boolean checkExactlyOne(Boolean... conditions) {
+        int cnt = 0;
+        for(Boolean condition: conditions) {
+            if(condition) {
+                cnt++;
+                if(cnt == 2) return false;
+            }
+        }
+        return cnt == 1;
+    }
 }

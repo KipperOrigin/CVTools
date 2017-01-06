@@ -50,7 +50,7 @@ public class BlockUtils {
         return blocks;
     }
 
-    public static List<Block> getBlocksInWESelection(Player player) {
+    public static List<Block> getBlocksInWESelection(Player player, int limit) {
         WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
         Selection selection = worldEdit.getSelection(player);
         if(selection == null) throw new IllegalArgumentException("No region selected.");
@@ -59,6 +59,11 @@ public class BlockUtils {
         Location min = selection.getMinimumPoint();
         Location max = selection.getMaximumPoint();
         List<Block> blocks = new ArrayList<>();
+
+        int width = max.getBlockX() - min.getBlockX() + 1;
+        int height = max.getBlockY() - min.getBlockY() + 1;
+        int length = max.getBlockZ() - min.getBlockZ() + 1;
+        if(width * length * height > limit) throw new IllegalArgumentException("Limit of " + limit + " reached!");
 
         for(int x = min.getBlockX(); x <= max.getBlockX(); x++) {
             for(int y = min.getBlockY(); y <= max.getBlockY(); y++) {
@@ -72,17 +77,22 @@ public class BlockUtils {
         return blocks;
     }
 
-    public static List<Block> getBlocksInWGRegion(Player player, String name) {
+    public static List<Block> getBlocksInWGRegion(Player player, String name, int limit) {
         World world = player.getWorld();
         
         WorldGuardPlugin worldGuard = (WorldGuardPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
         RegionManager regionManager = worldGuard.getRegionManager(world);
         ProtectedRegion region = regionManager.getRegion(name);
-        if(region == null) throw new IllegalArgumentException("No region found by that name.");
+        if(region == null) throw new IllegalArgumentException("No region found by that name!");
         BlockVector min = region.getMinimumPoint();
         BlockVector max = region.getMaximumPoint();
         List<Block> blocks = new ArrayList<>();
 
+        int width = max.getBlockX() - min.getBlockX() + 1;
+        int height = max.getBlockY() - min.getBlockY() + 1;
+        int length = max.getBlockZ() - min.getBlockZ() + 1;
+        if(width * length * height > limit) throw new IllegalArgumentException("Limit of " + limit + " reached!");
+                                                
         for(int x = min.getBlockX(); x <= max.getBlockX(); x++) {
             for(int y = min.getBlockY(); y <= max.getBlockY(); y++) {
                 for(int z = min.getBlockZ(); z <= max.getBlockZ(); z++) {
@@ -113,13 +123,13 @@ public class BlockUtils {
         return getBlocksByType(blocks, mats);
     }
 
-    public static List<Block> getBlocksInWESelectionByType(Player player, Material... mats) {
-        List<Block> blocks = getBlocksInWESelection(player);
+    public static List<Block> getBlocksInWESelectionByType(Player player, int limit, Material... mats) {
+        List<Block> blocks = getBlocksInWESelection(player, limit);
         return getBlocksByType(blocks, mats);
     }
 
-    public static List<Block> getBlocksInWGRegionByType(Player player, String name, Material... mats) {
-        List<Block> blocks = getBlocksInWGRegion(player, name);
+    public static List<Block> getBlocksInWGRegionByType(Player player, String name, int limit, Material... mats) {
+        List<Block> blocks = getBlocksInWGRegion(player, name, limit);
         return getBlocksByType(blocks, mats);
     }
     

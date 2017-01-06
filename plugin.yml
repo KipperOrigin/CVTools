@@ -11,18 +11,45 @@ commands:
     permission: snbt.admin
   cvtools:
     description: CVTools Base Command
-    permission: cvtools.admin
+    permission: cvtools.commands
   pvp:
     description: PvP Base Command
     permission: cvpvp.admin
        
 permissions:
+  
   snbt.admin:
     description: Gives player access to every SNBT command.
     default: op
-  cvtools.admin:
-    description: Gives player access to every CVTools command.
-    default: op
+    
   cvpvp.admin:
-    description: Gives player access to every PvP command.
+    description: Gives player access to every PvP command
+    default: op
+    
+  cvtools.*:
+    description: Unlimited use of cvtools commands
+    default: op
+    children:
+      cvtools.commands: true
+      cvtools.unlimited: true
+  cvtools.standard:
+    description: Permission for all non-experimental subcommands
+    default: op
+    children:
+      cvtools.checkentities: true
+      cvtools.checksigns: true
+  cvtools.commands:
+    description: Base permission for cvtools command
+    default: op
+  cvtools.unlimited:
+    description: Removes some block count limits
+    default: op
+  cvtools.checkentities:
+    description: Permission for the checkentities subcommand
+    default: op
+  cvtools.checksigns:
+    description: Permission for the checksigns subcommand
+    default: op
+  cvtools.delay:
+    description: Permission for the delay subcommand
     default: op
