@@ -65,15 +65,12 @@ public class CVTools extends JavaPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
-        if(!(sender instanceof Player)) return false;
-        Player player = (Player)sender;
-
         if(command.getName().equals("snbt")) {
-            return CommandManager.snbtCommandParser.execute(player, args);
+            return CommandManager.snbtCommandParser.execute(sender, args);
         } else if (command.getName().equals("cvtools")) {
-            return CommandManager.toolsCommandParser.execute(player, args);
+            return CommandManager.toolsCommandParser.execute(sender, args);
         } else if (command.getName().equals("pvp")) {
-            return CommandManager.pvpCommandParser.execute(player, args);
+            return CommandManager.pvpCommandParser.execute(sender, args);
         } else {
             return false;
         }

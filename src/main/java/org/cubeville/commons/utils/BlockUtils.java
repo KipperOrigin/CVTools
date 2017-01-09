@@ -77,9 +77,7 @@ public class BlockUtils {
         return blocks;
     }
 
-    public static List<Block> getBlocksInWGRegion(Player player, String name, int limit) {
-        World world = player.getWorld();
-        
+    public static List<Block> getBlocksInWGRegion(World world, String name, int limit) {
         WorldGuardPlugin worldGuard = (WorldGuardPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
         RegionManager regionManager = worldGuard.getRegionManager(world);
         ProtectedRegion region = regionManager.getRegion(name);
@@ -104,7 +102,7 @@ public class BlockUtils {
         }
         return blocks;
     }
-    
+
     public static void setWESelection(Player player, World world, Vector pos1, Vector pos2) {
         WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
         com.sk89q.worldedit.Vector wep1 = new com.sk89q.worldedit.Vector(pos1.getX(), pos1.getY(), pos1.getZ());
@@ -129,21 +127,25 @@ public class BlockUtils {
     }
 
     public static List<Block> getBlocksInWGRegionByType(Player player, String name, int limit, Material... mats) {
-        List<Block> blocks = getBlocksInWGRegion(player, name, limit);
+        return getBlocksInWGRegionByType(player.getWorld(), name, limit, mats);
+    }
+
+    public static List<Block> getBlocksInWGRegionByType(World world, String name, int limit, Material... mats) {
+        List<Block> blocks = getBlocksInWGRegion(world, name, limit);
         return getBlocksByType(blocks, mats);
     }
-    
+
     public static List<Block> getBlocksByType(List<Block> blocks, Material... mats) {
         if(blocks == null) return null;
-        
+
         List<Block> newBlocks = new ArrayList<>();
-		
+
         for(Block block: blocks) {
             for(Material mat: mats) {
                 if(block.getType() == mat) newBlocks.add(block);
             }
         }
-        
+
         return newBlocks;
     }
     

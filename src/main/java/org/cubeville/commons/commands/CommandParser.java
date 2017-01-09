@@ -3,22 +3,24 @@ package org.cubeville.commons.commands;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
 import org.cubeville.commons.utils.Colorize;
 
 public class CommandParser
 {
-    List<Command> commands;
+    List<BaseCommand> commands;
 
     public CommandParser() {
         commands = new ArrayList<>();
     }
 
-    public void addCommand(Command command) {
+    public void addCommand(BaseCommand command) {
         commands.add(command);
     }
 
-    public boolean execute(Player player, String[] argsIn) {
+    public boolean execute(CommandSender commandSender, String[] argsIn) {
         try {
             String full = "";
             for (String arg: argsIn) {
@@ -29,17 +31,17 @@ public class CommandParser
             String[] args = smartSplit(full).toArray(new String[0]);
 
             String parameterError = null;
-            for(Command command: commands) {
+            for(BaseCommand command: commands) {
                 if(command.checkCommand(args)) {
                     parameterError = command.checkParameters(args);
                     if(parameterError == null) {
-                        CommandResponse response = command.execute(player, args);
+                        CommandResponse response = command.execute(commandSender, args);
                         if(response == null) {
-                            player.sendMessage(Colorize.addColor("&aCommand executed successfully."));
+                            commandSender.sendMessage(Colorize.addColor("&aCommand executed successfully."));
                         }
                         else {
                             for (String message: response.getMessages())
-                                player.sendMessage(Colorize.addColor(message));
+                                commandSender.sendMessage(Colorize.addColor(message));
                         }
                         return true;
                     }
@@ -47,11 +49,11 @@ public class CommandParser
             }
 
             if(parameterError != null) {
-                player.sendMessage(parameterError);
+                commandSender.sendMessage(parameterError);
             }
 
             else {
-                player.sendMessage("Unknown command!");
+                commandSender.sendMessage("Unknown command!");
             }
             return false;
         }
@@ -67,7 +69,7 @@ public class CommandParser
             else {
                 msg = Colorize.addColor(e.getMessage());
             }
-            player.sendMessage(msg);
+            commandSender.sendMessage(msg);
             return true;
         }
     }

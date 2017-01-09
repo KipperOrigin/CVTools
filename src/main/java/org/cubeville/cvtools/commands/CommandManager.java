@@ -162,7 +162,8 @@ public class CommandManager {
                 toolsCommandParser.addCommand(new CheckEntities());
 		toolsCommandParser.addCommand(new CheckSign());
 		toolsCommandParser.addCommand(new DelayedTask(plugin));
-		
+                toolsCommandParser.addCommand(new FillRegion());
+
 		// STOPWATCH
 		toolsCommandParser.addCommand(new StopWatchStop());
 		toolsCommandParser.addCommand(new StopWatchGet());

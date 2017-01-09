@@ -32,12 +32,17 @@ permissions:
     children:
       cvtools.commands: true
       cvtools.unlimited: true
+      cvtools.checkentities: true
+      cvtools.checksign: true
+      cvtools.delay: true
+      cvtools.setblocks: true
   cvtools.standard:
-    description: Permission for all non-experimental subcommands
+    description: Permission for standard command
     default: op
     children:
       cvtools.checkentities: true
-      cvtools.checksigns: true
+      cvtools.checksign: true
+      cvtools.commands: true
   cvtools.commands:
     description: Base permission for cvtools command
     default: op
@@ -47,9 +52,12 @@ permissions:
   cvtools.checkentities:
     description: Permission for the checkentities subcommand
     default: op
-  cvtools.checksigns:
-    description: Permission for the checksigns subcommand
+  cvtools.checksign:
+    description: Permission for the checksign subcommand
     default: op
   cvtools.delay:
     description: Permission for the delay subcommand
+    default: op
+  cvtools.setblocks:
+    description: Set blocks in worldguard region to specific type
     default: op

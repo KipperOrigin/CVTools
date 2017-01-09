@@ -15,24 +15,24 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class MobArmorStandMarker extends Command {
 	
-	public MobArmorStandMarker() {
-		super("armorstand marker");
-		addBaseParameter(new CommandParameterBoolean());
-	}
-	
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
-			throws CommandExecutionException {
-		CommandMap commandMap = CommandMapManager.primaryMap;
-		if (!commandMap.contains(player)) {
-			throw new CommandExecutionException("&cPlease select an &6armor stand&c!");
-		} else if (!(commandMap.get(player) instanceof ArmorStand)) {
-			throw new CommandExecutionException("&cPlease select an &6armor stand&c!");
-		}
+    public MobArmorStandMarker() {
+        super("armorstand marker");
+        addBaseParameter(new CommandParameterBoolean());
+    }
+    
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+        throws CommandExecutionException {
+        CommandMap commandMap = CommandMapManager.primaryMap;
+        if (!commandMap.contains(player)) {
+            throw new CommandExecutionException("&cPlease select an &6armor stand&c!");
+        } else if (!(commandMap.get(player) instanceof ArmorStand)) {
+            throw new CommandExecutionException("&cPlease select an &6armor stand&c!");
+        }
 		
-		ArmorStand stand = (ArmorStand) commandMap.get(player);
+        ArmorStand stand = (ArmorStand) commandMap.get(player);
 		
-		stand.setMarker((boolean) baseParameters.get(0));
-		return new CommandResponse("&aArmor Stand marker &aset to &6" + Boolean.toString((boolean) baseParameters.get(0)));
-	}
+        stand.setMarker((boolean) baseParameters.get(0));
+        return new CommandResponse("&aArmor Stand marker &aset to &6" + Boolean.toString((boolean) baseParameters.get(0)));
+    }
 }
