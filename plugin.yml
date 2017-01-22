@@ -12,10 +12,10 @@ commands:
   cvtools:
     description: CVTools Base Command
     permission: cvtools.commands
-  pvp:
+  cvpvp:
     description: PvP Base Command
     permission: cvpvp.admin
-       
+
 permissions:
   
   snbt.admin:

@@ -12,19 +12,9 @@ import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.entity.Chicken;
-import org.bukkit.entity.Cow;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Horse;
-import org.bukkit.entity.IronGolem;
-import org.bukkit.entity.Ocelot;
-import org.bukkit.entity.Pig;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Rabbit;
-import org.bukkit.entity.Sheep;
-import org.bukkit.entity.Snowman;
-import org.bukkit.entity.Villager;
-import org.bukkit.entity.Wolf;
 
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
@@ -125,12 +115,10 @@ public class CheckEntities extends Command {
     }
 
     private boolean isOfEntityClass(Entity entity) {
-        if(entity instanceof Sheep || entity instanceof Chicken ||
-           entity instanceof Cow || entity instanceof Rabbit ||
-           entity instanceof Pig || entity instanceof Villager ||
-           entity instanceof Horse || entity instanceof Wolf ||
-           entity instanceof Ocelot || entity instanceof IronGolem ||
-           entity instanceof Snowman) {
+        EntityType type = entity.getType();
+        if(type == EntityType.SHEEP || type == EntityType.CHICKEN || type == EntityType.COW || type == EntityType.RABBIT || type == EntityType.PIG ||
+           type == EntityType.VILLAGER || type == EntityType.HORSE || type == EntityType.WOLF || type == EntityType.OCELOT || type == EntityType.IRON_GOLEM ||
+           type == EntityType.SNOWMAN || type == EntityType.PIG_ZOMBIE || type == EntityType.ZOMBIE || type == EntityType.SKELETON || type == EntityType.SPIDER || type == EntityType.CAVE_SPIDER) {
             return true;
         }
         return false;

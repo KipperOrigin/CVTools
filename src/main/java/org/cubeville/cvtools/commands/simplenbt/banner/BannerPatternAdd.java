@@ -16,7 +16,7 @@ import org.cubeville.cvtools.nbt.BannerItem;
 
 public class BannerPatternAdd extends Command {
 
-    public BannerPatternAdd() {                                                                     
+    public BannerPatternAdd() {
         super("banner add");  
         addBaseParameter(new CommandParameterEnum(PatternType.class));
         addBaseParameter(new CommandParameterEnum(DyeColor.class));
