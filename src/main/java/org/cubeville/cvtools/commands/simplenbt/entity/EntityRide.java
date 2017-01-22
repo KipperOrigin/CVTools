@@ -49,11 +49,26 @@ public class EntityRide extends Command {
         } else if (!flags.contains("reverse") && !flags.contains("stack") && flags.contains("unstack")) {
             dismountAll(entity);
         } else {
-            if (getHighestEntity(entity) != player)
-                getHighestEntity(entity).setPassenger(player);
+        	if (!containsEntity(entity, player)) getHighestEntity(entity).setPassenger(player);
         }
 		
         return new CommandResponse("&aEntity ride successfully executed!");
+    }
+    
+    public static boolean containsEntity(Entity vehicle, Entity passenger) {
+    	boolean higher = true;
+    	
+    	if (vehicle == passenger) return true;
+    	
+    	while (higher) {
+    		if (!passenger.isEmpty()) {
+    			if (passenger.getPassenger() == vehicle) return true;
+    			else passenger = passenger.getPassenger();
+    		} else break;
+    	}
+    	
+		return false;
+    	
     }
 	
     public static Entity getHighestEntity(Entity e) {
@@ -68,6 +83,8 @@ public class EntityRide extends Command {
     }
 	
     public static void stackHighestEntity(Entity vehicle, Entity passenger) {
+    	if (containsEntity(vehicle, passenger)) return;
+    	
         vehicle = getHighestEntity(vehicle);
         if (vehicle == passenger)
             return;

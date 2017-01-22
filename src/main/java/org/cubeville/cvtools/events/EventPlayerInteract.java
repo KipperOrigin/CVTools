@@ -48,12 +48,13 @@ public class EventPlayerInteract implements Listener {
         }
     }
 	
+<<<<<<< HEAD
     @EventHandler (priority = EventPriority.HIGH)
     public void onPlayerInteractSign(PlayerInteractEvent event) {
         if (event.getClickedBlock() == null) return;
         if (event.getClickedBlock().getType() != Material.WALL_SIGN) return;
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 
-        System.out.println("CVPVP: Sign clicked");
         Sign sign = (Sign) event.getClickedBlock().getState();
         if(sign.getLine(1).charAt(0) != '[') return;
 

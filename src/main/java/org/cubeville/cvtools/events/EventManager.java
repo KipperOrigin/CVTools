@@ -24,5 +24,6 @@ public class EventManager {
     	pm.registerEvents(new EventPlayerInteractEntity(), plugin);
     	pm.registerEvents(new EventPlayerQuit(), plugin);
         pm.registerEvents(new EventBlockGrow(), plugin);
+    	pm.registerEvents(new EventSignChange(), plugin);
     }
 }

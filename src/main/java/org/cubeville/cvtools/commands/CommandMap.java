@@ -65,4 +65,20 @@ public class CommandMap {
 		}
 		return players;
 	}
+	
+    public boolean playerIsNull(Player player) {
+    	if (commandMap.containsKey(player.getName())) {
+    		if (commandMap.get(player.getName()) == null) {
+    			return true;
+    		} else return false;
+    	} else return false;
+    }
+    
+    public boolean playerContainsType(Player player, Object obj) {
+    	if (commandMap.containsKey(player.getName())) {
+    		if (commandMap.get(player.getName()).getClass().isAssignableFrom(obj.getClass())) {
+    			return true;
+    		} else return false;
+    	} else return false;
+    }
 }

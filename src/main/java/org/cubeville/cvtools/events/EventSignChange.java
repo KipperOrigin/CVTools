@@ -1,50 +1,51 @@
 package org.cubeville.cvtools.events;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Map;
-
-import org.bukkit.Bukkit;
-import org.bukkit.block.Block;
-import org.bukkit.block.Sign;
+import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
-import org.cubeville.cvtools.commands.CommandMap;
-import org.cubeville.cvtools.commands.CommandMapManager;
+import org.cubeville.commons.utils.Colorize;
+import org.cubeville.cvtools.CVTools;
+import org.cubeville.pvp.loadout.LoadoutContainer;
+import org.cubeville.pvp.loadout.LoadoutManager;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
-import com.comphenix.protocol.events.PacketContainer;
+public class EventSignChange implements Listener {
 
-public class EventSignChange {
-
-    @EventHandler
+    @EventHandler (priority = EventPriority.MONITOR)
     public void onSignChange(SignChangeEvent event) {
-        if (event.isCancelled())	
-            System.out.println("Sends change event cancelled");
-        System.out.println("Sends change event");
-        CommandMap commandMap = CommandMapManager.primaryMap;
+    	String loAlias = "";
+        LoadoutManager loadoutManager = CVTools.getInstance().getLoadoutManager();
         Player player = event.getPlayer();
-        ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
+        boolean exists = false;
 		
-        if (commandMap.contains(player)) {
-            if (!(commandMap.get(player) instanceof Block)) {
-                return;
-            }
-            Block block = (Block) (commandMap.get(player));
-            if (block.getState() instanceof Sign) {
-                PacketContainer signUpdate = protocolManager.createPacket(PacketType.Play.Server.OPEN_SIGN_EDITOR);
-                Player[] players = (Player[]) Bukkit.getOnlinePlayers().toArray();
-                for (Player playerP: players) {
-                    try {
-                        protocolManager.sendServerPacket(playerP, signUpdate);
-                    } catch (InvocationTargetException e) {
-                        throw new RuntimeException("Could not sent packet " + e);
-                    }
-                }
-            }
-				
+        player.sendMessage("sign change!");
+        
+        for (String alias: EventPlayerInteract.LoadoutAliases) {
+        	if (event.getLine(1).equalsIgnoreCase(alias)) {
+        		loAlias = event.getLine(1).replaceAll("\\[", "").replaceAll("\\]","");
+        		if (loadoutManager.contains(event.getLine(2))) {
+        			LoadoutContainer lc = loadoutManager.getLoadoutByName(event.getLine(2));
+        			if (lc.containsInventory(event.getLine(3))) exists = true;
+        			else break;
+        			if (!player.hasPermission("pvp.loadout.create")) {
+        				player.sendMessage(Colorize.addColor("&cYou do not have permission to make loadout signs!"));
+        				event.setCancelled(true);
+        			}
+        			break;
+        		} 
+        	}
+        }
+        if (exists) {
+        	event.setLine(0, WordUtils.capitalizeFully(event.getLine(0)));
+        	event.setLine(1, "[" + WordUtils.capitalizeFully(loAlias) + "]");
+        	event.setLine(2, WordUtils.capitalizeFully(event.getLine(2)));
+        	event.setLine(3, WordUtils.capitalizeFully(event.getLine(3)));
+        	player.sendMessage(Colorize.addColor("&aLoadout sign created successfully!"));
+        } else {
+        	player.sendMessage(Colorize.addColor("&cLoadout &6" + event.getLine(2) + ":" + event.getLine(3) + " &cdoes not exist!"));
+        	event.setCancelled(true);
         }
     }
 }
