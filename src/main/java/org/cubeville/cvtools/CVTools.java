@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bukkit.Location;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -70,9 +72,10 @@ public class CVTools extends JavaPlugin {
             return CommandManager.snbtCommandParser.execute(sender, args);
         } else if (command.getName().equals("cvtools")) {
             return CommandManager.toolsCommandParser.execute(sender, args);
-        } else if (command.getName().equals("pvp")) {
+        } else if (command.getName().equals("cvpvp")) {
             return CommandManager.pvpCommandParser.execute(sender, args);
-        } else {
+        }
+        else {
             return false;
         }
     }

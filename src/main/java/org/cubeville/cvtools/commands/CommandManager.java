@@ -70,6 +70,7 @@ public class CommandManager {
 		snbtCommandParser.addCommand(new EntityPainting());
 		snbtCommandParser.addCommand(new EntityRemove());
 		snbtCommandParser.addCommand(new EntityRide());
+                snbtCommandParser.addCommand(new EntityRotate());
 		snbtCommandParser.addCommand(new EntitySilent());
 		
 		// FIREWORK
@@ -163,6 +164,7 @@ public class CommandManager {
 		toolsCommandParser.addCommand(new CheckSign());
 		toolsCommandParser.addCommand(new DelayedTask(plugin));
                 toolsCommandParser.addCommand(new FillRegion());
+		toolsCommandParser.addCommand(new Info());
 
 		// STOPWATCH
 		toolsCommandParser.addCommand(new StopWatchStop());
