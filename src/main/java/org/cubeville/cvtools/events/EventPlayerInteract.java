@@ -52,10 +52,12 @@ public class EventPlayerInteract implements Listener {
 	public void onPlayerInteractSign(PlayerInteractEvent event) {
 		if (event.getClickedBlock() == null)
 			return;
+		if (event.getAction() == Action.LEFT_CLICK_BLOCK)
+			return;
 		if (event.getClickedBlock().getType() == Material.WALL_SIGN) {
 			Sign sign = (Sign) event.getClickedBlock().getState();
 			for (String lString: LoadoutAliases) {
-				if (sign.getLine(1).equals(lString)) {
+				if (sign.getLine(1).equalsIgnoreCase(lString)) {
 					LoadoutHandler.applyLoadoutFromSign(event.getPlayer(), sign);
 					event.setCancelled(true);
 					return;

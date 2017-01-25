@@ -27,5 +27,13 @@ public class CommandMapManager {
             primaryMap.replaceValues(player, null);
         }
     }
+    
+    public static boolean playerIsNull(Player player) {
+    	if (primaryMap.contains(player)) {
+    		if (primaryMap.get(player) == null) {
+    			return true;
+    		} else return false;
+    	} else return false;
+    }
 	
 }
