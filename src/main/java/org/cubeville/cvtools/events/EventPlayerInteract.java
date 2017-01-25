@@ -48,7 +48,6 @@ public class EventPlayerInteract implements Listener {
         }
     }
 	
-<<<<<<< HEAD
     @EventHandler (priority = EventPriority.HIGH)
     public void onPlayerInteractSign(PlayerInteractEvent event) {
         if (event.getClickedBlock() == null) return;
