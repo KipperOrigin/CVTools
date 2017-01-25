@@ -12,7 +12,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.cubeville.commons.utils.Colorize;
 import org.cubeville.cvtools.CVTools;
@@ -48,35 +47,16 @@ public class EventPlayerInteract implements Listener {
             player.sendMessage(Colorize.addColor("&aBlock &6" + event.getClickedBlock().getType().name() + "&a selected!"));
         }
     }
-	
-<<<<<<< HEAD
-	@EventHandler (priority = EventPriority.HIGH)
-	public void onPlayerInteractSign(PlayerInteractEvent event) {
-		if (event.getClickedBlock() == null)
-			return;
-		if (event.getAction() == Action.LEFT_CLICK_BLOCK)
-			return;
-		if (CVTools.getInstance().getLoadoutManager().blacklistContains(event.getPlayer().getName())) {
-			event.getPlayer().sendMessage(Colorize.addColor("&cYou are currently blacklisted from using loadouts!"));
-			return;
-		}
-		if (event.getClickedBlock().getType() == Material.WALL_SIGN) {
-			Sign sign = (Sign) event.getClickedBlock().getState();
-			for (String lString: LoadoutAliases) {
-				if (sign.getLine(1).equalsIgnoreCase(lString)) {
-					LoadoutHandler.applyLoadoutFromSign(event.getPlayer(), sign);
-					event.setCancelled(true);
-					return;
-				}
-			}
-		}
-	}
-=======
+
     @EventHandler (priority = EventPriority.HIGH)
     public void onPlayerInteractSign(PlayerInteractEvent event) {
         if (event.getClickedBlock() == null) return;
         if (event.getClickedBlock().getType() != Material.WALL_SIGN) return;
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+		if (CVTools.getInstance().getLoadoutManager().blacklistContains(event.getPlayer().getName())) {
+			event.getPlayer().sendMessage(Colorize.addColor("&cYou are currently blacklisted from using loadouts!"));
+			return;
+		}
 
         Sign sign = (Sign) event.getClickedBlock().getState();
         if(sign.getLine(1).charAt(0) != '[') return;
@@ -91,7 +71,7 @@ public class EventPlayerInteract implements Listener {
             }
         }
     }
->>>>>>> origin/wip
+
 	
     public static List<String> LoadoutAliases = new ArrayList<>(Arrays.asList("[load-out]","[kit]","[class]"));
 }
