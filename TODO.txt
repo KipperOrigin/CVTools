@@ -1,0 +1,29 @@
+- Entities:
+  - Armor Stand (equipment slots/poses)
+  - Painting (Change art| Find out how it is handled, where does the art originate, does force make it force through blocks etc.)
+- Block State:
+  - Custom Name (seems to be a 1.10/11 thing) Should be possible through NMS
+  - Lockable (seems to be a 1.10/11 thing) Should be possible through NMS
+- Items:
+  - Repairable (set repair cost)
+  
+
+
+
+
+2.1.2017:
+
+- Fix the sign editor (or remove, personally I like the set-command way better)
+- Switching a skull type to one and back to 3 keeps the skull owner, is that on purpose? Or should it be deleted?
+- Check the remove-commands, some throw out of bounds exceptions, not all are 1-based
+- Limit Firework-power (?)
+- PlayerEquipItem prints "null applied to player" if item has no name
+- PotionEffectAdd: Defaults for level and duration don't work
+- Remove player kick event handler
+
+- Test on CV: Mobage/ai/attributes/equipment/itempickup/tame/untame, itemflags..., itemattributes..., itemtype
+
+
+optional nice-to-haves or later (1.10):
+- Armor stand invincible, no gravity, arms
+- Test delayed task, stopwatch

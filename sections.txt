@@ -1,0 +1,11 @@
+customfill:
+  spleef:
+    - layer_top:
+      loc1: 13,15,15
+      loc2: 0,15,2
+    - layer_middle
+      loc1: 1,2,3
+      loc2: 4,5,6
+    - layer_bottom:
+      loc1: 13,5,15
+      loc2: 0,5,2
