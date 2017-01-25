@@ -13,20 +13,19 @@ import org.cubeville.cvtools.CVTools;
 
 public class LoadoutUnblacklistPlayer extends Command {
 
-	public LoadoutUnblacklistPlayer() {
-		super("loadout unblacklist");
-		addBaseParameter(new CommandParameterString());
-	}
-
-	@Override
-	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters,
-	        List<Object> baseParameters) throws CommandExecutionException {
-		String name = (String) baseParameters.get(0);
-		if (!CVTools.getInstance().getLoadoutManager().blacklistContains(name))
-				throw new CommandExecutionException("&cPlayer is not currently blacklisted!");
-		CVTools.getInstance().getLoadoutManager().unblacklistPlayer(name);
-		return new CommandResponse("&aPlayer removed from blacklist!");
-	}
-	
+    public LoadoutUnblacklistPlayer() {
+        super("loadout unblacklist");
+        addBaseParameter(new CommandParameterString());
+    }
+    
+    @Override
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters,
+                                   List<Object> baseParameters) throws CommandExecutionException {
+        String name = (String) baseParameters.get(0);
+        if (!CVTools.getInstance().getLoadoutManager().blacklistContains(name))
+            throw new CommandExecutionException("&cPlayer is not currently blacklisted!");
+        CVTools.getInstance().getLoadoutManager().unblacklistPlayer(name);
+        return new CommandResponse("&aPlayer removed from blacklist!");
+    }
 
 }

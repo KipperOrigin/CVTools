@@ -53,18 +53,16 @@ public class EventPlayerInteract implements Listener {
         if (event.getClickedBlock() == null) return;
         if (event.getClickedBlock().getType() != Material.WALL_SIGN) return;
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
-		if (CVTools.getInstance().getLoadoutManager().blacklistContains(event.getPlayer().getName())) {
-			event.getPlayer().sendMessage(Colorize.addColor("&cYou are currently blacklisted from using loadouts!"));
-			return;
-		}
 
         Sign sign = (Sign) event.getClickedBlock().getState();
         if(sign.getLine(1).charAt(0) != '[') return;
 
-        System.out.println("CVPVP: Is a [ sign");
         for (String lString: LoadoutAliases) {
-            if (sign.getLine(1).equals(lString)) {
-                System.out.println("CVPVP: Found identifier " + lString);
+            if (sign.getLine(1).equalsIgnoreCase(lString)) {
+                if (CVTools.getInstance().getLoadoutManager().blacklistContains(event.getPlayer().getName())) {
+                    event.getPlayer().sendMessage(Colorize.addColor("&cYou are currently blacklisted from using loadouts!"));
+                    return;
+                }
                 LoadoutHandler.applyLoadoutFromSign(event.getPlayer(), sign);
                 event.setCancelled(true);
                 return;
