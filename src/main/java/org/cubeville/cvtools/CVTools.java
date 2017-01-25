@@ -50,6 +50,7 @@ public class CVTools extends JavaPlugin {
 
         loadoutManager = (LoadoutManager) getConfig().get("LoadoutManager");
         if(loadoutManager == null) loadoutManager = new LoadoutManager();
+        loadoutManager.setManager(this);
 
         pmManager.registerEvents();
         eventManager.registerEvents();

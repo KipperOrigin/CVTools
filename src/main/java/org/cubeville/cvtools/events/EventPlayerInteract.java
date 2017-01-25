@@ -15,6 +15,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.cubeville.commons.utils.Colorize;
+import org.cubeville.cvtools.CVTools;
 import org.cubeville.cvtools.commands.CommandMapManager;
 import org.cubeville.pvp.loadout.LoadoutHandler;
 
@@ -54,6 +55,10 @@ public class EventPlayerInteract implements Listener {
 			return;
 		if (event.getAction() == Action.LEFT_CLICK_BLOCK)
 			return;
+		if (CVTools.getInstance().getLoadoutManager().blacklistContains(event.getPlayer().getName())) {
+			event.getPlayer().sendMessage(Colorize.addColor("&cYou are currently blacklisted from using loadouts!"));
+			return;
+		}
 		if (event.getClickedBlock().getType() == Material.WALL_SIGN) {
 			Sign sign = (Sign) event.getClickedBlock().getState();
 			for (String lString: LoadoutAliases) {

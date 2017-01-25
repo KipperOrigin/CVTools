@@ -175,6 +175,7 @@ public class CommandManager {
 		pvpCommandParser = new CommandParser();
 		
 		pvpCommandParser.addCommand(new LoadoutApply());
+		pvpCommandParser.addCommand(new LoadoutBlacklistPlayer());
 		pvpCommandParser.addCommand(new LoadoutCreate());
 		pvpCommandParser.addCommand(new LoadoutEdit());	
 		pvpCommandParser.addCommand(new LoadoutInfo());
@@ -183,6 +184,7 @@ public class CommandManager {
 		pvpCommandParser.addCommand(new LoadoutTagAdd());
 		pvpCommandParser.addCommand(new LoadoutTagClear());
 		pvpCommandParser.addCommand(new LoadoutTagRemove());
+		pvpCommandParser.addCommand(new LoadoutUnblacklistPlayer());
 	}
 	
 	public static void nullifyCommandParsers() {
