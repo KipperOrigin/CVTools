@@ -1,6 +1,5 @@
 package org.cubeville.cvtools.events;
 
-import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
