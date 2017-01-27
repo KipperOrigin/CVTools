@@ -18,6 +18,7 @@ public class LoadoutApply extends Command {
 
 	public LoadoutApply() {
 		super("loadout apply");
+		setPermission("pvp.loadout.commands");
 		addBaseParameter(new CommandParameterString());
 		addParameter("team", true, new CommandParameterString());
 		addParameter("player", true, new CommandParameterOnlinePlayer());

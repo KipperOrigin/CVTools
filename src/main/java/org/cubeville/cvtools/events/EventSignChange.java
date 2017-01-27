@@ -15,6 +15,7 @@ public class EventSignChange implements Listener {
     @EventHandler (priority = EventPriority.MONITOR)
     public void onSignChange(SignChangeEvent event) {
         if(event.getLine(1).charAt(0) != '[') return;
+        if(event.getPlayer().hasPermission("snbt.loadout.commands"));
 
         {
             boolean found = false;

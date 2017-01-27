@@ -14,7 +14,8 @@ import org.cubeville.cvtools.nbt.BookItem;
 public class BookUnsign extends Command {
 
     public BookUnsign() {                                                                     
-        super("book unsign");                                                                         
+        super("book unsign");
+        setPermission("snbt.book");
     }
 
 	@Override
@@ -23,7 +24,9 @@ public class BookUnsign extends Command {
 		if (player.getInventory().getItemInMainHand().getType() != Material.WRITTEN_BOOK) {
 			throw new CommandExecutionException("&cMust be holding a &6written book&c!");
 		}
+		
 		BookItem bookItem = new BookItem(player.getInventory().getItemInMainHand());
+		// (Disables until permissions are complete) if (!bookItem.getAuthor().equalsIgnoreCase(player.getName()) && !player.hasPermission("snbt.book.admin")) throw new CommandExecutionException("&cYou do not have permission to unsign other players books!");
 		bookItem.unsign();
 		player.getInventory().setItemInMainHand(bookItem.asItemStack());
 		

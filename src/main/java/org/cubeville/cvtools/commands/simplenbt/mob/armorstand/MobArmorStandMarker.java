@@ -17,6 +17,7 @@ public class MobArmorStandMarker extends Command {
 	
     public MobArmorStandMarker() {
         super("armorstand marker");
+        setPermission("snbt.armorstand");
         addBaseParameter(new CommandParameterBoolean());
     }
     

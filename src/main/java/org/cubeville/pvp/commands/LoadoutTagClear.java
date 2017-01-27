@@ -14,6 +14,7 @@ public class LoadoutTagClear extends Command {
 
 	public LoadoutTagClear() {
 		super("loadout tag clear");
+		setPermission("pvp.loadout.commands");
 	}
 
 	@Override

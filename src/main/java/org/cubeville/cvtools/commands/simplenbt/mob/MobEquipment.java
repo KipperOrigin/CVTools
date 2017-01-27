@@ -21,6 +21,7 @@ public class MobEquipment extends Command {
 	
 	public MobEquipment() {
 		super("mob equipment");
+        setPermission("snbt.mob");
 		addBaseParameter(new CommandParameterEnum(EquipmentSlot.class));
 		addParameter("chance", true, new CommandParameterFloat());
 	}

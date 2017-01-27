@@ -17,6 +17,7 @@ public class ItemType extends Command {
 
     public ItemType() {
         super("item type");
+        setPermission("snbt.item");
         addBaseParameter(new CommandParameterEnum(Material.class));
         addParameter("data", true, new CommandParameterShort());
     }

@@ -16,6 +16,7 @@ public class PotionEffectRemove extends Command {
 
     public PotionEffectRemove() {
         super("potion remove");
+        setPermission("snbt.potion");
         addBaseParameter(new CommandParameterInteger());
     }
 

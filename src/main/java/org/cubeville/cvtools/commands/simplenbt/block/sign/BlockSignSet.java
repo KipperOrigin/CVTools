@@ -21,6 +21,7 @@ public class BlockSignSet extends Command {
 
 	public BlockSignSet() {
 		super("block sign set");
+		setPermission("snbt.sign");
 		addBaseParameter(new CommandParameterInteger());
 		addBaseParameter(new CommandParameterString());
 	}

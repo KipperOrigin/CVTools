@@ -16,7 +16,8 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 public class MobSnowmanDerp extends Command {
 
 	public MobSnowmanDerp() {
-		super("mob snowman derp");
+		super("snowman derp");
+        setPermission("snbt.mob.other");
 		addBaseParameter(new CommandParameterBoolean("derp","underp"));
 	}
 	

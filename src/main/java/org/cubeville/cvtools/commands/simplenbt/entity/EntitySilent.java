@@ -17,6 +17,7 @@ public class EntitySilent extends Command {
 
     public EntitySilent() {
         super("entity silent");
+        setPermission("snbt.entity");
         addBaseParameter(new CommandParameterBoolean());
     }
 

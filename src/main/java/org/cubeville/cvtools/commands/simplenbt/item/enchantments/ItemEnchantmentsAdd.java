@@ -19,6 +19,7 @@ public class ItemEnchantmentsAdd extends Command {
 
     public ItemEnchantmentsAdd() {                                                                     
         super("item enchant add");
+        setPermission("snbt.item.enchantments");
         addBaseParameter(new CommandParameterEnchantment());
         addBaseParameter(new CommandParameterInteger());
     }

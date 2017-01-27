@@ -19,6 +19,7 @@ public class FireworkEffectRemove extends Command {
 
     public FireworkEffectRemove() {                                                                     
         super("firework remove");
+        setPermission("snbt.firework");
 		addBaseParameter(new CommandParameterInteger());
     }
 

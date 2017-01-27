@@ -17,6 +17,7 @@ public class MobUntame extends Command {
 
 	public MobUntame() {
 		super("mob untame");
+        setPermission("snbt.mob");
 	}
 
 	@Override

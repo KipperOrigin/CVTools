@@ -19,6 +19,7 @@ public class EntityRotate extends Command {
 
     public EntityRotate() {
         super("entity rotate");
+        setPermission("snbt.entity");
         addFlag("pitch");
         addBaseParameter(new CommandParameterFloat());
     }

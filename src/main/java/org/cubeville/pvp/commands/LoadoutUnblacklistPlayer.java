@@ -15,6 +15,7 @@ public class LoadoutUnblacklistPlayer extends Command {
 
     public LoadoutUnblacklistPlayer() {
         super("loadout unblacklist");
+        setPermission("pvp.loadout.commands");
         addBaseParameter(new CommandParameterString());
     }
     

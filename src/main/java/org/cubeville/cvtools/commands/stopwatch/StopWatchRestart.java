@@ -16,6 +16,7 @@ public class StopWatchRestart extends Command {
 
 	public StopWatchRestart() {
 		super("stopwatch restart");
+        setPermission("cvtools.stopwatch");
 		addParameter("name", true, new CommandParameterString());
 	}
 

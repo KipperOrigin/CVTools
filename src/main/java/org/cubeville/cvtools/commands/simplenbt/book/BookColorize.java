@@ -14,7 +14,8 @@ import org.cubeville.commons.commands.CommandResponse;
 public class BookColorize extends Command {
 
     public BookColorize() {                                                                     
-        super("book colorize");                                                                         
+        super("book colorize");
+        setPermission("snbt.book");
     }
 
 	@Override

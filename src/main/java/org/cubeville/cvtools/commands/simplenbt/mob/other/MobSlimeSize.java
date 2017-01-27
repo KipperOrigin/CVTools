@@ -16,7 +16,8 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 public class MobSlimeSize extends Command {
 
 	public MobSlimeSize() {
-		super("mob slime size");
+		super("slime size");
+        setPermission("snbt.mob.other");
 		addBaseParameter(new CommandParameterInteger());
 		// TODO Auto-generated constructor stub
 	}

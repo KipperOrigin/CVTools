@@ -17,7 +17,8 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 public class MobOcelotType extends Command {
 
 	public MobOcelotType() {
-		super("mob ocelot type");
+		super("ocelot type");
+        setPermission("snbt.mob.other");
 		addBaseParameter(new CommandParameterEnum(Type.class));
 		// TODO Auto-generated constructor stub
 	}

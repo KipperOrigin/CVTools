@@ -17,6 +17,7 @@ public class MobAI extends Command {
 
 	public MobAI() {
 		super("mob ai");
+        setPermission("snbt.mob");
 		addBaseParameter(new CommandParameterBoolean());
 	}
 

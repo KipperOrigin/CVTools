@@ -16,6 +16,7 @@ public class FireworkEffectClear extends Command {
 
     public FireworkEffectClear() {                                                                     
         super("firework clear");
+        setPermission("snbt.firework");
     }
 
 	@Override

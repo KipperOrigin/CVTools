@@ -1,15 +1,20 @@
 package org.cubeville.cvtools.commands;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.bukkit.entity.Player;
 
 public class CommandMapManager {
 	
     public static CommandMap primaryMap;
     public static CommandMap secondaryMap;
+    public static Map<String, Long> stopwatchMap;
 
     public static void registerMaps() {
         primaryMap = new CommandMap();
         secondaryMap = new CommandMap();
+        stopwatchMap = new HashMap<>();
     }
 	
     public static void unregisterMaps() {

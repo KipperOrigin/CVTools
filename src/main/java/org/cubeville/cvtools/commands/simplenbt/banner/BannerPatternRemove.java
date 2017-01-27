@@ -15,6 +15,7 @@ public class BannerPatternRemove extends Command {
 
     public BannerPatternRemove() {                                                                     
         super("banner remove");
+        setPermission("snbt.banner");
         addBaseParameter(new CommandParameterInteger());
     }
 

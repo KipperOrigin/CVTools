@@ -22,6 +22,7 @@ public class ItemFlagsAdd extends Command {
 	
 	public ItemFlagsAdd() {
 		super("item flags add");
+        setPermission("snbt.item.flags");
 		Set<String> flags = new HashSet<String>(Arrays.asList("hide_attributes","hide_destroys","hide_potion_effects","hide_enchants","hide_placedon","hide_unbreakable"));
 		addBaseParameter(new CommandParameterEnumeratedStringList(flags));
 	}

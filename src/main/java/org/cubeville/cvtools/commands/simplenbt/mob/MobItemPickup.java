@@ -17,6 +17,7 @@ public class MobItemPickup extends Command {
 
 	public MobItemPickup() {
 		super("mob pickup");
+        setPermission("snbt.mob");
 		addBaseParameter(new CommandParameterBoolean());
 	}
 

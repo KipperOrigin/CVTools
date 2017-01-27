@@ -17,6 +17,7 @@ public class MobArmorStandVisible extends Command {
 	
 	public MobArmorStandVisible() {
 		super("armorstand visible");
+        setPermission("snbt.armorstand");
 		addBaseParameter(new CommandParameterBoolean());
 	}
 	

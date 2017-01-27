@@ -18,7 +18,8 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 public class MobVillagerProfession extends Command {
 
 	public MobVillagerProfession() {
-		super("mob villager profession");
+		super("villager profession");
+        setPermission("snbt.mob.other");
 		addBaseParameter(new CommandParameterEnum(Profession.class));
 	}
 	

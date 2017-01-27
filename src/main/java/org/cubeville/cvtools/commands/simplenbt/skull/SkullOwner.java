@@ -17,6 +17,7 @@ public class SkullOwner extends Command {
 
     public SkullOwner() {
         super("skull owner");
+        setPermission("snbt.skull");
         addBaseParameter(new CommandParameterString());
     }
 

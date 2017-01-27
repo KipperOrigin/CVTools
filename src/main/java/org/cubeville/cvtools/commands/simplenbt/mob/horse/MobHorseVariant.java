@@ -17,7 +17,8 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 public class MobHorseVariant extends Command {
 
 	public MobHorseVariant() {
-		super("mob horse variant");
+		super("horse variant");
+        setPermission("snbt.horse");
 		addBaseParameter(new CommandParameterEnum(Variant.class));
 		// TODO Auto-generated constructor stub
 	}

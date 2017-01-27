@@ -14,6 +14,7 @@ public class ObjectDeselect extends Command {
 
 	public ObjectDeselect() {
 		super("deselect");
+        setPermission("snbt.selection");
 	}
 
 	@Override

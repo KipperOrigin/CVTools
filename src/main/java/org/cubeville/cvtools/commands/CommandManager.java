@@ -18,7 +18,6 @@ import org.cubeville.cvtools.commands.simplenbt.mob.*;
 import org.cubeville.cvtools.commands.simplenbt.mob.armorstand.*;
 import org.cubeville.cvtools.commands.simplenbt.mob.horse.*;
 import org.cubeville.cvtools.commands.simplenbt.mob.other.*;
-import org.cubeville.cvtools.commands.simplenbt.player.*;
 import org.cubeville.cvtools.commands.simplenbt.potion.*;
 import org.cubeville.cvtools.commands.simplenbt.selection.*;
 import org.cubeville.cvtools.commands.simplenbt.skull.*;
@@ -51,7 +50,6 @@ public class CommandManager {
 		
 		// BLOCK -- sign
 		snbtCommandParser.addCommand(new BlockSignClear());
-		snbtCommandParser.addCommand(new BlockSignEdit());
 		snbtCommandParser.addCommand(new BlockSignRemove());
 		snbtCommandParser.addCommand(new BlockSignSet());
 		
@@ -140,9 +138,6 @@ public class CommandManager {
 		snbtCommandParser.addCommand(new ObjectDeselect());
 		snbtCommandParser.addCommand(new ObjectSelect());
 		snbtCommandParser.addCommand(new ObjectSelectNearest());
-		
-		// PLAYER
-		snbtCommandParser.addCommand(new PlayerEquipItem());
 		
 		// POTION
 		snbtCommandParser.addCommand(new PotionEffectAdd());

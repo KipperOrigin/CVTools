@@ -17,6 +17,7 @@ public class MobArmorStandSmall extends Command {
 	
 	public MobArmorStandSmall() {
 		super("armorstand small");
+        setPermission("snbt.armorstand");
 		addBaseParameter(new CommandParameterBoolean());
 	}
 	

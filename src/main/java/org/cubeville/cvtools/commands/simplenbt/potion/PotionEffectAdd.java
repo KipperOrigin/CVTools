@@ -19,6 +19,7 @@ public class PotionEffectAdd extends Command {
 
 	public PotionEffectAdd() {
 		super("potion add");
+        setPermission("snbt.potion");
 		addBaseParameter(new CommandParameterPotionEffectType());
 		addParameter("level", true, new CommandParameterInteger());
 		addParameter("duration", true, new CommandParameterInteger());

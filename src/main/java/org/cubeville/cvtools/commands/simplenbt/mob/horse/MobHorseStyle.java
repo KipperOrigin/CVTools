@@ -18,7 +18,8 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 public class MobHorseStyle extends Command {
 
 	public MobHorseStyle() {
-		super("mob horse style");
+		super("horse style");
+        setPermission("snbt.horse");
 		addBaseParameter(new CommandParameterEnum(Style.class));
 		// TODO Auto-generated constructor stub
 	}

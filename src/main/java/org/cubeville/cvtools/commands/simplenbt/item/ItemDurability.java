@@ -18,6 +18,7 @@ public class ItemDurability extends Command {
 
     public ItemDurability() {
         super("item durability");
+        setPermission("snbt.item");
         addParameter("set", true, new CommandParameterShort());
         addParameter("unbreakable", true, new CommandParameterBoolean());
         addFlag("max");

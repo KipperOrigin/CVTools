@@ -16,6 +16,7 @@ public class ItemEnchantmentsClear extends Command {
 
 	public ItemEnchantmentsClear() {                                                                     
         super("item enchant clear");
+        setPermission("snbt.item.enchantments");
     }
 
 	@Override

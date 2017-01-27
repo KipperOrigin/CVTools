@@ -20,6 +20,7 @@ public class EntityMove extends Command {
 
     public EntityMove() {
         super("entity move");
+        setPermission("snbt.entity");
         addBaseParameter(new CommandParameterVector());
     }
 

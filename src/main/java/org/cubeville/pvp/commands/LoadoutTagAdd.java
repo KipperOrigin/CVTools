@@ -16,6 +16,7 @@ public class LoadoutTagAdd extends Command {
 
 	public LoadoutTagAdd() {
 		super("loadout tag add");
+		setPermission("pvp.loadout.commands");
 		addBaseParameter(new CommandParameterLoadout());
 		addBaseParameter(new CommandParameterListString());
 	}

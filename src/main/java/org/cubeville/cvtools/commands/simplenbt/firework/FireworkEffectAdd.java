@@ -20,6 +20,7 @@ public class FireworkEffectAdd extends Command {
 
     public FireworkEffectAdd() {                                                                     
         super("firework add");
+        setPermission("snbt.firework");
         addBaseParameter(new CommandParameterEnum(FireworkEffect.Type.class));
         addBaseParameter(new CommandParameterListColor());
         addParameter("fades", true, new CommandParameterListColor());
