@@ -21,6 +21,7 @@ public class MobAttributes extends Command {
 
 	public MobAttributes() {
 		super("mob attributes");
+        setPermission("snbt.mob");
 		addBaseParameter(new CommandParameterEnum(NBTEntityLiving.AttributeType.class));
 		addBaseParameter(new CommandParameterDouble());
 	}

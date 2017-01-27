@@ -18,6 +18,7 @@ public class EntityName extends Command {
 
     public EntityName() {
         super("entity name");
+        setPermission("snbt.entity");
         addParameter("name", true, new CommandParameterString());
         addFlag("remove");
     }

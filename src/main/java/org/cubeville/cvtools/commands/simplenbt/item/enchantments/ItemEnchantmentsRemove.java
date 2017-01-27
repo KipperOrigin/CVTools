@@ -17,6 +17,7 @@ public class ItemEnchantmentsRemove extends Command {
 
 	public ItemEnchantmentsRemove() {                                                                     
         super("item enchant remove");
+        setPermission("snbt.item.enchantments");
         addBaseParameter(new CommandParameterEnchantment());
     }
 

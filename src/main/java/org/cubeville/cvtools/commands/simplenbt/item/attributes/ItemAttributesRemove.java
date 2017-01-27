@@ -16,6 +16,7 @@ public class ItemAttributesRemove extends Command {
 
     public ItemAttributesRemove() {                                                                     
         super("item attributes remove");
+        setPermission("snbt.item.attributes");
         addBaseParameter(new CommandParameterInteger());
     }
 

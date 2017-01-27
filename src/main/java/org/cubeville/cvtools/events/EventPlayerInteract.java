@@ -53,6 +53,7 @@ public class EventPlayerInteract implements Listener {
         if (event.getClickedBlock() == null) return;
         if (event.getClickedBlock().getType() != Material.WALL_SIGN) return;
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+        if (!event.getPlayer().hasPermission("pvp.loadout.standard")) return;
 
         Sign sign = (Sign) event.getClickedBlock().getState();
         if(sign.getLine(1).charAt(0) != '[') return;

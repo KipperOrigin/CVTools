@@ -15,7 +15,8 @@ import org.cubeville.cvtools.nbt.BookItem;
 public class BookTitle extends Command {
 
     public BookTitle() {                                                                     
-        super("book title");  
+        super("book title");
+        setPermission("snbt.book");
         addBaseParameter(new CommandParameterString());
     }
 

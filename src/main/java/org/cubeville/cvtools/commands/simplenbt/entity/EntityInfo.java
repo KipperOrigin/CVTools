@@ -17,6 +17,7 @@ public class EntityInfo extends Command {
 
     public EntityInfo() {
         super("entity info");
+        setPermission("snbt.entity");
         addFlag("detail");
     }
 

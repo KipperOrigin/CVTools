@@ -1,12 +1,9 @@
-package org.cubeville.cvtools.commands.simplenbt.object;
+package org.cubeville.cvtools.commands.simplenbt.selection;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -25,6 +22,7 @@ public class ObjectSelectNearest extends Command {
 
     public ObjectSelectNearest() {
         super("select nearest");
+        setPermission("snbt.selection");
         addParameter("entity", true, new CommandParameterEnum(EntityType.class));
         addParameter("block", true, new CommandParameterEnum(Material.class));
         addParameter("radius", true, new CommandParameterInteger());

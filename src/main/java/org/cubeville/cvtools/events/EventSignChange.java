@@ -1,6 +1,5 @@
 package org.cubeville.cvtools.events;
 
-import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -31,7 +30,7 @@ public class EventSignChange implements Listener {
 
         Player player = event.getPlayer();
 
-        if (!player.hasPermission("cvpvp.admin")) {
+        if (!(player.hasPermission("cvpvp.admin") || player.hasPermission("snbt.loadout.commands"))) {
             player.sendMessage(Colorize.addColor("&cYou do not have permission to make loadout signs!"));
             event.setCancelled(true);
             return;

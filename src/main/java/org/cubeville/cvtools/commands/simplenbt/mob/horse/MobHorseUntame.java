@@ -17,6 +17,7 @@ public class MobHorseUntame extends Command {
 
 	public MobHorseUntame() {
 		super("horse untame");
+        setPermission("snbt.horse");
 	}
 
 	@Override

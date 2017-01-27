@@ -19,6 +19,7 @@ public class EntityPainting extends Command {
 
 	public EntityPainting() {
 		super("entity painting");
+        setPermission("snbt.entity");
 		addBaseParameter(new CommandParameterEnum(Art.class));
 		addBaseParameter(new CommandParameterBoolean());
 	}

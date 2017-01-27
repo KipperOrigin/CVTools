@@ -17,6 +17,7 @@ public class SkullType extends Command {
 
 	public SkullType() {
 		super("skull type");
+        setPermission("snbt.skull");
 		addBaseParameter(new CommandParameterShort());
 	}
 

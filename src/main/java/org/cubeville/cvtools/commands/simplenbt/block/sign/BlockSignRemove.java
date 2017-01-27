@@ -19,6 +19,7 @@ public class BlockSignRemove extends Command {
 
 	public BlockSignRemove() {
 		super("block sign remove");
+		setPermission("snbt.sign");
 		addBaseParameter(new CommandParameterInteger());
 	}
 

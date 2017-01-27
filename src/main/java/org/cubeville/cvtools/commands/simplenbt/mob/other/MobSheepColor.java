@@ -17,7 +17,8 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 public class MobSheepColor extends Command {
 
 	public MobSheepColor() {
-		super("mob sheep color");
+		super("sheep color");
+        setPermission("snbt.mob.other");
 		addBaseParameter(new CommandParameterEnum(DyeColor.class));
 		// TODO Auto-generated constructor stub
 	}

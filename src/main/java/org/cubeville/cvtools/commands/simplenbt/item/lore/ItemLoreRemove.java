@@ -16,6 +16,7 @@ public class ItemLoreRemove extends Command {
 
 	public ItemLoreRemove() {
 		super("item lore remove");
+        setPermission("snbt.item.lore");
 		addBaseParameter(new CommandParameterInteger());
 	}
 

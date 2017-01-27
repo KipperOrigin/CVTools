@@ -17,7 +17,8 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 public class MobRabbitType extends Command {
 
 	public MobRabbitType() {
-		super("mob rabbit type");
+		super("rabbit type");
+        setPermission("snbt.mob.other");
 		addBaseParameter(new CommandParameterEnum(Type.class));
 		// TODO Auto-generated constructor stub
 	}

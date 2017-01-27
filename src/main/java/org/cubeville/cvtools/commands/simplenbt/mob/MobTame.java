@@ -19,6 +19,7 @@ public class MobTame extends Command {
 
 	public MobTame() {
 		super("mob tame");
+        setPermission("snbt.mob");
 		addBaseParameter(new CommandParameterBoolean());
 		addParameter("player", true, new CommandParameterOnlinePlayer());
 	}

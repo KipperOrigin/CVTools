@@ -17,6 +17,7 @@ public class ItemPrintName extends Command {
 
     public ItemPrintName() {
         super("item print name");
+        setPermission("snbt.item");
     }
 
     @Override

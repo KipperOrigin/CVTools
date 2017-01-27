@@ -15,6 +15,7 @@ public class ItemFlagsClear extends Command {
 
 	public ItemFlagsClear() {
 		super("item flags clear");
+        setPermission("snbt.item.flags");
 	}
 
 	@Override

@@ -21,6 +21,7 @@ public class MobArmorStandPoses extends Command {
 	
     public MobArmorStandPoses() {
         super("armorstand pose");
+        setPermission("snbt.armorstand");
         addBaseParameter(new CommandParameterString());
         addBaseParameter(new CommandParameterEulerAngle());
     }

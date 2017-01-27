@@ -17,6 +17,7 @@ public class EntityInvulnerable extends Command {
 
 	public EntityInvulnerable() {
 		super("entity invulnerable");
+        setPermission("snbt.entity");
 		addBaseParameter(new CommandParameterBoolean());
 	}
 

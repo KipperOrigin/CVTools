@@ -18,7 +18,8 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 public class MobHorseColor extends Command {
 
 	public MobHorseColor() {
-		super("mob horse color");
+		super("horse color");
+        setPermission("snbt.horse");
 		addBaseParameter(new CommandParameterEnum(Color.class));
 		// TODO Auto-generated constructor stub
 	}

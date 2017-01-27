@@ -9,32 +9,41 @@ import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterString;
 import org.cubeville.commons.commands.CommandResponse;
-import org.cubeville.cvtools.commands.CommandMap;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class StopWatchStop extends Command {
 
 	public StopWatchStop() {
 		super("stopwatch stop");
+        setPermission("cvtools.stopwatch");
 		addParameter("name", true, new CommandParameterString());
+	    addParameter("title", true, new CommandParameterString());
 	}
 
 	@Override
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
-		CommandMap commandMap = CommandMapManager.primaryMap;
-		String name = "";
+	    Map<String, Long> stopwatchMap = CommandMapManager.stopwatchMap;
+	    long oldTime;
+	    String stopwatch = "";
+	    String name = "";
+	    
+	    if (parameters.containsKey("title") && player.hasPermission("cvtools.stopwatch.custom")) {
+	        if (!stopwatchMap.containsKey(parameters.get("title"))) throw new CommandExecutionException("");
+	        else stopwatch = (String) parameters.get("title");
+	    } else if (stopwatchMap.containsKey(player.getName())) {
+	        stopwatch = player.getName();
+	    } else {
+	        throw new CommandExecutionException("");
+	    }
+	    
+	    if (parameters.containsKey("name")) name = " for " + parameters.get("name") + " ";
+	    
+        oldTime = stopwatchMap.get(stopwatch);
+        stopwatchMap.remove(stopwatch);
+	    
+	    double time = (System.currentTimeMillis() - oldTime) / 1000.0;
 		
-		if (!commandMap.contains(player) || !(commandMap.get(player) instanceof Long))
-			throw new CommandExecutionException("&cYou have not started a stopwatch!");
-		
-		if (parameters.containsKey(player.getName()))
-			name += " for &6" + (String) parameters.get("name") + " ";
-		
-		double time = (System.currentTimeMillis() - (Long) commandMap.get(player)) / 1000.0;
-		
-		commandMap.removePlayer(player);
-		
-		return new CommandResponse("&aFinal Time" + name + "&f: " + time);
+		return new CommandResponse("&6" + stopwatch + " &aFinal Time" + name + "&f: " + time);
 	}
 }

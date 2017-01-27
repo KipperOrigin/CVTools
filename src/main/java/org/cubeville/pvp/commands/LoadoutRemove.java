@@ -16,6 +16,7 @@ public class LoadoutRemove extends Command{
 
 	public LoadoutRemove(){
 		super("loadout remove");
+		setPermission("pvp.loadout.commands");
 		addBaseParameter(new CommandParameterString());
 		addParameter("team", true, new CommandParameterString());
 	}

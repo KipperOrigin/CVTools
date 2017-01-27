@@ -19,6 +19,7 @@ public class MobAge extends Command {
 
 	public MobAge() {
 		super("mob age");
+        setPermission("snbt.mob");
 		addParameter("set", true, new CommandParameterInteger());
 		addParameter("lock", true, new CommandParameterBoolean());
 		addFlag("baby");

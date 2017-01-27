@@ -17,6 +17,7 @@ public class FireworkPower extends Command {
 
     public FireworkPower() {                                                                     
         super("firework power");
+        setPermission("snbt.firework");
 		addBaseParameter(new CommandParameterInteger());
     }
 

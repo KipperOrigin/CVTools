@@ -18,6 +18,7 @@ public class ItemLoreAdd extends Command {
 
 	public ItemLoreAdd() {
 		super("item lore add");
+        setPermission("snbt.item.lore");
 		addBaseParameter(new CommandParameterString());
 		addParameter("insert", true, new CommandParameterInteger());
 		addParameter("set", true, new CommandParameterInteger());

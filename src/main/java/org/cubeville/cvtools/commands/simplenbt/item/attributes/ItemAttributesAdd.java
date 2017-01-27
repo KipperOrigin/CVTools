@@ -20,6 +20,7 @@ public class ItemAttributesAdd extends Command {
 
     public ItemAttributesAdd() {                                                                     
         super("item attributes add");
+        setPermission("snbt.item.attributes");
         addBaseParameter(new CommandParameterString());
         addBaseParameter(new CommandParameterDouble());
         addParameter("slot", true, new CommandParameterString());

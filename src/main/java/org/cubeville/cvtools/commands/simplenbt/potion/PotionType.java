@@ -17,6 +17,7 @@ public class PotionType extends Command {
 
     public PotionType() {
         super("potion type");
+        setPermission("snbt.potion");
         addBaseParameter(new CommandParameterString());
     }
 

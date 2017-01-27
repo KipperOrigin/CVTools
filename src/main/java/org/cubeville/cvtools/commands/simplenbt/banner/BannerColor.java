@@ -16,6 +16,7 @@ public class BannerColor extends Command {
 
     public BannerColor() {
         super("banner color");
+        setPermission("snbt.banner");
         addBaseParameter(new CommandParameterEnum(DyeColor.class));
     }
     

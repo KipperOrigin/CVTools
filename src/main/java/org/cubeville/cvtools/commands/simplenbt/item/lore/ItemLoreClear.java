@@ -15,6 +15,7 @@ public class ItemLoreClear extends Command {
 
 	public ItemLoreClear() {
 		super("item lore clear");
+        setPermission("snbt.item.lore");
 	}
 
 	@Override

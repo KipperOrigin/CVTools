@@ -36,6 +36,7 @@ permissions:
       cvtools.checksign: true
       cvtools.delay: true
       cvtools.setblocks: true
+      cvtools.stopwatch: true
   cvtools.standard:
     description: Permission for standard command
     default: op
@@ -43,6 +44,7 @@ permissions:
       cvtools.checkentities: true
       cvtools.checksign: true
       cvtools.commands: true
+      cvtools.stopwatch: true
   cvtools.commands:
     description: Base permission for cvtools command
     default: op
@@ -60,4 +62,73 @@ permissions:
     default: op
   cvtools.setblocks:
     description: Set blocks in worldguard region to specific type
+    default: op
+  cvtools.stopwatch:
+    description: Use stopwatch in game.
+    default: op
+  snbt.armor:
+    description: Permission for armor editing subcommand
+    default:op
+  snbt.armorstand:
+    description: Permission for armorstand editing subcommand
+    default: op
+  snbt.banner:
+    description: Permission for banner editing subcommand
+    default: op
+  snbt.book:
+    description: Permission for book editing subcommand
+    default: op
+  snbt.entity:
+    description: Permission for entity editing subcommand
+    default: op
+  snbt.firework:
+    description: Permission for firework editing subcommand
+    default: op
+  snbt.horse:
+    description: Permission for horse editing subcommand
+    default: op
+  snbt.item:
+    description: Permission for item editing subcommand
+    default: op
+  snbt.item.attributes:
+    description: Permission for item attributes editing subcommand
+    default: op
+  snbt.item.enchantments:
+    description: Permission for enchantment editing subcommand
+    default: op
+  snbt.item.flags:
+    description: Permission for item flag editing subcommand
+    default: op
+  snbt.item.lore:
+    description: Permission for item lore editing subcommand
+    default: op
+  snbt.mob:
+    description: Permission for mob editing subcommand
+    default: op
+  snbt.mob.other:
+    description: Permission for various mob editing subcommand
+    default: op
+  snbt.potion:
+    description: Permission for potion editing subcommand
+    default: op
+  snbt.selection:
+    description: Permission for the selection subcommand
+    default: op
+  snbt.selection.player:
+    description: Permission for the player selection parameter
+    default: op
+  snbt.sign:
+    description: Permission for the sign subcommand
+    default: op
+  snbt.skull:
+    description: Permission for attributes editing subcommand
+    default: op
+  pvp.loadout.*:
+    description: Unlimited use of loadouts
+    default: op
+  pvp.loadout.commands:
+    description: Permission for loadout commands
+    default: op
+  pvp.loadout.standard:
+    description: Permission for loadout usage
     default: op

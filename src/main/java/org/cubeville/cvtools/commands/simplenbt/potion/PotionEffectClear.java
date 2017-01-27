@@ -15,6 +15,7 @@ public class PotionEffectClear extends Command {
 
     public PotionEffectClear() {
         super("potion clear");
+        setPermission("snbt.potion");
     }
 
     @Override

@@ -1,4 +1,4 @@
-package org.cubeville.cvtools.commands.simplenbt.object;
+package org.cubeville.cvtools.commands.simplenbt.selection;
 
 import java.util.List;
 import java.util.Map;
@@ -15,6 +15,7 @@ public class ObjectSelect extends Command {
 
 	public ObjectSelect() {
 		super("select");
+        setPermission("snbt.selection");
 		addParameter("player", true, new CommandParameterOnlinePlayer());
 		addFlag("self");
 	}
@@ -25,7 +26,7 @@ public class ObjectSelect extends Command {
 		if (flags.contains("self") && !parameters.containsKey("player")) {
 			CommandMapManager.primaryMap.put(player, player);
 			return new CommandResponse("&aSelected &6Self&a!");
-		} else if (!flags.contains("self") && parameters.containsKey("player")) {
+		} else if (!flags.contains("self") && parameters.containsKey("player") && player.hasPermission("snbt.selection.player")) {
 			CommandMapManager.primaryMap.put(player, (Player) parameters.get("player"));
 			return new CommandResponse("&aSelected &6" + ((Player) parameters.get("player")).getName());
 		}

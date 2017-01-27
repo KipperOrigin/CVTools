@@ -13,7 +13,8 @@ import org.cubeville.cvtools.nbt.BannerItem;
 public class BannerPatternClear extends Command {
 
     public BannerPatternClear() {                                                                     
-        super("banner clear");  
+        super("banner clear");
+        setPermission("snbt.banner");
     }
 
 	@Override

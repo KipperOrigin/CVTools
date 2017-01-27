@@ -16,6 +16,7 @@ public class LoadoutBlacklistPlayer extends Command {
 
     public LoadoutBlacklistPlayer() {
         super("loadout blacklist");
+        setPermission("pvp.loadout.commands");
         addBaseParameter(new CommandParameterString());
         addBaseParameter(new CommandParameterInteger());
     }

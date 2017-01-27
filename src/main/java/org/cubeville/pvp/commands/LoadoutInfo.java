@@ -16,6 +16,7 @@ public class LoadoutInfo extends Command {
 
 	public LoadoutInfo() {
 		super("loadout info");
+	    setPermission("pvp.loadout.commands");
 		addBaseParameter(new CommandParameterString());
 	}
 

@@ -16,6 +16,7 @@ public class LoadoutEdit extends Command{
 
 	public LoadoutEdit() {
 		super("loadout edit");
+	    setPermission("pvp.loadout.commands");
 		addBaseParameter(new CommandParameterString());
 		addParameter("team", true, new CommandParameterString());
 	}

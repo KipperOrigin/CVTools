@@ -18,6 +18,7 @@ public class BlockSignClear extends Command {
 
 	public BlockSignClear() {
 		super("block sign clear");
+		setPermission("snbt.sign");
 	}
 
 	@Override

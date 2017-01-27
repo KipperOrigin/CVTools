@@ -16,6 +16,7 @@ public class LoadoutTagRemove extends Command {
 
 	public LoadoutTagRemove() {
 		super("loadout tag remove");
+		setPermission("pvp.loadout.commands");
 		addBaseParameter(new CommandParameterLoadout());
 		addBaseParameter(new CommandParameterString());
 	}

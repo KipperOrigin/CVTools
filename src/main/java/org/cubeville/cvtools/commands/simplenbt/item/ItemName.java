@@ -18,6 +18,7 @@ public class ItemName extends Command {
 
     public ItemName() {
         super("item name");
+        setPermission("snbt.item");
         addBaseParameter(new CommandParameterString());
     }
 

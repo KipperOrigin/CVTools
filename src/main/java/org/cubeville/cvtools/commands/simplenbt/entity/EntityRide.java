@@ -19,6 +19,7 @@ public class EntityRide extends Command {
 
     public EntityRide() {
         super("entity ride");
+        setPermission("snbt.entity");
         addFlag("reverse");
         addFlag("stack");
         addFlag("unstack");

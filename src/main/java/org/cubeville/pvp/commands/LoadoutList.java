@@ -20,6 +20,7 @@ public class LoadoutList extends Command{
 	
 	public LoadoutList(){
 		super("loadout list");
+	    setPermission("pvp.loadout.commands");
 		addParameter("sub", true, new CommandParameterLoadout());
 		addParameter("tags", true, new CommandParameterListString());
 	}

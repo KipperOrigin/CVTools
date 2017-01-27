@@ -16,7 +16,8 @@ import org.cubeville.cvtools.commands.CommandMapManager;
 public class MobCreeperCharge extends Command {
 
 	public MobCreeperCharge() {
-		super("mob creeper charge");
+		super("creeper charge");
+        setPermission("snbt.mob.other");
 		addBaseParameter(new CommandParameterBoolean());
 	}
 	

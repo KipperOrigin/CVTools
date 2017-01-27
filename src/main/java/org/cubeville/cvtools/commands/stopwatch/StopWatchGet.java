@@ -16,6 +16,7 @@ public class StopWatchGet extends Command {
 
 	public StopWatchGet() {
 		super("stopwatch time");
+        setPermission("cvtools.stopwatch");
 		addParameter("name", true, new CommandParameterString());
 	}
 

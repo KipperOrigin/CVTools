@@ -16,6 +16,7 @@ public class EntityRemove extends Command {
 
     public EntityRemove() {
         super("entity remove");
+        setPermission("snbt.entity");
     }
 
     @Override

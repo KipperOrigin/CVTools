@@ -15,6 +15,7 @@ public class ItemAttributesClear extends Command {
 
     public ItemAttributesClear() {                                                                     
         super("item attributes clear");
+        setPermission("snbt.item.attributes");
     }
 
 	@Override
