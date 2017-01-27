@@ -108,9 +108,6 @@ permissions:
   snbt.mob.other:
     description: Permission for various mob editing subcommand
     default: op
-  snbt.player:
-    description: Permission for player editing subcommand
-    default: op
   snbt.potion:
     description: Permission for potion editing subcommand
     default: op
@@ -119,7 +116,10 @@ permissions:
     default: op
   snbt.selection.player:
     description: Permission for the player selection parameter
-    default: op	
+    default: op
+  snbt.sign:
+    description: Permission for the sign subcommand
+    default: op
   snbt.skull:
     description: Permission for attributes editing subcommand
     default: op
