@@ -17,6 +17,7 @@ public class EntityGlow extends Command {
 
     public EntityGlow() {
         super("entity glow");
+        setPermission("snbt.entity");
         addBaseParameter(new CommandParameterBoolean());
     }
 
