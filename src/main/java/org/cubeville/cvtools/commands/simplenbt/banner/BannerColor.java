@@ -13,14 +13,14 @@ import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.cvtools.nbt.BannerItem;
 
 public class BannerColor extends Command {
-    
-    public BannerColor() {                                                                     
+
+    public BannerColor() {
         super("banner color");
         addBaseParameter(new CommandParameterEnum(DyeColor.class));
     }
     
     @Override
-    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
+    public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
         throws CommandExecutionException {
         BannerItem banner = null;
 	

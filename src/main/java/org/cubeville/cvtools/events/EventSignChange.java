@@ -15,12 +15,14 @@ public class EventSignChange implements Listener {
     
     @EventHandler (priority = EventPriority.MONITOR)
     public void onSignChange(SignChangeEvent event) {
-        if(event.getLine(1).charAt(0) != '[') return;
+        String[] lines = event.getLines();
+
+        if(lines[1].length() == 0 || lines[1].charAt(0) != '[') return;
 
         {
             boolean found = false;
             for (String alias: EventPlayerInteract.LoadoutAliases) {
-                if (event.getLine(1).equalsIgnoreCase(alias)) {
+                if (lines[1].equalsIgnoreCase(alias)) {
                     found = true;
                 }            
             }
@@ -36,15 +38,15 @@ public class EventSignChange implements Listener {
         }
 
         LoadoutManager loadoutManager = CVTools.getInstance().getLoadoutManager();
-        LoadoutContainer lc = loadoutManager.getLoadoutByName(event.getLine(2));
+        LoadoutContainer lc = loadoutManager.getLoadoutByName(lines[2]);
         if(lc == null) {
-            player.sendMessage(Colorize.addColor("&cLoadout &6" + event.getLine(2) + " &cdoes not exist!"));
+            player.sendMessage(Colorize.addColor("&cLoadout &6" + lines[2] + " &cdoes not exist!"));
             event.setCancelled(true);
             return;
         }
 
-        if(!lc.containsInventory(event.getLine(3))) {
-            player.sendMessage(Colorize.addColor("&cTag &6" + event.getLine(2) + ":" + event.getLine(3) + " &cdoes not exist!"));
+        if(!lc.containsInventory(lines[3])) {
+            player.sendMessage(Colorize.addColor("&cTag &6" + lines[2] + ":" + lines[3] + " &cdoes not exist!"));
             event.setCancelled(true);
             return;
         }
