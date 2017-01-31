@@ -3,7 +3,7 @@ package org.cubeville.cvtools.events;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.commons.utils.ColorUtils;
 import org.cubeville.cvtools.CVTools;
 
 public class EventInventoryClose implements Listener {
@@ -14,7 +14,7 @@ public class EventInventoryClose implements Listener {
              CVTools.getInstance().getConfig().set("LoadoutManager", CVTools.getInstance().getLoadoutManager());
              CVTools.getInstance().saveConfig();
              String[] split = event.getInventory().getName().split(":");
-             event.getPlayer().sendMessage(Colorize.addColor("&aLoadout &6" + split[0] + "&a:&6" + split[1] + " &asaved successfully!"));
+             event.getPlayer().sendMessage(ColorUtils.addColor("&aLoadout &6" + split[0] + "&a:&6" + split[1] + " &asaved successfully!"));
          }
      }
 }

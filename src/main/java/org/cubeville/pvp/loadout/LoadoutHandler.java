@@ -6,6 +6,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.cubeville.commons.utils.PlayerUtils;
 import org.cubeville.cvtools.CVTools;
+import org.cubeville.cvtools.nbt.Attributes.AttributeType;
+import org.cubeville.cvtools.nbt.Attributes.EquipmentSlot;
+import org.cubeville.cvtools.nbt.NBTItem;
 
 public class LoadoutHandler {
 	
@@ -21,10 +24,8 @@ public class LoadoutHandler {
         PlayerUtils.removeAllPotionEffects(player);
 		
         //Hotbar & Offhand
-        if (inventory.getItem(49) != null)
-            player.getInventory().setItemInOffHand(inventory.getItem(49));
-        else
-            player.getInventory().setItemInOffHand(baseInventory.getItem(49));
+        if (inventory.getItem(49) != null) player.getInventory().setItemInOffHand(inventory.getItem(49));
+        else player.getInventory().setItemInOffHand(baseInventory.getItem(49));
 		
         for (int i = 0; i < 9; i++) {
             ItemStack item = inventory.getItem(i);
@@ -63,6 +64,7 @@ public class LoadoutHandler {
 		
         //Update Inventory
         player.updateInventory();
+        player.setHealth(20);
         return true;
     }
 	
@@ -74,6 +76,34 @@ public class LoadoutHandler {
 		
         applyLoadoutToPlayer(player, lc, sign.getLine(3));
         return true;
+    }
+    
+    public static void cloneInventoryToLoadout(Player player, LoadoutContainer lc, String team) {
+        Inventory inventory;
+        if (team.equalsIgnoreCase("main")) {
+            inventory = lc.getMainInventory();
+        } else {
+            return;
+        }
+        inventory.clear();
+        inventory.setItem(49, player.getInventory().getItemInOffHand());
+        for (int i = 0; i < 36; i++) inventory.setItem(i, player.getInventory().getItem(i));
+        for (int i = 36; i < 40; i++) inventory.setItem(i+9, player.getInventory().getItem(i));
+        CVTools.getInstance().getConfig().set("LoadoutManager", CVTools.getInstance().getLoadoutManager());
+        CVTools.getInstance().saveConfig();
+    }
+    
+    public double getHealthOfArmorContents(Player player) {
+        double health = player.getMaxHealth();
+        NBTItem helmet = new NBTItem(player.getEquipment().getHelmet());
+        health += helmet.getAttributeAmountByName(AttributeType.GENERIC_MAX_HEALTH, EquipmentSlot.HEAD);
+        NBTItem chestplate = new NBTItem(player.getEquipment().getChestplate());
+        health += chestplate.getAttributeAmountByName(AttributeType.GENERIC_MAX_HEALTH, EquipmentSlot.CHEST);
+        NBTItem leggings = new NBTItem(player.getEquipment().getLeggings());
+        health += leggings.getAttributeAmountByName(AttributeType.GENERIC_MAX_HEALTH, EquipmentSlot.LEGS);
+        NBTItem boots = new NBTItem( player.getEquipment().getBoots());
+        health += boots.getAttributeAmountByName(AttributeType.GENERIC_MAX_HEALTH, EquipmentSlot.FEET);
+        return health;
     }
 	
 }

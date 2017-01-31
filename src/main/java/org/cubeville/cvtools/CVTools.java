@@ -74,6 +74,8 @@ public class CVTools extends JavaPlugin {
             return CommandManager.toolsCommandParser.execute(sender, args);
         } else if (command.getName().equals("cvpvp")) {
             return CommandManager.pvpCommandParser.execute(sender, args);
+        } else if (command.getName().equals("command")) {
+            return CommandManager.cmdCommandParser.execute(sender, args);
         }
         else {
             return false;

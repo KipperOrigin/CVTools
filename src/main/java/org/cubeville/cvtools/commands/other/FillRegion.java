@@ -29,6 +29,7 @@ public class FillRegion extends BaseCommand
         setPermission("cvtools.fillregion");
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public CommandResponse execute(CommandSender commandSender, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
         throws CommandExecutionException {

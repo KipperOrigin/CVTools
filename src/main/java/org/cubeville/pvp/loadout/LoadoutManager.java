@@ -12,7 +12,7 @@ import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.commons.utils.ColorUtils;
 import org.cubeville.cvtools.CVTools;
 
 @SerializableAs("LoadoutManager")
@@ -118,7 +118,7 @@ public class LoadoutManager implements ConfigurationSerializable {
     
     public void blacklistPlayer(String name, int i) {
     	if (Bukkit.getPlayer(name).isOnline())
-    		Bukkit.getPlayer(name).sendMessage(Colorize.addColor("&cYou have been blacklisted from using loadouts!"));
+    		Bukkit.getPlayer(name).sendMessage(ColorUtils.addColor("&cYou have been blacklisted from using loadouts!"));
     	blacklist.add(Bukkit.getPlayer(name).getName());
     	for (String line: blacklist) {
     		System.out.print(line);
@@ -134,6 +134,6 @@ public class LoadoutManager implements ConfigurationSerializable {
     public void unblacklistPlayer(String name) {
     	blacklist.remove(Bukkit.getPlayer(name).getName());
     	if (Bukkit.getPlayer(name).isOnline())
-    		Bukkit.getPlayer(name).sendMessage(Colorize.addColor("&aYou have been unblacklisted from using loadouts!"));
+    		Bukkit.getPlayer(name).sendMessage(ColorUtils.addColor("&aYou have been unblacklisted from using loadouts!"));
     }
 }

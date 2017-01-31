@@ -2,38 +2,41 @@ package org.cubeville.cvtools.commands;
 
 import org.cubeville.commons.commands.CommandParser;
 import org.cubeville.cvtools.CVTools;
+import org.cubeville.cvtools.commands.commandextension.*;
 import org.cubeville.cvtools.commands.other.*;
-import org.cubeville.cvtools.commands.simplenbt.armor.*;
-import org.cubeville.cvtools.commands.simplenbt.banner.*;
-import org.cubeville.cvtools.commands.simplenbt.block.sign.*;
-import org.cubeville.cvtools.commands.simplenbt.book.*;
-import org.cubeville.cvtools.commands.simplenbt.entity.*;
-import org.cubeville.cvtools.commands.simplenbt.firework.*;
-import org.cubeville.cvtools.commands.simplenbt.item.*;
-import org.cubeville.cvtools.commands.simplenbt.item.attributes.*;
-import org.cubeville.cvtools.commands.simplenbt.item.enchantments.*;
-import org.cubeville.cvtools.commands.simplenbt.item.flags.*;
-import org.cubeville.cvtools.commands.simplenbt.item.lore.*;
-import org.cubeville.cvtools.commands.simplenbt.mob.*;
-import org.cubeville.cvtools.commands.simplenbt.mob.armorstand.*;
-import org.cubeville.cvtools.commands.simplenbt.mob.horse.*;
-import org.cubeville.cvtools.commands.simplenbt.mob.other.*;
-import org.cubeville.cvtools.commands.simplenbt.potion.*;
-import org.cubeville.cvtools.commands.simplenbt.selection.*;
-import org.cubeville.cvtools.commands.simplenbt.skull.*;
 import org.cubeville.cvtools.commands.stopwatch.*;
 import org.cubeville.pvp.commands.*;
+import org.cubeville.simplenbt.commands.armor.*;
+import org.cubeville.simplenbt.commands.banner.*;
+import org.cubeville.simplenbt.commands.block.sign.*;
+import org.cubeville.simplenbt.commands.book.*;
+import org.cubeville.simplenbt.commands.entity.*;
+import org.cubeville.simplenbt.commands.firework.*;
+import org.cubeville.simplenbt.commands.item.*;
+import org.cubeville.simplenbt.commands.item.attributes.*;
+import org.cubeville.simplenbt.commands.item.enchantments.*;
+import org.cubeville.simplenbt.commands.item.flags.*;
+import org.cubeville.simplenbt.commands.item.lore.*;
+import org.cubeville.simplenbt.commands.mob.*;
+import org.cubeville.simplenbt.commands.mob.armorstand.*;
+import org.cubeville.simplenbt.commands.mob.horse.*;
+import org.cubeville.simplenbt.commands.mob.other.*;
+import org.cubeville.simplenbt.commands.potion.*;
+import org.cubeville.simplenbt.commands.selection.*;
+import org.cubeville.simplenbt.commands.skull.*;
 
 public class CommandManager {
 	
 	public static CommandParser snbtCommandParser;
 	public static CommandParser toolsCommandParser;
 	public static CommandParser pvpCommandParser;
+	public static CommandParser cmdCommandParser;
 	
 	public static void registerAllCommands(CVTools plugin) {
 		registerSNBTCommands();
 		registerToolsCommands(plugin);
 		registerPvPCommands();
+		registerCMDCommands();
 	}
 	
 	public static void registerSNBTCommands() {
@@ -182,6 +185,14 @@ public class CommandManager {
 		pvpCommandParser.addCommand(new LoadoutTagClear());
 		pvpCommandParser.addCommand(new LoadoutTagRemove());
 		pvpCommandParser.addCommand(new LoadoutUnblacklistPlayer());
+	}
+	
+	public static void registerCMDCommands() {
+	    cmdCommandParser = new CommandParser();
+	    
+	    cmdCommandParser.addCommand(new CommandExtendAdd());
+	    cmdCommandParser.addCommand(new CommandExtendFinish());
+	    cmdCommandParser.addCommand(new CommandExtendStart());
 	}
 	
 	public static void nullifyCommandParsers() {

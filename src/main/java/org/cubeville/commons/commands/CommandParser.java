@@ -4,9 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.commons.utils.ColorUtils;
 
 public class CommandParser
 {
@@ -37,11 +35,11 @@ public class CommandParser
                     if(parameterError == null) {
                         CommandResponse response = command.execute(commandSender, args);
                         if(response == null) {
-                            commandSender.sendMessage(Colorize.addColor("&aCommand executed successfully."));
+                            commandSender.sendMessage(ColorUtils.addColor("&aCommand executed successfully."));
                         }
                         else {
                             for (String message: response.getMessages())
-                                commandSender.sendMessage(Colorize.addColor(message));
+                                commandSender.sendMessage(ColorUtils.addColor(message));
                         }
                         return true;
                     }
@@ -62,12 +60,12 @@ public class CommandParser
         //    return true;
         //}
         catch(IllegalArgumentException|CommandExecutionException e) {
-            String msg = Colorize.addColorWithoutHeader(e.getMessage());
-            if(Colorize.removeColor(msg).equals(msg)) {
-                    msg = Colorize.addColor("&c" + msg);
+            String msg = ColorUtils.addColorWithoutHeader(e.getMessage());
+            if(ColorUtils.removeColor(msg).equals(msg)) {
+                    msg = ColorUtils.addColor("&c" + msg);
             }
             else {
-                msg = Colorize.addColor(e.getMessage());
+                msg = ColorUtils.addColor(e.getMessage());
             }
             commandSender.sendMessage(msg);
             return true;

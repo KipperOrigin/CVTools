@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.SlimeSplitEvent;
 import org.bukkit.event.hanging.HangingBreakEvent;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.commons.utils.ColorUtils;
 import org.cubeville.cvtools.commands.CommandMap;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
@@ -35,7 +35,7 @@ public class EventEntityDeath implements Listener {
 			for (String name: commandMap.getPlayersWithObject(entity)) {
 				for (Player player: Bukkit.getOnlinePlayers()) {
 					if (player.getName() == name) {
-						player.sendMessage(Colorize.addColor("&cSelected entity has been killed! Entity deselected."));
+						player.sendMessage(ColorUtils.addColor("&cSelected entity has been killed! Entity deselected."));
 					}
 				}
 			}

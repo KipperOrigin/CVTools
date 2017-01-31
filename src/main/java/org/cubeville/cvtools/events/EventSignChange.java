@@ -5,7 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.commons.utils.ColorUtils;
 import org.cubeville.cvtools.CVTools;
 import org.cubeville.pvp.loadout.LoadoutContainer;
 import org.cubeville.pvp.loadout.LoadoutManager;
@@ -30,7 +30,7 @@ public class EventSignChange implements Listener {
         Player player = event.getPlayer();
 
         if (!player.hasPermission("cvpvp.admin")) {
-            player.sendMessage(Colorize.addColor("&cYou do not have permission to make loadout signs!"));
+            player.sendMessage(ColorUtils.addColor("&cYou do not have permission to make loadout signs!"));
             event.setCancelled(true);
             return;
         }
@@ -38,18 +38,18 @@ public class EventSignChange implements Listener {
         LoadoutManager loadoutManager = CVTools.getInstance().getLoadoutManager();
         LoadoutContainer lc = loadoutManager.getLoadoutByName(event.getLine(2));
         if(lc == null) {
-            player.sendMessage(Colorize.addColor("&cLoadout &6" + event.getLine(2) + " &cdoes not exist!"));
+            player.sendMessage(ColorUtils.addColor("&cLoadout &6" + event.getLine(2) + " &cdoes not exist!"));
             event.setCancelled(true);
             return;
         }
 
         if(!lc.containsInventory(event.getLine(3))) {
-            player.sendMessage(Colorize.addColor("&cTag &6" + event.getLine(2) + ":" + event.getLine(3) + " &cdoes not exist!"));
+            player.sendMessage(ColorUtils.addColor("&cTag &6" + event.getLine(2) + ":" + event.getLine(3) + " &cdoes not exist!"));
             event.setCancelled(true);
             return;
         }
 
-        player.sendMessage(Colorize.addColor("&aLoadout sign created successfully!"));
+        player.sendMessage(ColorUtils.addColor("&aLoadout sign created successfully!"));
 
     }
 }

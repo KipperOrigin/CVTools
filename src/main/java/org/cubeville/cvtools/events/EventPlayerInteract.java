@@ -13,7 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.commons.utils.ColorUtils;
 import org.cubeville.cvtools.CVTools;
 import org.cubeville.cvtools.commands.CommandMapManager;
 import org.cubeville.pvp.loadout.LoadoutHandler;
@@ -33,7 +33,7 @@ public class EventPlayerInteract implements Listener {
                 return;
             }
             if (CommandMapManager.primaryMap.get(player) == event.getClickedBlock()) {
-                player.sendMessage(Colorize.addColor("&cBlock already selected!"));
+                player.sendMessage(ColorUtils.addColor("&cBlock already selected!"));
                 return;
             }
             if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
@@ -44,7 +44,7 @@ public class EventPlayerInteract implements Listener {
             }
 			
             CommandMapManager.primaryMap.put(player, event.getClickedBlock());
-            player.sendMessage(Colorize.addColor("&aBlock &6" + event.getClickedBlock().getType().name() + "&a selected!"));
+            player.sendMessage(ColorUtils.addColor("&aBlock &6" + event.getClickedBlock().getType().name() + "&a selected!"));
         }
     }
 
@@ -61,7 +61,7 @@ public class EventPlayerInteract implements Listener {
         for (String lString: LoadoutAliases) {
             if (sign.getLine(1).equalsIgnoreCase(lString)) {
                 if (CVTools.getInstance().getLoadoutManager().blacklistContains(event.getPlayer().getName())) {
-                    event.getPlayer().sendMessage(Colorize.addColor("&cYou are currently blacklisted from using loadouts!"));
+                    event.getPlayer().sendMessage(ColorUtils.addColor("&cYou are currently blacklisted from using loadouts!"));
                     return;
                 }
                 LoadoutHandler.applyLoadoutFromSign(event.getPlayer(), sign);
