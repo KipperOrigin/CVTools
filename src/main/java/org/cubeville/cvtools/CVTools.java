@@ -13,15 +13,19 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
+
 import org.cubeville.commons.commands.CommandParser;
 import org.cubeville.cvtools.commands.CommandManager;
 import org.cubeville.cvtools.commands.CommandMapManager;
 import org.cubeville.cvtools.events.EventManager;
 import org.cubeville.cvtools.events.ProtocolEventManager;
+import org.cubeville.portal.Portal;
+import org.cubeville.portal.PortalManager;
 import org.cubeville.pvp.loadout.LoadoutContainer;
 import org.cubeville.pvp.loadout.LoadoutManager;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
 
 @SuppressWarnings("unused")
 public class CVTools extends JavaPlugin {
@@ -29,6 +33,8 @@ public class CVTools extends JavaPlugin {
     EventManager eventManager;
     ProtocolEventManager pmManager;
     public LoadoutManager loadoutManager;
+    PortalManager portalManager;
+    
     public static CVTools instance;
 
     public static CVTools getInstance() {
@@ -44,6 +50,7 @@ public class CVTools extends JavaPlugin {
 
         ConfigurationSerialization.registerClass(LoadoutContainer.class, "LoadoutContainer");
         ConfigurationSerialization.registerClass(LoadoutManager.class, "LoadoutManager");
+        ConfigurationSerialization.registerClass(Portal.class);
 
         CommandManager.registerAllCommands(this);
         CommandMapManager.registerMaps();
@@ -56,6 +63,9 @@ public class CVTools extends JavaPlugin {
 
         pmManager.registerEvents();
         eventManager.registerEvents();
+
+        portalManager = new PortalManager(this);
+        portalManager.start();
     }
 
     public void onDisable() {
@@ -63,6 +73,7 @@ public class CVTools extends JavaPlugin {
         saveConfig();
         CommandManager.nullifyCommandParsers();
         CommandMapManager.unregisterMaps();
+        portalManager.stop();
     }
 
     @Override

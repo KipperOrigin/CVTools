@@ -1,10 +1,7 @@
 package org.cubeville.commons.commands;
 
-import java.lang.NumberFormatException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.bukkit.util.Vector;
 
 public class CommandParameterList implements CommandParameterType
 {
@@ -24,7 +21,7 @@ public class CommandParameterList implements CommandParameterType
     }
 
     public String getInvalidMessage(String value) {
-        return "No valid parameter list.";
+        return "No valid parameter list!";
     }
 
     public Object getValue(String value) {
