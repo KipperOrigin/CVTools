@@ -19,6 +19,7 @@ public class LoadoutClone extends Command {
         super("loadout clone");
         addBaseParameter(new CommandParameterLoadoutContainer());
         addParameter("team", true, new CommandParameterString());
+        addFlag("clear");
     }
 
     @Override
@@ -31,11 +32,13 @@ public class LoadoutClone extends Command {
             team = (String) parameters.get("team");
         }
         
-        if (!lc.containsInventory(team)) throw new CommandExecutionException("");
+        if (!lc.containsInventory(team)) throw new CommandExecutionException("&6" + team + " &cdoes not exist for &6" + lc.getName());
 
         LoadoutHandler.cloneInventoryToLoadout(player, lc, team);
         
-        return null;
+        if (flags.contains("clear")) player.getInventory().clear();
+        
+        return new CommandResponse("&aSuccessfully cloned inventory to &6" + lc.getName() + "&a:&6" + team);
     }
 
 }

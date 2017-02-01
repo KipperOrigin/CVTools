@@ -33,7 +33,7 @@ public class LoadoutList extends Command{
 		cr = new CommandResponse("&6========================&aLoadouts&6========================");
 		
 		if (parameters.containsKey("sub") && !parameters.containsKey("tags")) {
-			cr.setBaseMessage("&6===================&aLoadout " + ((LoadoutContainer) parameters.get("sub")).getName() + "===================");
+			cr.setBaseMessage("&6===================&aLoadout " + ((LoadoutContainer) parameters.get("sub")).getName() + "&6===================");
 			loadouts = ((LoadoutContainer) parameters.get("sub")).getInventoriesByName();
 		} else if (!parameters.containsKey("sub") && parameters.containsKey("tags")) {
 			String tagsString = "";
@@ -48,7 +48,12 @@ public class LoadoutList extends Command{
 			loadouts = CVTools.getInstance().getLoadoutManager().getLoadoutNamesByTags((List<String>) parameters.get("tags"));
 		}
 		
-		createMessage(loadouts);
+		String message = "";
+		for (String mloadout: loadouts) {
+			message += "&f" + mloadout + "&c||";
+		}
+		if (message.length() > 2) message = message.substring(0, message.length() - 2);
+		cr.addMessage(message);
 		
         return cr;
 	}

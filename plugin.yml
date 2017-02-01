@@ -15,6 +15,9 @@ commands:
   cvpvp:
     description: PvP Base Command
     permission: cvpvp.admin
+  cmdextend:
+    description: Command command
+    permission: cvtools.commands
 
 permissions:
   
@@ -68,7 +71,7 @@ permissions:
     default: op
   snbt.armor:
     description: Permission for armor editing subcommand
-    default:op
+    default: op
   snbt.armorstand:
     description: Permission for armorstand editing subcommand
     default: op

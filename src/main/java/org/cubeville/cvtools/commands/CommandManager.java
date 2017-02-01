@@ -2,7 +2,6 @@ package org.cubeville.cvtools.commands;
 
 import org.cubeville.commons.commands.CommandParser;
 import org.cubeville.cvtools.CVTools;
-import org.cubeville.cvtools.commands.commandextension.*;
 import org.cubeville.cvtools.commands.other.*;
 import org.cubeville.cvtools.commands.stopwatch.*;
 import org.cubeville.pvp.commands.*;
@@ -30,13 +29,11 @@ public class CommandManager {
 	public static CommandParser snbtCommandParser;
 	public static CommandParser toolsCommandParser;
 	public static CommandParser pvpCommandParser;
-	public static CommandParser cmdCommandParser;
 	
 	public static void registerAllCommands(CVTools plugin) {
 		registerSNBTCommands();
 		registerToolsCommands(plugin);
 		registerPvPCommands();
-		registerCMDCommands();
 	}
 	
 	public static void registerSNBTCommands() {
@@ -177,6 +174,7 @@ public class CommandManager {
 		pvpCommandParser.addCommand(new LoadoutApply());
 		pvpCommandParser.addCommand(new LoadoutBlacklistPlayer());
 		pvpCommandParser.addCommand(new LoadoutCreate());
+		pvpCommandParser.addCommand(new LoadoutClone());
 		pvpCommandParser.addCommand(new LoadoutEdit());	
 		pvpCommandParser.addCommand(new LoadoutInfo());
 		pvpCommandParser.addCommand(new LoadoutList());
@@ -185,14 +183,6 @@ public class CommandManager {
 		pvpCommandParser.addCommand(new LoadoutTagClear());
 		pvpCommandParser.addCommand(new LoadoutTagRemove());
 		pvpCommandParser.addCommand(new LoadoutUnblacklistPlayer());
-	}
-	
-	public static void registerCMDCommands() {
-	    cmdCommandParser = new CommandParser();
-	    
-	    cmdCommandParser.addCommand(new CommandExtendAdd());
-	    cmdCommandParser.addCommand(new CommandExtendFinish());
-	    cmdCommandParser.addCommand(new CommandExtendStart());
 	}
 	
 	public static void nullifyCommandParsers() {

@@ -11,8 +11,11 @@ import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterDouble;
+import org.cubeville.commons.commands.CommandParameterEnum;
 import org.cubeville.commons.commands.CommandParameterString;
 import org.cubeville.commons.commands.CommandResponse;
+import org.cubeville.cvtools.nbt.Attributes;
+import org.cubeville.cvtools.nbt.NBTEntityLiving;
 import org.cubeville.cvtools.nbt.NBTItem;
 import org.cubeville.cvtools.nbt.Attributes.AttributeType;
 
@@ -21,9 +24,9 @@ public class ItemAttributesAdd extends Command {
     public ItemAttributesAdd() {                                                                     
         super("item attributes add");
         setPermission("snbt.item.attributes");
-        addBaseParameter(new CommandParameterString());
+        addBaseParameter(new CommandParameterEnum(NBTEntityLiving.AttributeType.class));
         addBaseParameter(new CommandParameterDouble());
-        addParameter("slot", true, new CommandParameterString());
+        addParameter("slot", true, new CommandParameterEnum(Attributes.EquipmentSlot.class));
     }
 
 	@Override
@@ -32,36 +35,22 @@ public class ItemAttributesAdd extends Command {
 		if (player.getInventory().getItemInMainHand().getType() == Material.AIR || player.getInventory().getItemInMainHand().getType() == null) {
 			throw new CommandExecutionException("&cMust be holding an item!");
 		}
-		
-		String typeName = (String) baseParameters.get(0);
+
 		double d = (double) baseParameters.get(1);
-		AttributeType type;
+		AttributeType type = AttributeType.fromId(((NBTEntityLiving.AttributeType) baseParameters.get(0)).toString());
 		NBTItem nbtItem = new NBTItem(player.getInventory().getItemInMainHand());
-		List<String> slots = new ArrayList<String>(Arrays.asList("mainhand","offhand","head","chest","legs","feet"));
 		String slot = "mainhand";
 		
-		try {
-			type = AttributeType.getAttributeTypeByName(typeName);
-		} catch (IllegalArgumentException e) {
-			throw new CommandExecutionException("&c" + e.getMessage());
-		}
-		
 		if (parameters.containsKey("slot")) {
-			if (slots.contains((String) parameters.get("slot"))) {
-					slot = (String) parameters.get("slot");
-			} else {
-				throw new CommandExecutionException("&6" + parameters.get("slot") + " &cis an invalid slot!");
-			}
+			slot = ((Attributes.EquipmentSlot) parameters.get("slot")).toString();
 		}
 		
-		if (type == null)
-			return null;
-		else if (typeName.equalsIgnoreCase("damage"))
+		if (type == AttributeType.GENERIC_ATTACK_DAMAGE)
 			d -= 1;
-		else if (typeName.equalsIgnoreCase("attspeed"))
+		else if (type == AttributeType.GENERIC_ATTACK_SPEED)
 			d -= 4;
 		
-		nbtItem.addAttribute(typeName, type, d, slot);
+		nbtItem.addAttribute(((NBTEntityLiving.AttributeType) baseParameters.get(0)).toString(), type, d, slot);
 		
 		player.getInventory().setItemInMainHand(nbtItem.asItemStack());
         return new CommandResponse("&aAttribute added!");

@@ -14,6 +14,8 @@ import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.cubeville.commons.commands.CommandParser;
+import org.cubeville.commons.commands.CommandResponse;
+import org.cubeville.commons.utils.ColorUtils;
 import org.cubeville.cvtools.commands.CommandManager;
 import org.cubeville.cvtools.commands.CommandMapManager;
 import org.cubeville.cvtools.events.EventManager;
@@ -74,12 +76,46 @@ public class CVTools extends JavaPlugin {
             return CommandManager.toolsCommandParser.execute(sender, args);
         } else if (command.getName().equals("cvpvp")) {
             return CommandManager.pvpCommandParser.execute(sender, args);
-        } else if (command.getName().equals("command")) {
-            return CommandManager.cmdCommandParser.execute(sender, args);
-        }
-        else {
+        } else if (command.getName().equals("cmdextend")) {
+        	if (args.length < 1 || !(sender instanceof Player)) return false;
+        	if (args[0].equalsIgnoreCase("start")) {
+        		if (args.length < 2) return false;
+    			String addString = "";
+        		for (int i = 1; i < args.length; i++) {
+        			if (i != 1) addString += " ";
+        			addString += args[i];
+        		}
+        		CommandMapManager.secondaryMap.put((Player) sender, addString);
+        		sender.sendMessage(ColorUtils.addColor("&aCommand extenstion successfully started!"));
+        	} else if (args[0].equalsIgnoreCase("add")) {
+    			String addString = "";
+        		for (int i = 1; i < args.length; i++) {
+        			if (i != 1) addString += " ";
+        			addString += args[i];
+        		}
+        		String lastString = (String) CommandMapManager.secondaryMap.get((Player) sender);
+                if (lastString.endsWith("\\")) lastString = lastString.substring(0, lastString.length() - 1);
+                else lastString += " ";
+        		CommandMapManager.secondaryMap.put((Player) sender, lastString + addString);
+        		sender.sendMessage(ColorUtils.addColor("&aCommand extenstion successfully added!"));
+        	} else if (args[0].equalsIgnoreCase("finish")) {
+        		if (args.length < 2) return false;
+    			String addString = "";
+        		for (int i = 1; i < args.length; i++) {
+        			if (i != 1) addString += " ";
+        			addString += args[i];
+        		}
+        		String lastString = (String) CommandMapManager.secondaryMap.get((Player) sender);
+                if (lastString.endsWith("\\")) lastString = lastString.substring(0, lastString.length() - 1);
+                else lastString += " ";
+        		sender.sendMessage(ColorUtils.addColor("&aCommand extenstion successfully executed!"));
+                ((Player) sender).performCommand(lastString + addString);
+                CommandMapManager.secondaryMap.removePlayer((Player) sender);
+        	}
+        } else {
             return false;
         }
+		return false;
     }
     
 }

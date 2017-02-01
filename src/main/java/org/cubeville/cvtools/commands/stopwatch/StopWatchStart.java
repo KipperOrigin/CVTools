@@ -24,8 +24,14 @@ public class StopWatchStart extends Command {
 			throws CommandExecutionException {
 	    Map<String, Long> stopwatchMap = CommandMapManager.stopwatchMap;
 		
-	    if (parameters.containsKey("title")) stopwatchMap.put((String) parameters.get("title"), System.currentTimeMillis());
-	    else stopwatchMap.put(player.getName(), System.currentTimeMillis());
+	    if (parameters.containsKey("title")) {
+	    	if (stopwatchMap.containsKey(parameters.get("title"))) throw new CommandExecutionException("&cStopwatch already started!");
+	    	stopwatchMap.put((String) parameters.get("title"), System.currentTimeMillis());
+	    } else {
+	    	if (stopwatchMap.containsKey(player.getName().toUpperCase()))
+	    		throw new CommandExecutionException("&cStopwatch already started!");
+	    	stopwatchMap.put(player.getName(), System.currentTimeMillis());
+	    }
 	    
 		return new CommandResponse("&aStopwatch started!");
 	}
