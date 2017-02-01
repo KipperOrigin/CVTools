@@ -31,7 +31,7 @@ public class EventSignChange implements Listener {
         Player player = event.getPlayer();
 
         if (!(player.hasPermission("cvpvp.admin") || player.hasPermission("snbt.loadout.commands"))) {
-            player.sendMessage(Colorize.addColor("&cYou do not have permission to make loadout signs!"));
+            player.sendMessage(ColorUtils.addColor("&cYou do not have permission to make loadout signs!"));
             event.setCancelled(true);
             return;
         }
@@ -45,7 +45,7 @@ public class EventSignChange implements Listener {
         }
 
         if(!lc.containsInventory(lines[3])) {
-            player.sendMessage(Colorize.addColor("&cTag &6" + lines[2] + ":" + lines[3] + " &cdoes not exist!"));
+            player.sendMessage(ColorUtils.addColor("&cTag &6" + lines[2] + ":" + lines[3] + " &cdoes not exist!"));
             event.setCancelled(true);
             return;
         }
