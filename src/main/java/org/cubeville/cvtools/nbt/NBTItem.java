@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.cubeville.cvtools.nbt.Attributes.Attribute;
 import org.cubeville.cvtools.nbt.Attributes.AttributeType;
+import org.cubeville.cvtools.nbt.Attributes.EquipmentSlot;
 
 import net.minecraft.server.v1_9_R2.NBTTagCompound;
 import net.minecraft.server.v1_9_R2.NBTTagList;
@@ -149,10 +150,20 @@ public class NBTItem {
 	//Removes Attributes from the bottom of the list rather than top
 	public void removeAttribute(int i) {
 		Attributes attributes = new Attributes(item);
-		Attribute attribute = attributes.get(i-1); 
+		Attribute attribute = attributes.get(i); 
 		attributes.remove(attribute);
 		item = attributes.getStack();
 		itemMeta = item.getItemMeta();
+	}
+	
+	public double getAttributeAmountByName(AttributeType type, EquipmentSlot slot) {
+	    Attributes attributes = new Attributes(item);
+	    double amount = 0;
+	    for (int i = 0; i < attributes.size(); i++) {
+	        Attribute attribute = attributes.get(i);
+	        if (attribute.getAttributeType() == type && attribute.getSlot() == slot.toString()) amount += attribute.getAmount();
+	    }
+	    return amount;
 	}
 	
 	public void clearAttributes() {

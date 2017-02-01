@@ -1,14 +1,14 @@
 package org.cubeville.commons.commands;
 
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.commons.utils.ColorUtils;
 
 public class CommandParameterColor implements CommandParameterType
 {
 	public boolean isValid(String value) {
-		if (Colorize.getColorFromString(value.toUpperCase()) != null) {
+		if (ColorUtils.getColorFromString(value.toUpperCase()) != null) {
 			return true;
 		} else {
-			return Colorize.getColorFromRGB(value) != null;
+			return ColorUtils.getColorFromRGB(value) != null;
 		}
     }
 
@@ -17,10 +17,10 @@ public class CommandParameterColor implements CommandParameterType
     }
 
     public Object getValue(String value) {
-		if (Colorize.getColorFromString(value.toUpperCase()) != null) {
-			return Colorize.getColorFromString(value.toUpperCase());
+		if (ColorUtils.getColorFromString(value.toUpperCase()) != null) {
+			return ColorUtils.getColorFromString(value.toUpperCase());
 		} else {
-			return Colorize.getColorFromRGB(value);
+			return ColorUtils.getColorFromRGB(value);
 		}
     }
 }

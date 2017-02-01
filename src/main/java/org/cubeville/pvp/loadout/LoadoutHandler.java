@@ -6,6 +6,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.cubeville.commons.utils.PlayerUtils;
 import org.cubeville.cvtools.CVTools;
+import org.cubeville.cvtools.nbt.Attributes.AttributeType;
+import org.cubeville.cvtools.nbt.Attributes.EquipmentSlot;
+import org.cubeville.cvtools.nbt.NBTItem;
 
 public class LoadoutHandler {
 	
@@ -21,10 +24,8 @@ public class LoadoutHandler {
         PlayerUtils.removeAllPotionEffects(player);
 		
         //Hotbar & Offhand
-        if (inventory.getItem(49) != null)
-            player.getInventory().setItemInOffHand(inventory.getItem(49));
-        else
-            player.getInventory().setItemInOffHand(baseInventory.getItem(49));
+        if (inventory.getItem(49) != null) player.getInventory().setItemInOffHand(inventory.getItem(49));
+        else player.getInventory().setItemInOffHand(baseInventory.getItem(49));
 		
         for (int i = 0; i < 9; i++) {
             ItemStack item = inventory.getItem(i);
@@ -42,14 +43,10 @@ public class LoadoutHandler {
         }
 		
         //Armor
-        for (int i = 36; i < 40; i++) {
-            ItemStack item = inventory.getItem(i+9);
-			
-            if (item == null)
-                item = baseInventory.getItem(i+9);
-			
-            player.getInventory().setItem(i, item);
-        }
+        player.getInventory().setHelmet(inventory.getItem(45));
+        player.getInventory().setChestplate(inventory.getItem(46));
+        player.getInventory().setLeggings(inventory.getItem(47));
+        player.getInventory().setBoots(inventory.getItem(48));
 		
         //Inventory Contents
         for (int i = 9; i < 36; i++) {
@@ -63,6 +60,7 @@ public class LoadoutHandler {
 		
         //Update Inventory
         player.updateInventory();
+        player.setHealth(getHealthOfArmorContents(player));
         return true;
     }
 	
@@ -74,6 +72,45 @@ public class LoadoutHandler {
 		
         applyLoadoutToPlayer(player, lc, sign.getLine(3));
         return true;
+    }
+    
+    public static void cloneInventoryToLoadout(Player player, LoadoutContainer lc, String team) {
+        Inventory inventory;
+        if (team.equalsIgnoreCase("main")) {
+            inventory = lc.getMainInventory();
+        } else {
+            return;
+        }
+        inventory.clear();
+        inventory.setItem(49, player.getInventory().getItemInOffHand());
+        for (int i = 0; i < 36; i++) inventory.setItem(i, player.getInventory().getItem(i));
+        inventory.setItem(45, player.getInventory().getHelmet());
+        inventory.setItem(46, player.getInventory().getChestplate());
+        inventory.setItem(47, player.getInventory().getLeggings());
+        inventory.setItem(48, player.getInventory().getBoots());
+        CVTools.getInstance().getConfig().set("LoadoutManager", CVTools.getInstance().getLoadoutManager());
+        CVTools.getInstance().saveConfig();
+    }
+    
+    public static double getHealthOfArmorContents(Player player) {
+        double health = player.getMaxHealth();
+        if (player.getInventory().getHelmet() != null) {
+        	NBTItem helmet = new NBTItem(player.getEquipment().getHelmet());
+        	health += helmet.getAttributeAmountByName(AttributeType.GENERIC_MAX_HEALTH, EquipmentSlot.HEAD);
+        }
+        if (player.getInventory().getChestplate() != null) {
+        	NBTItem chestplate = new NBTItem(player.getEquipment().getChestplate());
+        	health += chestplate.getAttributeAmountByName(AttributeType.GENERIC_MAX_HEALTH, EquipmentSlot.CHEST);
+        }
+        if (player.getInventory().getLeggings() != null) {
+        	NBTItem leggings = new NBTItem(player.getEquipment().getLeggings());
+        	health += leggings.getAttributeAmountByName(AttributeType.GENERIC_MAX_HEALTH, EquipmentSlot.LEGS);
+        }
+        if (player.getInventory().getBoots() != null) {
+        	NBTItem boots = new NBTItem( player.getEquipment().getBoots());
+        	health += boots.getAttributeAmountByName(AttributeType.GENERIC_MAX_HEALTH, EquipmentSlot.FEET);
+        }
+        return health;
     }
 	
 }

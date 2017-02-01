@@ -9,8 +9,6 @@ import org.bukkit.entity.LivingEntity;
 import net.minecraft.server.v1_9_R2.AttributeInstance;
 import net.minecraft.server.v1_9_R2.AttributeMapBase;
 import net.minecraft.server.v1_9_R2.EntityLiving;
-import net.minecraft.server.v1_9_R2.NBTTagCompound;
-import net.minecraft.server.v1_9_R2.NBTTagList;
 import net.minecraft.server.v1_9_R2.NBTTagString;
 
 public class NBTEntityLiving extends NBTEntity {

@@ -9,7 +9,6 @@ import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterString;
 import org.cubeville.commons.commands.CommandResponse;
-import org.cubeville.cvtools.commands.CommandMap;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class StopWatchGet extends Command {
@@ -23,17 +22,23 @@ public class StopWatchGet extends Command {
 	@Override
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
-		CommandMap commandMap = CommandMapManager.primaryMap;
-		
-		String name = "";
-		
-		if (!commandMap.contains(player) || !(commandMap.get(player) instanceof Long))
-			throw new CommandExecutionException("&cYou have not started a stopwatch!");
-		if (parameters.containsKey(player.getName()))
-			name += " for &6" + (String) parameters.get("name") + " ";
-		
-		double time = (System.currentTimeMillis() - (Long) commandMap.get(player))/ 1000.0;
-		
-		return new CommandResponse("&aCurrent Time" + name + "&f: " + time);
+        Map<String, Long> stopwatchMap = CommandMapManager.stopwatchMap;
+        String stopwatch = "";
+        String name = "";
+        
+        if (parameters.containsKey("title") && player.hasPermission("cvtools.stopwatch.custom")) {
+            if (!stopwatchMap.containsKey(parameters.get("title"))) throw new CommandExecutionException("");
+            else stopwatch = (String) parameters.get("title");
+        } else if (stopwatchMap.containsKey(player.getName())) {
+            stopwatch = player.getName();
+        } else {
+            throw new CommandExecutionException("");
+        }
+        
+        if (parameters.containsKey("name")) name = " for " + parameters.get("name") + " ";
+
+        double time = (System.currentTimeMillis() - stopwatchMap.get(stopwatch)) / 1000.0;
+        
+        return new CommandResponse("&6" + stopwatch + " &aCurrent Time" + name + "&f: " + time);
 	}
 }

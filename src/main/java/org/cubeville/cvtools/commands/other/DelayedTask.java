@@ -11,7 +11,7 @@ import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterDouble;
 import org.cubeville.commons.commands.CommandParameterString;
 import org.cubeville.commons.commands.CommandResponse;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.commons.utils.ColorUtils;
 import org.cubeville.cvtools.CVTools;
 
 public class DelayedTask extends Command {
@@ -41,7 +41,7 @@ public class DelayedTask extends Command {
                 @Override
                 public void run() {
                     runDelayedTask(player, parameters);
-                    player.sendMessage(Colorize.addColor("&aAction successfully played!"));
+                    player.sendMessage(ColorUtils.addColor("&aAction successfully played!"));
                 }
             }, delay);
         return new CommandResponse("&aAction successfully delayed!");

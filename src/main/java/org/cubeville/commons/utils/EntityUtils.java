@@ -7,15 +7,12 @@ import java.util.Map;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Ageable;
-import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Horse;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Tameable;
 import org.cubeville.cvtools.nbt.NBTEntity;
 import org.cubeville.cvtools.nbt.NBTEntityLiving;
-import org.cubeville.cvtools.nbt.NBTHorse;
 
 public class EntityUtils {
 	

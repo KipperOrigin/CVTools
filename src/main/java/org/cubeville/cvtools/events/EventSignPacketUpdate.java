@@ -12,7 +12,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 
 import org.cubeville.cvtools.CVTools;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.commons.utils.ColorUtils;
 
 public class EventSignPacketUpdate extends PacketAdapter {
 
@@ -46,7 +46,7 @@ public class EventSignPacketUpdate extends PacketAdapter {
                         Sign sign = (Sign) loc.getBlock().getState();
                         
                         for (int i = 0; i < 4; i++)
-                            sign.setLine(i, Colorize.addColor("&0" + lines[i]));
+                            sign.setLine(i, ColorUtils.addColor("&0" + lines[i]));
                         
                         sign.update();
                     }

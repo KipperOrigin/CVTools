@@ -24,7 +24,6 @@ public class StopWatchStop extends Command {
 	public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters) 
 			throws CommandExecutionException {
 	    Map<String, Long> stopwatchMap = CommandMapManager.stopwatchMap;
-	    long oldTime;
 	    String stopwatch = "";
 	    String name = "";
 	    
@@ -38,11 +37,9 @@ public class StopWatchStop extends Command {
 	    }
 	    
 	    if (parameters.containsKey("name")) name = " for " + parameters.get("name") + " ";
-	    
-        oldTime = stopwatchMap.get(stopwatch);
+
+	    double time = (System.currentTimeMillis() - stopwatchMap.get(stopwatch)) / 1000.0;
         stopwatchMap.remove(stopwatch);
-	    
-	    double time = (System.currentTimeMillis() - oldTime) / 1000.0;
 		
 		return new CommandResponse("&6" + stopwatch + " &aFinal Time" + name + "&f: " + time);
 	}

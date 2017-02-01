@@ -9,7 +9,7 @@ public class CommandParameterOnlinePlayer implements CommandParameterType
     }
 
     public String getInvalidMessage(String value) {
-        return value + " is no valid enchantment!";
+        return value + " is no valid online player!";
     }
 
     public Object getValue(String value) {

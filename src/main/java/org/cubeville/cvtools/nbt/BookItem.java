@@ -7,7 +7,7 @@ import java.util.List;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_9_R2.inventory.CraftItemStack;
 import org.bukkit.inventory.meta.BookMeta;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.commons.utils.ColorUtils;
 
 import net.minecraft.server.v1_9_R2.NBTTagCompound;
 
@@ -49,11 +49,11 @@ public class BookItem {
     }
 	
     public void setAuthor(String author) {
-        meta.setAuthor(Colorize.addColor(author));
+        meta.setAuthor(ColorUtils.addColor(author));
     }
 	
     public void setTitle(String title) {		
-        meta.setTitle(Colorize.addColor(title));
+        meta.setTitle(ColorUtils.addColor(title));
     }
 	
     public void setPages(List<String> pages) {
@@ -62,7 +62,7 @@ public class BookItem {
 
     public void colorizeBook() {
         if (meta.hasPages())
-            meta.setPages(Colorize.addColor(meta.getPages()));
+            meta.setPages(ColorUtils.addColor(meta.getPages()));
         this.setAuthor(meta.getAuthor());
         this.setTitle(meta.getTitle());
     }

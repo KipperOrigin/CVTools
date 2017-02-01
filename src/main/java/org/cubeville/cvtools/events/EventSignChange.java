@@ -5,7 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.commons.utils.ColorUtils;
 import org.cubeville.cvtools.CVTools;
 import org.cubeville.pvp.loadout.LoadoutContainer;
 import org.cubeville.pvp.loadout.LoadoutManager;
@@ -39,7 +39,7 @@ public class EventSignChange implements Listener {
         LoadoutManager loadoutManager = CVTools.getInstance().getLoadoutManager();
         LoadoutContainer lc = loadoutManager.getLoadoutByName(lines[2]);
         if(lc == null) {
-            player.sendMessage(Colorize.addColor("&cLoadout &6" + lines[2] + " &cdoes not exist!"));
+            player.sendMessage(ColorUtils.addColor("&cLoadout &6" + event.getLine(2) + " &cdoes not exist!"));
             event.setCancelled(true);
             return;
         }
@@ -50,7 +50,7 @@ public class EventSignChange implements Listener {
             return;
         }
 
-        player.sendMessage(Colorize.addColor("&aLoadout sign created successfully!"));
+        player.sendMessage(ColorUtils.addColor("&aLoadout sign created successfully!"));
 
     }
 }

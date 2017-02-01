@@ -1,6 +1,5 @@
 package org.cubeville.cvtools.commands.other;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -19,7 +18,7 @@ import org.cubeville.commons.commands.CommandParameterInteger;
 import org.cubeville.commons.commands.CommandParameterString;
 import org.cubeville.commons.commands.CommandResponse;
 import org.cubeville.commons.utils.BlockUtils;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.commons.utils.ColorUtils;
 
 public class CheckSign extends Command {
 
@@ -71,7 +70,7 @@ public class CheckSign extends Command {
             String lineCon = "";
             for (String line: lines) {
                 if(lineCon.length() > 0) lineCon += " ";
-                lineCon += Colorize.removeColor(line);
+                lineCon += ColorUtils.removeColor(line);
             }
 
             if (lineCon.toUpperCase().contains(cs)) {

@@ -3,14 +3,7 @@ package org.cubeville.cvtools.nbt;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Horse;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.bukkit.craftbukkit.v1_9_R2.entity.CraftEntity;
 import net.minecraft.server.v1_9_R2.EntityHorse;
-import net.minecraft.server.v1_9_R2.NBTTagCompound;
-import net.minecraft.server.v1_9_R2.NBTTagList;
-import net.minecraft.server.v1_9_R2.NBTTagString;
 
 public class NBTHorse extends NBTEntityLiving {
 

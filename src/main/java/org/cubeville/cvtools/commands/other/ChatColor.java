@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandResponse;
-import org.cubeville.commons.utils.Colorize;
 
 public class ChatColor extends Command {
 

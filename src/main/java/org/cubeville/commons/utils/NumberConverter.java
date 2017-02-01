@@ -3,7 +3,7 @@ package org.cubeville.commons.utils;
 public class NumberConverter {
 	public static String convertTime(long time) {
 		if (time < 0)
-			return Colorize.addColor("&cNegative Value!");
+			return ColorUtils.addColor("&cNegative Value!");
 		
 		String sec = "";
 		String min = "";
@@ -23,12 +23,12 @@ public class NumberConverter {
 			h = "&a&f" + hours + "&c:";
 		}
 				
-		return Colorize.addColor(h + min + sec + time % 1000);
+		return ColorUtils.addColor(h + min + sec + time % 1000);
 	}
 	
 	public static String convertTimeAsFormatted(long time) {
 		if (time < 0)
-			return Colorize.addColor("&cNegative Value!");
+			return ColorUtils.addColor("&cNegative Value!");
 		
 		String ms = "";
 		String sec = "";

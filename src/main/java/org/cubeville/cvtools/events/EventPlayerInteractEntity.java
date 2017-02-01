@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
-import org.cubeville.commons.utils.Colorize;
+import org.cubeville.commons.utils.ColorUtils;
 import org.cubeville.cvtools.commands.CommandMap;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
@@ -32,9 +32,9 @@ public class EventPlayerInteractEntity implements Listener {
 			commandMap.put(player, entity);
 				
 			if (entity.getCustomName() != null) {
-				event.getPlayer().sendMessage(Colorize.addColor("&aMob &6" + entity.getCustomName() + "&a selected!"));
+				event.getPlayer().sendMessage(ColorUtils.addColor("&aMob &6" + entity.getCustomName() + "&a selected!"));
 			} else {
-				event.getPlayer().sendMessage(Colorize.addColor("&aMob &6" + entity.getName() + "&a selected!"));
+				event.getPlayer().sendMessage(ColorUtils.addColor("&aMob &6" + entity.getName() + "&a selected!"));
 			}
 		}	
 	}
