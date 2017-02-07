@@ -21,7 +21,7 @@ public class CommandParameterList implements CommandParameterType
     }
 
     public String getInvalidMessage(String value) {
-        return "No valid parameter list.";
+        return "No valid parameter list!";
     }
 
     public Object getValue(String value) {

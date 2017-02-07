@@ -162,6 +162,8 @@ public class CommandManager {
 		toolsCommandParser.addCommand(new CheckSign());
 		toolsCommandParser.addCommand(new DelayedTask(plugin));
                 toolsCommandParser.addCommand(new FillRegion());
+                toolsCommandParser.addCommand(new SelectRegion());
+                toolsCommandParser.addCommand(new FillSelection());
 		toolsCommandParser.addCommand(new Info());
 
 		// STOPWATCH
