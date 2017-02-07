@@ -2,6 +2,7 @@ package org.cubeville.cvtools.commands;
 
 import org.cubeville.commons.commands.CommandParser;
 import org.cubeville.cvtools.CVTools;
+import org.cubeville.cvtools.commands.blocktools.*;
 import org.cubeville.cvtools.commands.other.*;
 import org.cubeville.cvtools.commands.stopwatch.*;
 import org.cubeville.pvp.commands.*;
@@ -156,6 +157,7 @@ public class CommandManager {
 		// OTHER
 		toolsCommandParser.addCommand(new ChatColor());
                 toolsCommandParser.addCommand(new CheckEntities());
+                toolsCommandParser.addCommand(new CheckRegionPlayers());
 		toolsCommandParser.addCommand(new CheckSign());
 		toolsCommandParser.addCommand(new DelayedTask(plugin));
                 toolsCommandParser.addCommand(new FillRegion());

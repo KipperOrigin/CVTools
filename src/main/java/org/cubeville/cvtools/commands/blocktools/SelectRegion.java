@@ -1,4 +1,4 @@
-package org.cubeville.cvtools.commands.other;
+package org.cubeville.cvtools.commands.blocktools;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +39,10 @@ public class SelectRegion extends BaseCommand
         groupSelection = new HashMap<>();
     }
 
+    public static boolean selectionExists(String group) {
+        return groupSelection.containsKey(group);
+    }
+    
     public static String getWorldName(String group) {
         return groupSelection.get(group).getWorld();
     }

@@ -1,4 +1,4 @@
-package org.cubeville.cvtools.commands.other;
+package org.cubeville.cvtools.commands.blocktools;
 
 import java.util.List;
 import java.util.Map;
@@ -24,10 +24,9 @@ public class FillSelection extends BaseCommand
     public FillSelection() {
         super("fillselection");
         addBaseParameter(new CommandParameterString());
-        addBaseParameter(new CommandParameterEnum(Material.class)); // material to set
-        addParameter("data", true, new CommandParameterInteger()); // optional data for material
-        addOptionalBaseParameter(new CommandParameterListEnum(Material.class)); // material to replace
-        setPermission("cvtools.fillregion");        
+        addBaseParameter(new CommandParameterWeightedMaterialList()); // material to set
+        addOptionalBaseParameter(new CommandParameterWeightedMaterialList()); // material to replace
+        setPermission("cvtools.fillregion");
     }
 
     @Override
@@ -35,26 +34,17 @@ public class FillSelection extends BaseCommand
         throws CommandExecutionException {
 
         String group = (String) baseParameters.get(0);
-
+        if(!SelectRegion.selectionExists(group)) throw new CommandExecutionException("No selection for selected group!");
+        
         String worldName = SelectRegion.getWorldName(group);
-        if(worldName == null) throw new CommandExecutionException("No selection for selected group!");
         String regionName = SelectRegion.getRegionName(group);
         World world = Bukkit.getWorld(worldName);
 
-        Material material = (Material) baseParameters.get(1);
-        int data = -1;
-        if(parameters.containsKey("data")) data = (int) parameters.get("data");
-        List<Material> replace = null;
-        if(baseParameters.size() > 3) replace = (List<Material>) baseParameters.get(2);
+        List<WeightedMaterial> materialList = (List<WeightedMaterial>) baseParameters.get(1);
+        List<WeightedMaterial> replacedMaterialList = null;
+        if(baseParameters.size() == 3) replacedMaterialList = (List<WeightedMaterial>) baseParameters.get(2);
 
-        List<Block> blocks;
-        if(replace == null) blocks = BlockUtils.getBlocksInWGRegion(world, regionName, 25000);
-        else blocks = BlockUtils.getBlocksInWGRegionByType(world, regionName, 25000, replace.toArray(new Material[0]));
-
-        for(Block block: blocks) {
-            block.setType(material, true);
-            if(data >= 0 && data < 16) block.setData((byte) data);
-        }
+        BlockFillUtil.fillRegion(world, regionName, materialList, replacedMaterialList);
 
         return null;
         

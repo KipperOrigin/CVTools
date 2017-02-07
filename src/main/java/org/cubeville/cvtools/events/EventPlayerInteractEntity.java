@@ -1,6 +1,7 @@
 package org.cubeville.cvtools.events;
 
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,7 +12,7 @@ import org.cubeville.cvtools.commands.CommandMap;
 import org.cubeville.cvtools.commands.CommandMapManager;
 
 public class EventPlayerInteractEntity implements Listener {
-    
+
 	@EventHandler
 	public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
 		if (event.isCancelled()) return;
@@ -19,11 +20,11 @@ public class EventPlayerInteractEntity implements Listener {
 		if (event.getHand() != EquipmentSlot.HAND) return;
 		
 		if (event.getRightClicked() instanceof Player) return;
-		
+
 		Entity entity = event.getRightClicked();
 		Player player = event.getPlayer();
 		CommandMap commandMap = CommandMapManager.primaryMap;
-		
+
 		if (commandMap.contains(player)) {
 			event.setCancelled(true);
 			
@@ -36,6 +37,6 @@ public class EventPlayerInteractEntity implements Listener {
 			} else {
 				event.getPlayer().sendMessage(ColorUtils.addColor("&aMob &6" + entity.getName() + "&a selected!"));
 			}
-		}	
+		}
 	}
 }
