@@ -23,17 +23,20 @@ import org.cubeville.simplenbt.commands.mob.other.*;
 import org.cubeville.simplenbt.commands.potion.*;
 import org.cubeville.simplenbt.commands.selection.*;
 import org.cubeville.simplenbt.commands.skull.*;
+import org.cubeville.teleportsign.commands.*;
 
 public class CommandManager {
 	
 	public static CommandParser snbtCommandParser;
 	public static CommandParser toolsCommandParser;
 	public static CommandParser pvpCommandParser;
+	public static CommandParser tpSignCommandParser;
 	
 	public static void registerAllCommands(CVTools plugin) {
 		registerSNBTCommands();
 		registerToolsCommands(plugin);
 		registerPvPCommands();
+		registerTeleportSignCommands();
 	}
 	
 	public static void registerSNBTCommands() {
@@ -183,6 +186,19 @@ public class CommandManager {
 		pvpCommandParser.addCommand(new LoadoutTagClear());
 		pvpCommandParser.addCommand(new LoadoutTagRemove());
 		pvpCommandParser.addCommand(new LoadoutUnblacklistPlayer());
+	}
+	
+	public static void registerTeleportSignCommands() {
+	    tpSignCommandParser = new CommandParser();
+	    
+	    tpSignCommandParser.addCommand(new TeleportSignAddLocation());
+	    tpSignCommandParser.addCommand(new TeleportSignCreate());
+	    tpSignCommandParser.addCommand(new TeleportSignPlayer());
+	    tpSignCommandParser.addCommand(new TeleportSignRemoveLocation());
+	    tpSignCommandParser.addCommand(new TeleportSignSetClearInv());
+	    tpSignCommandParser.addCommand(new TeleportSignSetClearPots());
+	    tpSignCommandParser.addCommand(new TeleportSignSetHeal());
+	    
 	}
 	
 	public static void nullifyCommandParsers() {
