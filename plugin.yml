@@ -18,6 +18,9 @@ commands:
   cmdextend:
     description: Command command
     permission: cvtools.commands
+  tpsign:
+    description: Teleport Sign Command
+    permission: tpsign.commands
 
 permissions:
   

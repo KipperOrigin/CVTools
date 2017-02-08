@@ -43,10 +43,14 @@ public class LoadoutHandler {
         }
 		
         //Armor
-        player.getInventory().setHelmet(inventory.getItem(45));
-        player.getInventory().setChestplate(inventory.getItem(46));
-        player.getInventory().setLeggings(inventory.getItem(47));
-        player.getInventory().setBoots(inventory.getItem(48));
+        for (int i = 39; i < 36; i++) {
+            int x = 48;
+        	ItemStack item = inventory.getItem(x);
+            if (item == null)
+                item = baseInventory.getItem(x);
+            player.getInventory().setItem(i, item);
+            x--;
+        }
 		
         //Inventory Contents
         for (int i = 9; i < 36; i++) {

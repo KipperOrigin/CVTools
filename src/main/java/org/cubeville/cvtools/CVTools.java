@@ -28,15 +28,24 @@ import org.cubeville.portal.Portal;
 import org.cubeville.portal.PortalManager;
 import org.cubeville.pvp.loadout.LoadoutContainer;
 import org.cubeville.pvp.loadout.LoadoutManager;
+import org.cubeville.teleportsign.SignProperties;
+import org.cubeville.teleportsign.SignValue;
+import org.cubeville.teleportsign.TeleportSign;
+import org.cubeville.teleportsign.TeleportSignManager;
+
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
+
 
 @SuppressWarnings("unused")
 public class CVTools extends JavaPlugin {
 
     EventManager eventManager;
     ProtocolEventManager pmManager;
-    public LoadoutManager loadoutManager;
+    LoadoutManager loadoutManager;
+    TeleportSignManager tpSignManager;
     PortalManager portalManager;
-    
+
     public static CVTools instance;
 
     public static CVTools getInstance() {
@@ -46,18 +55,29 @@ public class CVTools extends JavaPlugin {
     public LoadoutManager getLoadoutManager() {
         return loadoutManager;
     }
+    
+    public TeleportSignManager getTeleportSignManager() {
+        return tpSignManager;
+    }
 
     public void onEnable() {
         instance = this;
 
         ConfigurationSerialization.registerClass(LoadoutContainer.class, "LoadoutContainer");
         ConfigurationSerialization.registerClass(LoadoutManager.class, "LoadoutManager");
+        ConfigurationSerialization.registerClass(TeleportSign.class, "TeleportSign");
+        ConfigurationSerialization.registerClass(TeleportSignManager.class, "TeleportSignManager");
+        ConfigurationSerialization.registerClass(SignValue.class, "SignValue");
+        ConfigurationSerialization.registerClass(SignProperties.class, "SignProperties");
         ConfigurationSerialization.registerClass(Portal.class);
 
         CommandManager.registerAllCommands(this);
         CommandMapManager.registerMaps();
         eventManager = new EventManager(this);
         pmManager = new ProtocolEventManager(this);
+        
+        tpSignManager = (TeleportSignManager) getConfig().get("TeleportSignManager");
+        if(tpSignManager == null) tpSignManager = new TeleportSignManager();
 
         loadoutManager = (LoadoutManager) getConfig().get("LoadoutManager");
         if(loadoutManager == null) loadoutManager = new LoadoutManager();
@@ -72,6 +92,7 @@ public class CVTools extends JavaPlugin {
 
     public void onDisable() {
         getConfig().set("LoadoutManager", loadoutManager);
+        getConfig().set("TeleportSignManager", tpSignManager);
         saveConfig();
         CommandManager.nullifyCommandParsers();
         CommandMapManager.unregisterMaps();
@@ -87,6 +108,8 @@ public class CVTools extends JavaPlugin {
             return CommandManager.toolsCommandParser.execute(sender, args);
         } else if (command.getName().equals("cvpvp")) {
             return CommandManager.pvpCommandParser.execute(sender, args);
+        } else if (command.getName().equals("tpsign")) {
+            return CommandManager.tpSignCommandParser.execute(sender, args);
         } else if (command.getName().equals("cmdextend")) {
         	if (args.length < 1 || !(sender instanceof Player)) return false;
         	if (args[0].equalsIgnoreCase("start")) {
