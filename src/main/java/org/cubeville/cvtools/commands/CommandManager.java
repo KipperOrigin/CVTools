@@ -159,6 +159,8 @@ public class CommandManager {
                 toolsCommandParser.addCommand(new CheckEntities());
                 toolsCommandParser.addCommand(new CheckRegionPlayers());
 		toolsCommandParser.addCommand(new CheckSign());
+		toolsCommandParser.addCommand(new CopyToRegion());
+		toolsCommandParser.addCommand(new CopyToSelection());
 		toolsCommandParser.addCommand(new DelayedTask(plugin));
                 toolsCommandParser.addCommand(new FillRegion());
                 toolsCommandParser.addCommand(new SelectRegion());

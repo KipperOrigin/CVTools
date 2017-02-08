@@ -5,19 +5,13 @@ import java.util.Map;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 
 import org.cubeville.commons.commands.BaseCommand;
-import org.cubeville.commons.commands.CommandParameterEnum;
-import org.cubeville.commons.commands.CommandParameterInteger;
-import org.cubeville.commons.commands.CommandParameterListEnum;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterString;
 import org.cubeville.commons.commands.CommandResponse;
-import org.cubeville.commons.utils.BlockUtils;
 
 public class FillSelection extends BaseCommand
 {
@@ -44,7 +38,7 @@ public class FillSelection extends BaseCommand
         List<WeightedMaterial> replacedMaterialList = null;
         if(baseParameters.size() == 3) replacedMaterialList = (List<WeightedMaterial>) baseParameters.get(2);
 
-        BlockFillUtil.fillRegion(world, regionName, materialList, replacedMaterialList);
+        BlockToolUtil.fillRegion(world, regionName, materialList, replacedMaterialList);
 
         return null;
         

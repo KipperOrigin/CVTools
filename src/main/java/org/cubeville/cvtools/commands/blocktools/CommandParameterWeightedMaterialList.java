@@ -1,28 +1,10 @@
 package org.cubeville.cvtools.commands.blocktools;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.EnumSet;
-import java.util.List;
 import java.util.ArrayList;
 import java.lang.IllegalArgumentException;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.block.Block;
-import org.bukkit.command.CommandSender;
-
-import org.cubeville.commons.commands.BaseCommand;
-import org.cubeville.commons.commands.CommandParameterEnum;
-import org.cubeville.commons.commands.CommandParameterInteger;
-import org.cubeville.commons.commands.CommandParameterListEnum;
-import org.cubeville.commons.commands.CommandExecutionException;
-import org.cubeville.commons.commands.CommandParameterString;
 import org.cubeville.commons.commands.CommandParameterType;
-import org.cubeville.commons.commands.CommandResponse;
-import org.cubeville.commons.utils.BlockUtils;
 
 public class CommandParameterWeightedMaterialList implements CommandParameterType
 {

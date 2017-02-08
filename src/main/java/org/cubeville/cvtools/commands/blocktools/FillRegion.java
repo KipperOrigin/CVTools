@@ -6,17 +6,13 @@ import java.util.Random;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 
 import org.cubeville.commons.commands.BaseCommand;
-import org.cubeville.commons.commands.CommandParameterListEnum;
 import org.cubeville.commons.commands.CommandExecutionException;
 import org.cubeville.commons.commands.CommandParameterString;
 import org.cubeville.commons.commands.CommandResponse;
-import org.cubeville.commons.utils.BlockUtils;
 
 public class FillRegion extends BaseCommand
 {
@@ -45,7 +41,7 @@ public class FillRegion extends BaseCommand
         List<WeightedMaterial> replacedMaterialList = null;
         if(baseParameters.size() == 4) replacedMaterialList = (List<WeightedMaterial>) baseParameters.get(3);
 
-        BlockFillUtil.fillRegion(world, regionName, materialList, replacedMaterialList);
+        BlockToolUtil.fillRegion(world, regionName, materialList, replacedMaterialList);
 
         return null;
     }
