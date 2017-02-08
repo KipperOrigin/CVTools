@@ -43,15 +43,23 @@ public class LoadoutHandler {
         }
 		
         //Armor
-        for (int i = 39; i < 36; i++) {
-            int x = 48;
-        	ItemStack item = inventory.getItem(x);
+        int x = 45;
+        for (int i = 39; i >= 36; i--) {
+            ItemStack item = inventory.getItem(x);
             if (item == null)
                 item = baseInventory.getItem(x);
             player.getInventory().setItem(i, item);
-            x--;
+            x++;
         }
-		
+
+        for (int i = 0; i < 4; i++) {
+            ItemStack item = inventory.getItem(x);
+            if (item == null)
+                item = baseInventory.getItem(x);
+            player.getInventory().setItem(i, item);
+            x++;
+        }
+
         //Inventory Contents
         for (int i = 9; i < 36; i++) {
             ItemStack item = inventory.getItem(i);
