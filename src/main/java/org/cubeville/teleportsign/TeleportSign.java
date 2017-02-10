@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 import org.cubeville.commons.utils.ColorUtils;
 
-public class TeleportSign {
+@SerializableAs("TeleportSign")
+public class TeleportSign implements ConfigurationSerializable {
     
     private String name;
     private HashMap<Team, List<SignValue>> signValues;
@@ -18,8 +22,9 @@ public class TeleportSign {
     
     public TeleportSign(String name) {
         signValues = new HashMap<>();
+        signProperties = new HashMap<>();
         for (Team team: Team.values()) {
-            signValues.put(team, new ArrayList<SignValue>());
+            signValues.put(team, new ArrayList<>());
             signProperties.put(team, new SignProperties());
         }
         this.name = name;
@@ -28,13 +33,16 @@ public class TeleportSign {
     @SuppressWarnings("unchecked")
     public TeleportSign(Map<String, Object> ret) {
         name = (String) ret.get("name");
+        signValues = new HashMap<>();
+        signProperties = new HashMap<>();
         for (Team team: Team.values()) {
-            if (ret.containsKey(team.name())) {
-                List<SignValue> signs = (List<SignValue>) ret.get(team.name());
-                if (signs == null) signValues.put(team, null);
-                else for (SignValue sign: signs) {
-                    addSignValue(team, sign);
-                }
+            if (ret.containsKey(team.name() + " values")) {
+                List<SignValue> signs = (List<SignValue>) ret.get(team.name() + " values");
+            	signValues.put(team, signs);
+            }
+            if (ret.containsKey(team.name() + " properties")) {
+            	SignProperties signProps = (SignProperties) ret.get(team.name() + " properties");
+            	signProperties.put(team, signProps);
             }
         }
     }
@@ -62,7 +70,7 @@ public class TeleportSign {
     }
     
     public boolean hasSignValues(Team team) {
-        return signValues.size() > 0;
+        return signValues.get(team).size() > 0;
     }
     
     public boolean containsSignValue(Team team, String name) {
@@ -81,7 +89,7 @@ public class TeleportSign {
     
     public SignValue getRandomSignValue(Team team) {
         if (!signValues.containsKey(team) ||signValues.get(team).size() == 0) return null;
-        int randomNum = ThreadLocalRandom.current().nextInt(0, signValues.get(team).size() + 1);
+        int randomNum = ThreadLocalRandom.current().nextInt(0, signValues.get(team).size());
         return signValues.get(team).get(randomNum);
     }
     
@@ -91,15 +99,6 @@ public class TeleportSign {
     
     public String getName() {
         return name;
-    }
-    
-    public Map<String, Object> serialize() {
-        Map<String, Object> ret = new HashMap<>();
-        ret.put("name", name);
-        for (Map.Entry<Team, List<SignValue>> entry : signValues.entrySet()) {
-            ret.put(entry.getKey().name(), entry.getValue());
-        }
-        return ret;
     }
     
     public void teleportPlayer(Player player, Team team) {
@@ -121,9 +120,22 @@ public class TeleportSign {
         if (signProperties.get(team).clearsPots()) {
             for (PotionEffectType type: PotionEffectType.values()) {
                 if (player.hasPotionEffect(type)) player.removePotionEffect(type);
+
             }
         }
         if (signProperties.get(team).heals()) player.setHealth(player.getMaxHealth());
+    }
+    
+    public Map<String, Object> serialize() {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("name", name);
+        for (Team team: Team.values()) {
+        	ret.put(team.name() + " values", signValues.get(team));
+        }
+        for (Team team: Team.values()) {
+        	ret.put(team.name() + " properties", signProperties.get(team));
+        }
+        return ret;
     }
     
     public static enum Team {

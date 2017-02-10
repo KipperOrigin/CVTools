@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Location;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.configuration.serialization.SerializableAs;
 
-public class SignValue {
+@SerializableAs("SignValue")
+public class SignValue implements ConfigurationSerializable {
     
     private String name;
     private Location location;

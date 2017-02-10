@@ -30,12 +30,12 @@ public class TeleportSignPlayer extends Command {
         Player tpPlayer = player;
         TeleportSign sign = (TeleportSign) baseParameters.get(0);
         if (parameters.containsKey("player")) tpPlayer = (Player) parameters.get("player");
-        if (!sign.hasSignValues((TeleportSign.Team) baseParameters.get(0))) throw new CommandExecutionException("");
+        if (!sign.hasSignValues((TeleportSign.Team) baseParameters.get(1))) throw new CommandExecutionException("");
         
         if (parameters.containsKey("name")) {
-           if (!sign.containsSignValue((TeleportSign.Team) baseParameters.get(0), (String) parameters.get("name"))) throw new CommandExecutionException("");
-           sign.teleportPlayer(tpPlayer, (TeleportSign.Team) baseParameters.get(0), (String) parameters.get("name"));
-        } else sign.teleportPlayer(tpPlayer, (TeleportSign.Team) baseParameters.get(0));
+           if (!sign.containsSignValue((TeleportSign.Team) baseParameters.get(1), (String) parameters.get("name"))) throw new CommandExecutionException("");
+           sign.teleportPlayer(tpPlayer, (TeleportSign.Team) baseParameters.get(1), (String) parameters.get("name"));
+        } else sign.teleportPlayer(tpPlayer, (TeleportSign.Team) baseParameters.get(1));
         return new CommandResponse("");
     }
 

@@ -1,14 +1,26 @@
 package org.cubeville.teleportsign;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class TeleportSignManager {
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.configuration.serialization.SerializableAs;
+
+@SerializableAs("TeleportSignManager")
+public class TeleportSignManager implements ConfigurationSerializable {
     
     private List<TeleportSign> signs;
     
     public TeleportSignManager() {
         signs = new ArrayList<>();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public TeleportSignManager(Map<String, Object> ret) {
+    	signs = (List<TeleportSign>) ret.get("teleports");
+    	if (signs == null) signs = new ArrayList<>();
     }
     
     public void addSign(String name) {
@@ -32,5 +44,12 @@ public class TeleportSignManager {
         }
         return null;
     }
+
+	@Override
+	public Map<String, Object> serialize() {
+		Map<String, Object> ret = new HashMap<>();
+		ret.put("teleports", signs);
+		return ret;
+	}
 
 }

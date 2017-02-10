@@ -28,27 +28,24 @@ import org.cubeville.portal.Portal;
 import org.cubeville.portal.PortalManager;
 import org.cubeville.pvp.loadout.LoadoutContainer;
 import org.cubeville.pvp.loadout.LoadoutManager;
-<<<<<<< HEAD
+import org.cubeville.teleportsign.SignProperties;
+import org.cubeville.teleportsign.SignValue;
+import org.cubeville.teleportsign.TeleportSign;
 import org.cubeville.teleportsign.TeleportSignManager;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
-=======
->>>>>>> origin/master
+
 
 @SuppressWarnings("unused")
 public class CVTools extends JavaPlugin {
 
     EventManager eventManager;
     ProtocolEventManager pmManager;
-<<<<<<< HEAD
     LoadoutManager loadoutManager;
     TeleportSignManager tpSignManager;
-=======
-    public LoadoutManager loadoutManager;
     PortalManager portalManager;
-    
->>>>>>> origin/master
+
     public static CVTools instance;
 
     public static CVTools getInstance() {
@@ -68,6 +65,10 @@ public class CVTools extends JavaPlugin {
 
         ConfigurationSerialization.registerClass(LoadoutContainer.class, "LoadoutContainer");
         ConfigurationSerialization.registerClass(LoadoutManager.class, "LoadoutManager");
+        ConfigurationSerialization.registerClass(TeleportSign.class, "TeleportSign");
+        ConfigurationSerialization.registerClass(TeleportSignManager.class, "TeleportSignManager");
+        ConfigurationSerialization.registerClass(SignValue.class, "SignValue");
+        ConfigurationSerialization.registerClass(SignProperties.class, "SignProperties");
         ConfigurationSerialization.registerClass(Portal.class);
 
         CommandManager.registerAllCommands(this);
