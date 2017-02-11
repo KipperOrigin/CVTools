@@ -52,14 +52,6 @@ public class LoadoutHandler {
             x++;
         }
 
-        for (int i = 0; i < 4; i++) {
-            ItemStack item = inventory.getItem(x);
-            if (item == null)
-                item = baseInventory.getItem(x);
-            player.getInventory().setItem(i, item);
-            x++;
-        }
-
         //Inventory Contents
         for (int i = 9; i < 36; i++) {
             ItemStack item = inventory.getItem(i);
